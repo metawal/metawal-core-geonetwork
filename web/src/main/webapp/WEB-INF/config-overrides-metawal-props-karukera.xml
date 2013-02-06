@@ -1,0 +1,25 @@
+<overrides>
+  <properties>
+    <!-- DB user -->
+    <db.user>www-data</db.user>
+    <db.pass>www-data</db.pass>
+    
+    <!-- DB properties for PostgreSQL -->
+    <db.driver>org.postgresql.Driver</db.driver>
+    <db.url>jdbc:postgresql://localhost:5432/geonetwork-metawal</db.url>
+    <db.validation.query>SELECT 1</db.validation.query>
+    
+    
+    <!-- DB properties for Oracle 
+    <db.driver>oracle.jdbc.driver.OracleDriver</db.driver>
+    <db.url>jdbc:oracle:thin:@localhost:1521:geonetwork</db.url>
+    <db.validation.query>SELECT 1 FROM DUAL</db.validation.query>
+    -->
+    
+    <!-- JS Client configuration -->
+    <!--   config for dev -->
+    <widget.url>../../apps/search/index_debug.html</widget.url>
+    <!--<widget.url>../../apps/search/</widget.url>-->
+    <widget.parameters>hl=fre</widget.parameters>
+  </properties>
+</overrides>
