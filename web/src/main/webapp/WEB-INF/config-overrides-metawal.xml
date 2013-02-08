@@ -10,7 +10,7 @@
     
   </properties>
   
-  <file name=".*/WEB-INF/config-gui.xml">
+  <file name=".*config-gui.xml">
     <replaceAtt xpath="client" attName="widget" value="true"/>
     <replaceAtt xpath="client" attName="url" value="${widget.url}"/>
     <replaceAtt xpath="client" attName="createParameter" value="#create"/>
@@ -33,7 +33,7 @@
   </file>
   
   
-  <file name=".*/WEB-INF/config.xml">
+  <file name=".*config.xml">
     <replaceText xpath="general/uploadDir">../../temp/</replaceText>
     <replaceText xpath="general/maxUploadSize">100</replaceText>
     <replaceAtt xpath="appHandler/param[@name = 'useSubversion']" attName="value" value="false"/>
@@ -60,7 +60,7 @@
 
   
   <!-- Add custom CSW service -->
-  <file name=".*/WEB-INF/config-csw-servers.xml">
+  <file name=".*config-csw-servers.xml">
     <addXML xpath="services">
       <service name="csw-inspire">
         <class name=".services.main.CswDiscoveryDispatcher">
