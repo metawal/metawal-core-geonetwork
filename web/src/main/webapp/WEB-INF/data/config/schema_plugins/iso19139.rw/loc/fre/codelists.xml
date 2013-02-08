@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<codelists xmlns:gmd="http://www.isotc211.org/2005/gmd">
+    <codelist name="rw:AD_AttributeCode_CodeList">
+        <entry>
+            <code>qualitative</code>
+            <label>qualitatif</label>
+            <description>qualitatif</description>
+        </entry>
+        <entry>
+            <code>quantitative</code>
+            <label>quantitatif</label>
+            <description>quantitatif</description>
+        </entry>
+        <entry>
+            <code>binary</code>
+            <label>binaire</label>
+            <description>binaire</description>
+        </entry>
+    </codelist>
+</codelists>

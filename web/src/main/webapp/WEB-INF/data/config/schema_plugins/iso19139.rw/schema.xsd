@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema targetNamespace="http://157.164.189.177/geonetwork/xml/schemas/iso19139.rw" elementFormDefault="qualified"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	xmlns:rw="http://157.164.189.177/geonetwork/xml/schemas/iso19139.rw"
+	xmlns:gmd="http://www.isotc211.org/2005/gmd"
+	xmlns:gmx="http://www.isotc211.org/2005/gmx"
+	xmlns:srv="http://www.isotc211.org/2005/srv">
+	<xs:include schemaLocation="schema/extensions/rwExtensions.xsd"/>
+	<!-- this is a logical place to include any additional schemas that are 
+	     related to ISO19139 including ISO19119 -->
+	<xs:import namespace="http://www.isotc211.org/2005/srv" schemaLocation="../iso19139/schema/srv/srv.xsd"/>
+	<xs:import namespace="http://www.isotc211.org/2005/gmx" schemaLocation="../iso19139/schema/gmx/gmx.xsd"/>
+</xs:schema>

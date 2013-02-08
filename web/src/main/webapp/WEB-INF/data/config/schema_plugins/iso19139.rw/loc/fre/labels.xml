@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<labels xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="../../../labels.xsd" xmlns:gco="http://www.isotc211.org/2005/gco"
+  xmlns:gmd="http://www.isotc211.org/2005/gmd" xmlns:srv="http://www.isotc211.org/2005/srv"
+  xmlns:gml="http://www.opengis.net/gml" xmlns:gts="http://www.isotc211.org/2005/gts"
+  xmlns:gmx="http://www.isotc211.org/2005/gmx"
+  xmlns:rw="http://157.164.189.177/geonetwork/xml/schemas/iso19139.rw">
+
+  <element name="rw:MD_Metadata">
+    <label>Profil Wallon</label>
+    <description>profil de métadonnées respectant ISO 19139 et INSPIRE et y ajoutant les spécificités wallones</description>
+  </element>
+
+  <element name="rw:tableIdent">
+    <label>Tables attributaires du jeu de données</label>
+    <description>Information sur les tables attributaires et les attributs intimement liés aux ressources</description>
+  </element>
+
+  <element name="rw:tableName">
+    <label>Nom</label>
+    <description>Nom de la table</description>
+  </element>
+
+  <element name="rw:tableDesc">
+    <label>Description</label>
+    <description>Description de la table</description>
+  </element>
+
+  <element name="rw:tableFormat">
+    <label>Format</label>
+    <description>Format de la table</description>
+  </element>
+
+  <element name="rw:attributeIdent">
+    <label>Informations sur les attributs</label>
+    <description>Information sur les attributs contenus dans la table</description>
+  </element>
+
+  <element name="rw:attrName">
+    <label>Nom</label>
+    <description>Nom de l’attribut</description>
+  </element>
+
+  <element name="rw:attrLabel">
+    <label>Intitulé</label>
+    <description>Intitulé descriptif de l’attribut</description>
+  </element>
+  <element name="rw:attrType">
+    <label>Type</label>
+    <description>Type de données de l’attribut</description>
+  </element>
+
+  <element name="rw:attrDomain">
+    <label>Domaine des valeurs</label>
+    <description>Domaine des valeurs de l’attribut (N.B. Cela peut correspondre à une codification, à une nomenclature...)</description>
+  </element>
+
+  <element name="rw:attrLength">
+    <label>Longueur</label>
+    <description>Nombre de caractères du champ de l’attribut</description>
+  </element>
+
+  <element name="rw:attrUnit">
+    <label>Unités</label>
+    <description>Unités de mesure</description>
+  </element>
+
+  <element name="rw:attrNumDecimal">
+    <label>Nombre de décimales</label>
+    <description>Nombre de décimales du champ de l’attribut</description>
+  </element>
+
+  <element name="rw:attrLineage">
+    <label>Généalogie</label>
+    <description>Protocole de récolte et données sources</description>
+  </element>
+  <element name="rw:LI_Lineage">
+    <label>Informations sur la généalogie</label>
+    <description>Classe d’information sur la généalogie ou les données-sources utilisées pour la construction des données spécifiées ou sur l’absence d’information sur la généalogie</description>
+  </element>
+
+  <element name="rw:attrSupplInfo">
+    <label>Informations complémentaires</label>
+    <description>Informations complémentaires requises pour la description de l’attribut</description>
+  </element>
+
+  <element name="rw:responsiblePartyLanguage">
+    <label>Langues du responsable</label>
+    <description>Langues à utiliser pour communiquer avec le responsable</description>
+  </element>
+
+  <element name="rw:legalStatement">
+    <label>Informations règlementaires</label>
+    <description>Information juridique ou règlementaire à l’origine de la création de la donnée spécifiée</description>
+  </element>
+
+  <element name="rw:CI_ResponsibleParty">
+    <label>Contact</label>
+    <description>Contact</description>
+  </element>
+
+  <element name="rw:MD_LegalConstraints">
+    <label>Contraintes légales (avec attributs RW)</label>
+    <description>Contraintes légales</description>
+  </element>
+  <element name="rw:cpyContact">
+    <label>Organisme détenteur du copyright</label>
+    <description>Organisme détenteur du copyright</description>
+  </element>
+
+  <element name="rw:legalValue">
+    <label>Jeu de données à valeur légale</label>
+    <description>Les ressources numériques ont-t-elles une valeur légale ?</description>
+  </element>
+
+  <element name="rw:legalReference">
+    <label>Références juridiques de la valeur légale</label>
+    <description>Articles de loi instituant la légalité des ressources numériques (mandat de mission)</description>
+  </element>
+
+  <element name="rw:AD_AttributeCode_CodeList">
+    <label>Type de l’attribut</label>
+    <description>Type de l’attribut</description>
+  </element>
+
+  <element name="rw:AD_AttributeCode_DomainCodes">
+    <label>Codes de l'attribut</label>
+    <description>Codes de l'attribut</description>
+  </element>
+  
+</labels>
