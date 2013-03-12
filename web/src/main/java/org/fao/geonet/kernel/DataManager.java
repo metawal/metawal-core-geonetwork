@@ -43,6 +43,9 @@ import jeeves.utils.Xml.ErrorHandler;
 import jeeves.xlink.Processor;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.lucene.document.Field;
+import org.apache.lucene.document.FieldType;
+import org.apache.lucene.facet.taxonomy.CategoryPath;
 import org.fao.geonet.GeonetContext;
 import org.fao.geonet.constants.Edit;
 import org.fao.geonet.constants.Geonet;
@@ -2165,7 +2168,6 @@ public class DataManager {
      */
 	private void manageThumbnail(ServiceContext context, Dbms dbms, String id, boolean small, Element env,
 										  String styleSheet) throws Exception {
-		
         boolean forEditing = false, withValidationErrors = false, keepXlinkAttributes = true;
         Element md = getMetadata(context, id, forEditing, withValidationErrors, keepXlinkAttributes);
 
@@ -2283,6 +2285,7 @@ public class DataManager {
      * @throws Exception
      */
 	private void manageCommons(Dbms dbms, ServiceContext context, String id, Element env, String styleSheet) throws Exception {
+        Lib.resource.checkEditPrivilege(context, id);
 		Element md = xmlSerializer.select(dbms, "Metadata", id);
 
 		if (md == null) return;
@@ -3189,6 +3192,7 @@ public class DataManager {
         if (isTemplate.equals("n")) {
             GeonetContext gc = (GeonetContext) servContext.getHandlerContext(Geonet.CONTEXT_NAME);
 
+            XmlSerializer.removeWithheldElements(md, gc.getSettingManager());
             String uuid = getMetadataUuid(dbms, id);
             gc.getMetadataNotifier().updateMetadata(md, id, uuid, dbms, gc);
         }
@@ -3341,7 +3345,6 @@ public class DataManager {
 	class IncreasePopularityTask implements Runnable {
         private ServiceContext srvContext;
         String id;
-        Dbms dbms = null;
 
         /**
          *
@@ -3355,15 +3358,16 @@ public class DataManager {
     	}
 
 		public void run() {
+        Dbms dbms = null;
         try {
-       	    dbms = (Dbms) srvContext.getResourceManager().openDirect(Geonet.Res.MAIN_DB);
-            String query = "UPDATE Metadata SET popularity = popularity +1 WHERE id = ?";
-            dbms.execute(query, new Integer(id));
-            boolean indexGroup = false;
+       	    dbms  = (Dbms) srvContext.getResourceManager().openDirect(Geonet.Res.MAIN_DB);
+            String updateQuery = "UPDATE Metadata SET popularity = popularity +1 WHERE id = ?";
+            Integer iId = new Integer(id);
+            dbms.execute(updateQuery, iId);
             indexMetadata(dbms, id);
         }
         catch (Exception e) {
-            Log.warning(Geonet.DATA_MANAGER, "The following exception is ignored: " + e.getMessage());
+            Log.error(Geonet.DATA_MANAGER, "The following exception is ignored: " + e.getMessage());
 			e.printStackTrace();
 		}
         finally {
@@ -3377,6 +3381,7 @@ public class DataManager {
 			}
 
         }
+
 	}
 
     public enum UpdateDatestamp {
