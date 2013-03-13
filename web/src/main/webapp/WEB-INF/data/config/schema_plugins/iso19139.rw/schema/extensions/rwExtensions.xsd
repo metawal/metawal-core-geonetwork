@@ -129,9 +129,9 @@
 			<xs:extension base="gmd:MD_LegalConstraints_Type">
 				<xs:sequence>
 					<!-- JFM : next name is wrong : I see 'copyrightContact' in doc. AND OLD TYPE IS CRAZY !!  JFM -->
+					<!--<xs:element name="cpyContact" type="gco:CharacterString_PropertyType"
+						minOccurs="0"/> -->
 					<xs:element name="cpyContact" type="rw:CI_ResponsibleParty_Type" minOccurs="0"/>
-					--> <xs:element name="cpyContact" type="gco:CharacterString_PropertyType"
-						minOccurs="0"/>
 					<!--<xs:element name="privacyConstraints" type="gco:CharacterString_PropertyType" minOccurs="0"/>-->
 					<!-- Rem : name is right JFM -->
 					<xs:element name="legalValue" type="gco:CharacterString_PropertyType"

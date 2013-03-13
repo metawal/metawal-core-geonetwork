@@ -64,6 +64,8 @@
   
   
   
+  
+  
   <!-- Handle profil element -->
   <xsl:template name="metadata-iso19139.rw" match="metadata-iso19139.rw">
     <xsl:param name="schema"/>
@@ -95,9 +97,54 @@
     </xsl:choose>
   </xsl:template>
   
+  
+  <xsl:template mode="iso19139.rw" match="rw:*[gco:Integer|gco:Decimal|gco:Boolean|gco:Real]">
+    <xsl:param name="schema"/>
+    <xsl:param name="edit"/>
+    
+    <xsl:call-template name="iso19139String">
+      <xsl:with-param name="schema" select="$schema"/>
+      <xsl:with-param name="edit"   select="$edit"/>
+    </xsl:call-template>
+  </xsl:template>
+  
+  
+  <!-- Trigger the enumeration to be properly displayed. Not sure why ? -->
+  <xsl:template mode="iso19139.rw" match="rw:AD_AttributeCode_CodeList|rw:AD_AttributeCode_DomainCodes">
+    <xsl:param name="schema"/>
+    <xsl:param name="edit"/>
+  </xsl:template>
+  
+  
+  <xsl:template mode="iso19139.rw"
+    match="rw:*[gco:CharacterString or gmd:PT_FreeText]"
+    >
+    <xsl:param name="schema" />
+    <xsl:param name="edit" />
+    
+    <!-- Define a class variable if form element as
+      to be a textarea instead of a simple text input.
+      This parameter define the class of the textarea (see CSS). -->
+    <xsl:variable name="class">
+      <xsl:choose>
+        <xsl:when test="name(.)='rw:attrLineage'">medium</xsl:when>
+        <xsl:when test="name(.)='rw:attrSupplInfo' or name(.)='rw:legalReference'
+          ">small</xsl:when>
+        <xsl:otherwise></xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    
+    <xsl:call-template name="localizedCharStringField">
+      <xsl:with-param name="schema" select="$schema" />
+      <xsl:with-param name="edit" select="$edit" />
+      <xsl:with-param name="class" select="$class" />
+    </xsl:call-template>
+  </xsl:template>
+  
   <!-- All of them match and returning nothing make the previous
   template delegating to iso19139 -->
   <xsl:template mode="iso19139.rw" match="*"/>
+  
   
   <!-- Customize others -->
   <xsl:template mode="iso19139.rw" match="*[rw:CI_ResponsibleParty]" priority="2">
@@ -117,7 +164,7 @@
     
     <xsl:variable name="content">
       
-      <xsl:for-each select="gmd:CI_ResponsibleParty">
+      <xsl:for-each select="rw:CI_ResponsibleParty">
         <col>
          <xsl:apply-templates mode="elementEP" select="../@xlink:href">
             <xsl:with-param name="schema" select="$schema"/>
@@ -187,7 +234,7 @@
     <xsl:param name="tabLink"/>
     <xsl:param name="schema"/>
     
-    <xsl:call-template name="iso19139CompleteTab">
+    <xsl:call-template name="iso19139rwCompleteTab">
       <xsl:with-param name="tabLink" select="$tabLink"/>
       <xsl:with-param name="schema" select="$schema"/>
     </xsl:call-template>
@@ -200,6 +247,60 @@
         <item label="metawalTab">metawal</item>
       </xsl:with-param>
     </xsl:call-template>
+  </xsl:template>
+  
+  
+  
+  <xsl:template name="iso19139rwCompleteTab">
+    <xsl:param name="tabLink"/>
+    <xsl:param name="schema"/>
+    
+    <!-- INSPIRE tab -->
+    <xsl:if test="/root/gui/env/inspire/enable = 'true' and /root/gui/env/metadata/enableInspireView = 'true'">
+      <xsl:call-template name="mainTab">
+        <xsl:with-param name="title" select="/root/gui/strings/inspireTab"/>
+        <xsl:with-param name="default">inspire</xsl:with-param>
+        <xsl:with-param name="menu">
+          <item label="inspireTab">inspire</item>
+        </xsl:with-param>
+      </xsl:call-template>
+    </xsl:if>
+    
+    <xsl:if test="/root/gui/env/metadata/enableIsoView = 'true'">
+      <xsl:call-template name="mainTab">
+        <xsl:with-param name="title" select="/root/gui/strings/byGroup"/>
+        <xsl:with-param name="default">ISOCore</xsl:with-param>
+        <xsl:with-param name="menu">
+          <item label="isoMinimum">ISOMinimum</item>
+          <item label="isoCore">ISOCore</item>
+          <item label="isoAll">ISOAll</item>
+        </xsl:with-param>
+      </xsl:call-template>
+    </xsl:if>
+    
+    
+    
+    <xsl:if test="/root/gui/config/metadata-tab/advanced">
+      <xsl:call-template name="mainTab">
+        <xsl:with-param name="title" select="/root/gui/strings/byPackage"/>
+        <xsl:with-param name="default">identification</xsl:with-param>
+        <xsl:with-param name="menu">
+          <item label="metadata">metadata</item>
+          <item label="identificationTab">identification</item>
+          <item label="maintenanceTab">maintenance</item>
+          <item label="constraintsTab">constraints</item>
+          <item label="spatialTab">spatial</item>
+          <item label="refSysTab">refSys</item>
+          <item label="distributionTab">distribution</item>
+          <item label="dataQualityTab">dataQuality</item>
+          <item label="appSchInfoTab">appSchInfo</item>
+          <item label="porCatInfoTab">porCatInfo</item>
+          <item label="contentInfoTab">contentInfo</item>
+          <item label="extensionInfoTab">extensionInfo</item>
+          <item label="tableIdent">tableIdent</item>
+        </xsl:with-param>
+      </xsl:call-template>
+    </xsl:if>    
   </xsl:template>
   
   
@@ -328,6 +429,16 @@
           <xsl:with-param name="edit" select="$edit"/>
         </xsl:apply-templates>
       </xsl:when>
+      
+      <!-- extensionInfo tab -->
+      <xsl:when test="$currTab='tableIdent'">
+        <xsl:apply-templates mode="elementEP"
+          select="rw:tableIdent|geonet:child[string(@name)='tableIdent']">
+          <xsl:with-param name="schema" select="$schema"/>
+          <xsl:with-param name="edit" select="$edit"/>
+        </xsl:apply-templates>
+      </xsl:when>
+      
       
       <!-- ISOMinimum tab -->
       <xsl:when test="$currTab='ISOMinimum'">

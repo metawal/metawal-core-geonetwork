@@ -1360,4 +1360,7 @@
 	<monitor>Monitor</monitor>
 	<concealed>Concealed</concealed>
 	<serviceNotAllowed>You do not have the correct permissions to access the following service {1}</serviceNotAllowed>
+	
+	<tableIdent>Tables attributaires</tableIdent>
+	
 </strings>
