@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<xs:schema targetNamespace="http://157.164.189.177/geonetwork/xml/schemas/iso19139.rw" elementFormDefault="qualified"
+<xs:schema targetNamespace="http://metawal.wallonie.be/schemas/3.0" elementFormDefault="qualified"
 	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
-	xmlns:rw="http://157.164.189.177/geonetwork/xml/schemas/iso19139.rw"
+	xmlns:rw="http://metawal.wallonie.be/schemas/3.0"
 	xmlns:gmd="http://www.isotc211.org/2005/gmd"
 	xmlns:gmx="http://www.isotc211.org/2005/gmx"
 	xmlns:srv="http://www.isotc211.org/2005/srv">

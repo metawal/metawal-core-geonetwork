@@ -3,7 +3,7 @@
   xmlns:gmd="http://www.isotc211.org/2005/gmd" xmlns:gts="http://www.isotc211.org/2005/gts"
   xmlns:gco="http://www.isotc211.org/2005/gco" 
   xmlns:gmx="http://www.isotc211.org/2005/gmx" xmlns:srv="http://www.isotc211.org/2005/srv"
-  xmlns:rw="http://157.164.189.177/geonetwork/xml/schemas/iso19139.rw"
+  xmlns:rw="http://metawal.wallonie.be/schemas/3.0"
   xmlns:gml="http://www.opengis.net/gml" xmlns:xlink="http://www.w3.org/1999/xlink"
   xmlns:geonet="http://www.fao.org/geonetwork" xmlns:exslt="http://exslt.org/common"
   exclude-result-prefixes="gmd gco gml gts srv xlink exslt geonet">
@@ -201,6 +201,8 @@
   </xsl:template>
   
   
+  
+  
   <xsl:template mode="iso19139.rw"
     match="rw:*">
     <xsl:param name="schema"/>
@@ -229,6 +231,58 @@
   
   
   
+  
+  <!-- Overrides some templates for view mode -->
+  
+  <xsl:template mode="block" match="gmd:contact[rw:CI_ResponsibleParty]|gmd:pointOfContact[rw:CI_ResponsibleParty]" priority="101">
+    <xsl:call-template name="simpleElementSimpleGUI">
+      <xsl:with-param name="title">
+        <xsl:value-of
+          select="geonet:getCodeListValue(/root/gui/schemas, 'iso19139', 'gmd:CI_RoleCode', */gmd:role/gmd:CI_RoleCode/@codeListValue)"
+        />
+      </xsl:with-param>
+      <xsl:with-param name="helpLink">
+        <xsl:call-template name="getHelpLink">
+          <xsl:with-param name="schema" select="$schema"/>
+          <xsl:with-param name="name" select="name(.)"/>
+        </xsl:call-template>
+      </xsl:with-param>
+      <xsl:with-param name="content">
+        <xsl:apply-templates mode="iso19139-simple"
+          select="
+          rw:CI_ResponsibleParty/descendant::node()[(gco:CharacterString and normalize-space(gco:CharacterString)!='')]
+          "/>
+        
+        <xsl:for-each select="rw:CI_ResponsibleParty/gmd:contactInfo/gmd:CI_Contact/gmd:onlineResource/gmd:CI_OnlineResource">
+          
+          <xsl:call-template name="simpleElement">
+            <xsl:with-param name="id" select="generate-id(.)"/>
+            <xsl:with-param name="title">
+              <xsl:call-template name="getTitle">
+                <xsl:with-param name="name" select="'gmd:onlineResource'"/>
+                <xsl:with-param name="schema" select="$schema"/>
+              </xsl:call-template>
+            </xsl:with-param>
+            <xsl:with-param name="help"></xsl:with-param>
+            <xsl:with-param name="content">
+              <a href="{gmd:linkage/gmd:URL}" target="_blank">
+                <xsl:value-of select="gmd:name/gco:CharacterString"/>
+              </a>
+            </xsl:with-param>
+          </xsl:call-template>
+        </xsl:for-each>
+        
+        <xsl:if test="descendant::gmx:FileName">
+          <img src="{descendant::gmx:FileName/@src}" alt="logo" class="orgLogo" style="float:right;"/>
+          <!-- FIXME : css -->
+        </xsl:if>
+      </xsl:with-param>
+    </xsl:call-template>
+  </xsl:template>
+  
+  
+  
+  
   <!-- Configure tabs -->
   <xsl:template name="iso19139.rwCompleteTab">
     <xsl:param name="tabLink"/>
@@ -237,15 +291,6 @@
     <xsl:call-template name="iso19139rwCompleteTab">
       <xsl:with-param name="tabLink" select="$tabLink"/>
       <xsl:with-param name="schema" select="$schema"/>
-    </xsl:call-template>
-    
-    <!-- Add custom tab -->
-    <xsl:call-template name="mainTab">
-      <xsl:with-param name="title" select="/root/gui/schemas/*[name()=$schema]/strings/metawalTab"/>
-      <xsl:with-param name="default">metawal</xsl:with-param>
-      <xsl:with-param name="menu">
-        <item label="metawalTab">metawal</item>
-      </xsl:with-param>
     </xsl:call-template>
   </xsl:template>
   
@@ -476,13 +521,6 @@
           <xsl:with-param name="dataset" select="$dataset"/>
         </xsl:call-template>
       </xsl:when>
-      <xsl:when test="$currTab='metawal'">
-        <xsl:call-template name="metawal">
-          <xsl:with-param name="schema" select="$schema"/>
-          <xsl:with-param name="edit"   select="$edit"/>
-          <xsl:with-param name="dataset" select="$dataset"/>
-        </xsl:call-template>
-      </xsl:when>
       <!-- default -->
       <xsl:otherwise>
         <xsl:call-template name="iso19139Simple">
@@ -493,25 +531,6 @@
         </xsl:call-template>
       </xsl:otherwise>
     </xsl:choose>
-  </xsl:template>
-  
-  
-  
-  <!-- Custom METAWAL view -->
-  <xsl:template name="metawal">
-    <xsl:param name="schema"/>
-    <xsl:param name="edit"/>
-    <xsl:param name="dataset"/>
-    <xsl:param name="core"/>
-    
-    <xsl:call-template name="complexElementGuiWrapper">
-      <xsl:with-param name="title" select="'Metawal view mode'"/>
-      <xsl:with-param name="id" select="generate-id(.)"/>
-      <xsl:with-param name="content">
-        
-        TODO
-      </xsl:with-param>
-    </xsl:call-template>
   </xsl:template>
   
 </xsl:stylesheet>

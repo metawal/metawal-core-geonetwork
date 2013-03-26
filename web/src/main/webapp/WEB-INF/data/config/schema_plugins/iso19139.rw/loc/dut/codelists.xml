@@ -3,123 +3,128 @@
     <codelist name="rw:AD_AttributeCode_CodeList">
         <entry>
             <code>qualitative</code>
-            <label>qualitatif</label>
-            <description>qualitatif</description>
+            <label>Qualitative</label>
+            <description>Qualitative</description>
         </entry>
         <entry>
             <code>quantitative</code>
-            <label>quantitatif</label>
-            <description>quantitatif</description>
+            <label>Quantitative</label>
+            <description>Quantitative</description>
         </entry>
         <entry>
             <code>binary</code>
-            <label>binaire</label>
-            <description>binaire</description>
+            <label>Binary</label>
+            <description>Binary</description>
         </entry>
     </codelist>
-    
+
     <codelist name="gmd:MD_ScopeCode">
         <!-- Metawal new codelist value (also available in comming ISO19139 version -->
         <entry>
             <code>application</code>
             <label>Application</label>
-            <description>information resource hosted on a specific set of hardware and accessible over a network</description>
+            <description>information resource hosted on a specific set of hardware and accessible
+                over a network</description>
         </entry>
-        
         <entry>
             <code>attribute</code>
-            <label>Attribut</label>
-            <description>Informations appliquées aux caractéristiques de l’attribut</description>
+            <label>attribute</label>
+            <description>information applies to the attribute class</description>
         </entry>
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - -->
         <entry>
             <code>attributeType</code>
-            <label>Type d'attribut</label>
-            <description>Informations appliquées aux caractéristiques de l’entité</description>
+            <label>attributeType</label>
+            <description>information applies to the characteristic of a feature</description>
         </entry>
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - -->
         <entry>
             <code>collectionHardware</code>
-            <label>Collection matérielle</label>
-            <description>Informations appliquées aux caractéristiques d’une collection matérielle</description>
+            <label>collectionHardware</label>
+            <description>information applies to the collection hardware class</description>
         </entry>
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - -->
         <entry>
             <code>collectionSession</code>
-            <label>Collection de session</label>
-            <description>Informations appliquées aux caractéristiques d’une collection de session</description>
+            <label>collectionSession</label>
+            <description>information applies to the collection session</description>
         </entry>
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - -->
         <entry>
             <code>dataset</code>
-            <label>Jeu de données</label>
-            <description>Informations appliquées aux caractéristiques de jeu de données</description>
+            <label>dataset</label>
+            <description>Informatie heeft betrekking op de dataset.</description>
         </entry>
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - -->
         <entry>
             <code>series</code>
-            <label>Collection de données</label>
-            <description>Informations appliquées aux caractéristiques de la collection de données</description>
+            <label>series</label>
+            <description>Informatie heeft betrekking op de serie.</description>
         </entry>
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - -->
         <entry>
             <code>nonGeographicDataset</code>
-            <label>Jeux de données non géographiques</label>
-            <description>Informations appliquées aux caractéristiques de jeux de données non géographiques</description>
+            <label>nonGeographicDataset</label>
+            <description>information applies to non-geographic data</description>
         </entry>
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - -->
         <entry>
             <code>dimensionGroup</code>
-            <label>Dimension d'un groupe</label>
-            <description>Informations appliquées à un groupe</description>
+            <label>dimensionGroup</label>
+            <description>information applies to a dimension group</description>
         </entry>
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - -->
         <entry>
             <code>feature</code>
-            <label>Entité</label>
-            <description>Informations appliquées à une entité</description>
+            <label>feature</label>
+            <description>information applies to a feature</description>
         </entry>
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - -->
         <entry>
             <code>featureType</code>
-            <label>Type d’entité</label>
-            <description>Informations appliquées à un type d’entité</description>
+            <label>featureType</label>
+            <description>information applies to a feature type</description>
         </entry>
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - -->
         <entry>
             <code>propertyType</code>
-            <label>Type de propriété</label>
-            <description>Informations appliquées à un type de propriété</description>
+            <label>propertyType</label>
+            <description>information applies to a property type</description>
         </entry>
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - -->
         <entry>
             <code>fieldSession</code>
-            <label>Champ de session</label>
-            <description>Informations appliquées aux caractéristiques d’un champ de session</description>
+            <label>fieldSession</label>
+            <description>information applies to a field session</description>
         </entry>
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - -->
         <entry>
             <code>software</code>
-            <label>Logiciel</label>
-            <description>Informations appliquées à programme ou à une routine</description>
+            <label>software</label>
+            <description>information applies to a computer program or routine</description>
         </entry>
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - -->
         <entry>
             <code>service</code>
-            <label>Service</label>
-            <description>Informations appliquées à un service Internet</description>
+            <label>service</label>
+            <description>information applies to a capability which a service provider entity makes
+                available to a service user entity through a set of interfaces that define a
+                behaviour, such as a use case</description>
         </entry>
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - -->
         <entry>
             <code>model</code>
-            <label>Modèle</label>
-            <description>Informations appliquées à modèle décrivant les objets ou un ensemble d'objets</description>
+            <label>model</label>
+            <description>information applies to a copy or imitation of an existing or hypothetical
+                object</description>
         </entry>
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - -->
         <entry>
             <code>tile</code>
-            <label>Tuile</label>
-            <description>Tuile</description>
+            <label>tile</label>
+            <description>information applies to a tile, a spatial subset of geographic
+                data</description>
         </entry>
+        <!-- - - - - - - - - - - - - - - - - - - - - - - - - -->
     </codelist>
 </codelists>

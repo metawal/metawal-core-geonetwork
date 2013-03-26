@@ -23,107 +23,115 @@
         <entry>
             <code>application</code>
             <label>Application</label>
-            <description>information resource hosted on a specific set of hardware and accessible over a network</description>
+            <description>information resource hosted on a specific set of hardware and accessible
+                over a network</description>
         </entry>
-        
         <entry>
             <code>attribute</code>
-            <label>Attribute</label>
-            <description>Information applies to the attribute class</description>
+            <label>Attributinstanz</label>
+            <description>Information gilt für eine konkrete Ausprägung einer Attributart, den
+                Attributwert</description>
         </entry>
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - -->
         <entry>
             <code>attributeType</code>
-            <label>Attribute type</label>
-            <description>Information applies to the characteristic of a feature</description>
+            <label>Attributart</label>
+
+            <description>Information gilt für eine Attributart</description>
         </entry>
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - -->
         <entry>
             <code>collectionHardware</code>
-            <label>Collection hardware</label>
-            <description>Information applies to the collection hardware class</description>
+            <label>Erfassungsgeräte</label>
+            <description>Information gilt für die eingesetzten Geräte zur
+                Datenerfassung</description>
         </entry>
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - -->
         <entry>
             <code>collectionSession</code>
-            <label>Collection session</label>
-            <description>Information applies to the collection session</description>
+            <label>Erfassungsaktion</label>
+            <description>Information gilt für die Aktivitäten einer
+                Datenerfassungsaktion</description>
         </entry>
+
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - -->
         <entry>
             <code>dataset</code>
-            <label>Dataset</label>
-            <description>Information applies to the dataset</description>
+            <label>Datenbestand</label>
+            <description>Information gilt für einen Datenbestand</description>
         </entry>
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - -->
+
         <entry>
             <code>series</code>
-            <label>Series</label>
-            <description>Information applies to the series</description>
+            <label>Serie</label>
+            <description>Information gilt für eine Serie Anmerkung: Der Begriff Serie bezieht sich
+                auf jeglichen Zusammenschluss über DS_Aggregate</description>
         </entry>
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - -->
         <entry>
             <code>nonGeographicDataset</code>
-            <label>Non geographic dataset</label>
-            <description>Information applies to non-geographic data</description>
+            <label>Nichtgeografischer Datenbestand</label>
+            <description>Information gilt für einen nicht geografischen Datensatz</description>
         </entry>
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - -->
         <entry>
             <code>dimensionGroup</code>
-            <label>Dimension group</label>
-            <description>Information applies to a dimension group</description>
+            <label>Dimensionsgruppe</label>
+            <description>Information gilt für eine Dimensionsgruppe</description>
         </entry>
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - -->
         <entry>
             <code>feature</code>
-            <label>Feature</label>
-            <description>Information applies to a feature</description>
+            <label>Objektinstanz</label>
+            <description>Information gilt für ein konkretes Objekt</description>
         </entry>
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - -->
         <entry>
             <code>featureType</code>
-            <label>Feature type</label>
-            <description>Information applies to a feature type</description>
+            <label>Objektart</label>
+            <description>Information gilt für eine Klasse gleichartiger
+                Objektinstanzen</description>
         </entry>
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - -->
         <entry>
             <code>propertyType</code>
-            <label>Property type</label>
-            <description>Information applies to a property type</description>
+            <label>Eigenschaftsart</label>
+            <description>Information gilt für die Eigenschaften einer Objektart</description>
         </entry>
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - -->
         <entry>
             <code>fieldSession</code>
-            <label>Field session</label>
-            <description>Information applies to a field session</description>
+            <label>Feldkampagne</label>
+            <description>Information gilt für eine Datenerhebungsaktivität im Gelände</description>
         </entry>
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - -->
         <entry>
             <code>software</code>
             <label>Software</label>
-            <description>Information applies to a computer program or routine</description>
+            <description>Information gilt für Softwaresysteme, -module oder –routinen</description>
         </entry>
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - -->
         <entry>
             <code>service</code>
             <label>Service</label>
-            <description>Information applies to a capability which a service provider entity makes
-                available to a service user entity through a set of interfaces that define a behaviour,
-                such as a use case</description>
+            <description>Information gilt für einen Dienst, welcher von einem Anbieter über
+                definierte Schnittstellen einem Dienstnutzer zur Verfügung gestellt
+                wird</description>
         </entry>
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - -->
         <entry>
             <code>model</code>
-            <label>Model</label>
-            <description>Information applies to a copy or imitation of an existing or hypothetical
-                object</description>
+            <label>Modell</label>
+            <description>Information gilt für eine Nachbildung eines realen oder hypothetischen
+                Objekts</description>
         </entry>
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - -->
         <entry>
             <code>tile</code>
-            <label>Tile</label>
-            <description>Information applies to a tile, a spatial subset of geographic
-                data</description>
+            <label>Kachel</label>
+            <description>Information gilt für eine räumliche Untereinheit von geographischen
+                Daten</description>
         </entry>
     </codelist>
 </codelists>

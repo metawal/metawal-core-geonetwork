@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
     xmlns:gco="http://www.isotc211.org/2005/gco"
-    xmlns:rw="http://157.164.189.177/geonetwork/xml/schemas/iso19139.rw" 
+    xmlns:rw="http://metawal.wallonie.be/schemas/3.0" 
     xmlns:gmd="http://www.isotc211.org/2005/gmd"
     version="2.0">
     <xsl:import href="../iso19139/index-fields.xsl"/>
