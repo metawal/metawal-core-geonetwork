@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:skos="http://www.w3.org/2004/02/skos/core#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
-  <skos:ConceptScheme>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/"
+  xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+  xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+  <skos:ConceptScheme rdf:about="http://metawal.wallonie.be/thesaurus/theme-geoportail-wallon">
     <dc:title>Thèmes du géoportail wallon</dc:title>
     <dc:description>Thèmes du géoportail wallon pour Metawal - Geonetwork</dc:description>
     <dc:creator>
@@ -10,135 +13,134 @@
     </dc:creator>
     <dcterms:modified>2012-06-19 10:40:00</dcterms:modified>
   </skos:ConceptScheme>
-  <rdf:Description rdf:about="#(10) Nature et environnement">
-    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept" />
+  <rdf:Description rdf:about="http://metawal.wallonie.be/thesaurus/theme-geoportail-wallon#10">
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
     <skos:prefLabel xml:lang="fr">(10) Nature et environnement</skos:prefLabel>
-    <skos:scopeNote xml:lang="fr" />
+    <skos:scopeNote xml:lang="fr"/>
   </rdf:Description>
-  <rdf:Description rdf:about="#(1010) Faune et flore">
-    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept" />
+  <rdf:Description rdf:about="http://metawal.wallonie.be/thesaurus/theme-geoportail-wallon#1010">
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
     <skos:prefLabel xml:lang="fr">(1010) Faune et flore</skos:prefLabel>
-    <skos:scopeNote xml:lang="fr" />
+    <skos:scopeNote xml:lang="fr"/>
   </rdf:Description>
-  <rdf:Description rdf:about="#(1020) Eau">
-    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept" />
+  <rdf:Description rdf:about="http://metawal.wallonie.be/thesaurus/theme-geoportail-wallon#1020">
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
     <skos:prefLabel xml:lang="fr">(1020) Eau</skos:prefLabel>
-    <skos:scopeNote xml:lang="fr" />
+    <skos:scopeNote xml:lang="fr"/>
   </rdf:Description>
-  <rdf:Description rdf:about="#(1030) Sol et sous-sol">
-    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept" />
+  <rdf:Description rdf:about="http://metawal.wallonie.be/thesaurus/theme-geoportail-wallon#1030">
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
     <skos:prefLabel xml:lang="fr">(1030) Sol et sous-sol</skos:prefLabel>
-    <skos:scopeNote xml:lang="fr" />
+    <skos:scopeNote xml:lang="fr"/>
   </rdf:Description>
-  <rdf:Description rdf:about="#(1040) Air">
-    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept" />
+  <rdf:Description rdf:about="http://metawal.wallonie.be/thesaurus/theme-geoportail-wallon#1040">
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
     <skos:prefLabel xml:lang="fr">(1040) Air</skos:prefLabel>
-    <skos:scopeNote xml:lang="fr" />
+    <skos:scopeNote xml:lang="fr"/>
   </rdf:Description>
-  <rdf:Description rdf:about="#(20) Amenagement du territoire">
-    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept" />
+  <rdf:Description rdf:about="http://metawal.wallonie.be/thesaurus/theme-geoportail-wallon#20">
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
     <skos:prefLabel xml:lang="fr">(20) Aménagement du territoire</skos:prefLabel>
-    <skos:scopeNote xml:lang="fr" />
+    <skos:scopeNote xml:lang="fr"/>
   </rdf:Description>
-  <rdf:Description rdf:about="#(2010) Plans et reglements">
-    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept" />
+  <rdf:Description rdf:about="http://metawal.wallonie.be/thesaurus/theme-geoportail-wallon#2010">
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
     <skos:prefLabel xml:lang="fr">(2010) Plans et règlements</skos:prefLabel>
-    <skos:scopeNote xml:lang="fr" />
+    <skos:scopeNote xml:lang="fr"/>
   </rdf:Description>
-  <rdf:Description rdf:about="#(2020) Risques et contraintes">
-    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept" />
+  <rdf:Description rdf:about="http://metawal.wallonie.be/thesaurus/theme-geoportail-wallon#2020">
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
     <skos:prefLabel xml:lang="fr">(2020) Risques et contraintes</skos:prefLabel>
-    <skos:scopeNote xml:lang="fr" />
+    <skos:scopeNote xml:lang="fr"/>
   </rdf:Description>
-  <rdf:Description rdf:about="#(30) Mobilite">
-    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept" />
+  <rdf:Description rdf:about="http://metawal.wallonie.be/thesaurus/theme-geoportail-wallon#30">
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
     <skos:prefLabel xml:lang="fr">(30) Mobilité</skos:prefLabel>
-    <skos:scopeNote xml:lang="fr" />
+    <skos:scopeNote xml:lang="fr"/>
   </rdf:Description>
-  <rdf:Description rdf:about="#(3010) Routes">
-    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept" />
+  <rdf:Description rdf:about="http://metawal.wallonie.be/thesaurus/theme-geoportail-wallon#3010">
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
     <skos:prefLabel xml:lang="fr">(3010) Routes</skos:prefLabel>
-    <skos:scopeNote xml:lang="fr" />
+    <skos:scopeNote xml:lang="fr"/>
   </rdf:Description>
-  <rdf:Description rdf:about="#(3020) A pied et a velo">
-    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept" />
+  <rdf:Description rdf:about="http://metawal.wallonie.be/thesaurus/theme-geoportail-wallon#3020">
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
     <skos:prefLabel xml:lang="fr">(3020) A pied et à vélo</skos:prefLabel>
-    <skos:scopeNote xml:lang="fr" />
+    <skos:scopeNote xml:lang="fr"/>
   </rdf:Description>
-  <rdf:Description rdf:about="#(3030) Voies navigables">
-    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept" />
+  <rdf:Description rdf:about="http://metawal.wallonie.be/thesaurus/theme-geoportail-wallon#3030">
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
     <skos:prefLabel xml:lang="fr">(3030) Voies navigables</skos:prefLabel>
-    <skos:scopeNote xml:lang="fr" />
+    <skos:scopeNote xml:lang="fr"/>
   </rdf:Description>
-  <rdf:Description rdf:about="#(3040) Transports en commun">
-    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept" />
+  <rdf:Description rdf:about="http://metawal.wallonie.be/thesaurus/theme-geoportail-wallon#3040">
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
     <skos:prefLabel xml:lang="fr">(3040) Transports en commun</skos:prefLabel>
-    <skos:scopeNote xml:lang="fr" />
+    <skos:scopeNote xml:lang="fr"/>
   </rdf:Description>
-  <rdf:Description rdf:about="#(40) Tourisme et loisirs">
-    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept" />
+  <rdf:Description rdf:about="http://metawal.wallonie.be/thesaurus/theme-geoportail-wallon#40">
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
     <skos:prefLabel xml:lang="fr">(40) Tourisme et loisirs</skos:prefLabel>
-    <skos:scopeNote xml:lang="fr" />
+    <skos:scopeNote xml:lang="fr"/>
   </rdf:Description>
-  <rdf:Description rdf:about="#(4010) Tourisme">
-    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept" />
+  <rdf:Description rdf:about="http://metawal.wallonie.be/thesaurus/theme-geoportail-wallon#4010">
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
     <skos:prefLabel xml:lang="fr">(4010) Tourisme</skos:prefLabel>
-    <skos:scopeNote xml:lang="fr" />
+    <skos:scopeNote xml:lang="fr"/>
   </rdf:Description>
-  <rdf:Description rdf:about="#(4020) Loisirs">
-    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept" />
+  <rdf:Description rdf:about="http://metawal.wallonie.be/thesaurus/theme-geoportail-wallon#4020">
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
     <skos:prefLabel xml:lang="fr">(4020) Loisirs</skos:prefLabel>
-    <skos:scopeNote xml:lang="fr" />
+    <skos:scopeNote xml:lang="fr"/>
   </rdf:Description>
-  <rdf:Description rdf:about="#(50) Donnees de base">
-    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept" />
+  <rdf:Description rdf:about="http://metawal.wallonie.be/thesaurus/theme-geoportail-wallon#50">
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
     <skos:prefLabel xml:lang="fr">(50) Données de base</skos:prefLabel>
-    <skos:scopeNote xml:lang="fr" />
+    <skos:scopeNote xml:lang="fr"/>
   </rdf:Description>
-  <rdf:Description rdf:about="#(5010) Donnees topographiques">
-    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept" />
+  <rdf:Description rdf:about="http://metawal.wallonie.be/thesaurus/theme-geoportail-wallon#5010">
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
     <skos:prefLabel xml:lang="fr">(5010) Données topographiques</skos:prefLabel>
-    <skos:scopeNote xml:lang="fr" />
+    <skos:scopeNote xml:lang="fr"/>
   </rdf:Description>
-  <rdf:Description rdf:about="#(5020) Limites administratives">
-    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept" />
+  <rdf:Description rdf:about="http://metawal.wallonie.be/thesaurus/theme-geoportail-wallon#5020">
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
     <skos:prefLabel xml:lang="fr">(5020) Limites administratives</skos:prefLabel>
-    <skos:scopeNote xml:lang="fr" />
+    <skos:scopeNote xml:lang="fr"/>
   </rdf:Description>
-  <rdf:Description rdf:about="#(5030) Photos et imagerie">
-    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept" />
+  <rdf:Description rdf:about="http://metawal.wallonie.be/thesaurus/theme-geoportail-wallon#5030">
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
     <skos:prefLabel xml:lang="fr">(5030) Photos et imagerie</skos:prefLabel>
-    <skos:scopeNote xml:lang="fr" />
+    <skos:scopeNote xml:lang="fr"/>
   </rdf:Description>
-  <rdf:Description rdf:about="#(5040) Cartes anciennes">
-    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept" />
+  <rdf:Description rdf:about="http://metawal.wallonie.be/thesaurus/theme-geoportail-wallon#5040">
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
     <skos:prefLabel xml:lang="fr">(5040) Cartes anciennes</skos:prefLabel>
-    <skos:scopeNote xml:lang="fr" />
+    <skos:scopeNote xml:lang="fr"/>
   </rdf:Description>
-  <rdf:Description rdf:about="#(60) Societe et activites">
-    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept" />
+  <rdf:Description rdf:about="http://metawal.wallonie.be/thesaurus/theme-geoportail-wallon#60">
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
     <skos:prefLabel xml:lang="fr">(60) Société et activités</skos:prefLabel>
-    <skos:scopeNote xml:lang="fr" />
+    <skos:scopeNote xml:lang="fr"/>
   </rdf:Description>
-  <rdf:Description rdf:about="#(6010) Industrie et services">
-    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept" />
+  <rdf:Description rdf:about="http://metawal.wallonie.be/thesaurus/theme-geoportail-wallon#6010">
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
     <skos:prefLabel xml:lang="fr">(6010) Industrie et services</skos:prefLabel>
-    <skos:scopeNote xml:lang="fr" />
+    <skos:scopeNote xml:lang="fr"/>
   </rdf:Description>
-  <rdf:Description rdf:about="#(6020) Agriculture">
-    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept" />
+  <rdf:Description rdf:about="http://metawal.wallonie.be/thesaurus/theme-geoportail-wallon#6020">
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
     <skos:prefLabel xml:lang="fr">(6020) Agriculture</skos:prefLabel>
-    <skos:scopeNote xml:lang="fr" />
+    <skos:scopeNote xml:lang="fr"/>
   </rdf:Description>
-  <rdf:Description rdf:about="#(6030) Logement et habitat">
-    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept" />
+  <rdf:Description rdf:about="http://metawal.wallonie.be/thesaurus/theme-geoportail-wallon#6030">
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
     <skos:prefLabel xml:lang="fr">(6030) Logement et habitat</skos:prefLabel>
-    <skos:scopeNote xml:lang="fr" />
+    <skos:scopeNote xml:lang="fr"/>
   </rdf:Description>
-  <rdf:Description rdf:about="#(6040) Bruit">
-    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept" />
+  <rdf:Description rdf:about="http://metawal.wallonie.be/thesaurus/theme-geoportail-wallon#6040">
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
     <skos:prefLabel xml:lang="fr">(6040) Bruit</skos:prefLabel>
-    <skos:scopeNote xml:lang="fr" />
+    <skos:scopeNote xml:lang="fr"/>
   </rdf:Description>
 </rdf:RDF>
-
