@@ -192,6 +192,13 @@ INSERT INTO Settings VALUES (957,956,'enable','false');
 INSERT INTO Settings VALUES (958,956,'keepMarkedElement','true');
 INSERT INTO Settings VALUES (955,952,'ignored','true');
 
+-- Update schema URI
+UPDATE metadata SET data = replace(data, 
+'http://157.164.189.177/geonetwork/xml/schemas/iso19139.rw',
+'http://metawal.wallonie.be/schemas/3.0'
+) WHERE data LIKE '%http://157.164.189.177/geonetwork/xml/schemas/iso19139.rw%'
+
+
 -- Version update
 UPDATE Settings SET value='2.9.0' WHERE name='version';
 UPDATE Settings SET value='0' WHERE name='subVersion';
