@@ -16,7 +16,7 @@
   <xsl:include href="process/inspire-add-conformity.xsl"/>
   <xsl:include href="process/inspire-add-dq-toporeport.xsl"/>
   <xsl:include href="process/inspire-themes-and-topiccategory.xsl"/>
-  <!-- TODO : add metawal suggestion to update resource id based on metadata id -->
+  <xsl:include href="process/metawal-check-resource-id.xsl"/>
 
   <xsl:variable name="processes">
     <p>keywords-comma-exploder</p>
@@ -30,6 +30,7 @@
     <p>inspire-add-conformity</p>
     <p>inspire-add-dq-toporeport</p>
     <p>inspire-themes-and-topiccategory</p>
+    <p>metawal-check-resource-id</p>
   </xsl:variable>
   
   <xsl:param name="action" select="'list'"/>
