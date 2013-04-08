@@ -18,28 +18,16 @@
 	</field>
 	
 	<field name="rw:CI_ResponsibleParty">
-		<suggest name="gmd:individualName"/>
 		<suggest name="gmd:organisationName"/>
-		<suggest name="gmd:positionName"/>
 		<suggest name="gmd:contactInfo"/>
 	</field>
 	
 	<field name="gmd:CI_Contact">
-		<suggest name="gmd:phone"/>
 		<suggest name="gmd:address"/>
 	</field>
 	
-	<field name="gmd:CI_Telephone">
-		<suggest name="gmd:voice"/>
-		<suggest name="gmd:facsimile"/>
-	</field>
 	
 	<field name="gmd:CI_Address">
-		<suggest name="gmd:deliveryPoint"/>
-		<suggest name="gmd:city"/>
-		<suggest name="gmd:administrativeArea"/>
-		<suggest name="gmd:postalCode"/>
-		<suggest name="gmd:country"/>
 		<suggest name="gmd:electronicMailAddress"/>
 	</field>
 	
