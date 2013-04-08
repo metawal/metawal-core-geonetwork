@@ -26,25 +26,25 @@
             <description>information resource hosted on a specific set of hardware and accessible over a network</description>
         </entry>
         
-        <entry>
+        <entry hideInEditMode="true">
             <code>attribute</code>
             <label>Attribut</label>
             <description>Informations appliquées aux caractéristiques de l’attribut</description>
         </entry>
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - -->
-        <entry>
+        <entry hideInEditMode="true">
             <code>attributeType</code>
             <label>Type d'attribut</label>
             <description>Informations appliquées aux caractéristiques de l’entité</description>
         </entry>
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - -->
-        <entry>
+        <entry hideInEditMode="true">
             <code>collectionHardware</code>
             <label>Collection matérielle</label>
             <description>Informations appliquées aux caractéristiques d’une collection matérielle</description>
         </entry>
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - -->
-        <entry>
+        <entry hideInEditMode="true">
             <code>collectionSession</code>
             <label>Collection de session</label>
             <description>Informations appliquées aux caractéristiques d’une collection de session</description>
@@ -58,7 +58,7 @@
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - -->
         <entry>
             <code>series</code>
-            <label>Collection de données</label>
+            <label>Collection de données (Série)</label>
             <description>Informations appliquées aux caractéristiques de la collection de données</description>
         </entry>
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - -->
@@ -68,37 +68,37 @@
             <description>Informations appliquées aux caractéristiques de jeux de données non géographiques</description>
         </entry>
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - -->
-        <entry>
+        <entry hideInEditMode="true">
             <code>dimensionGroup</code>
             <label>Dimension d'un groupe</label>
             <description>Informations appliquées à un groupe</description>
         </entry>
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - -->
-        <entry>
+        <entry hideInEditMode="true">
             <code>feature</code>
             <label>Entité</label>
             <description>Informations appliquées à une entité</description>
         </entry>
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - -->
-        <entry>
+        <entry hideInEditMode="true">
             <code>featureType</code>
             <label>Type d’entité</label>
             <description>Informations appliquées à un type d’entité</description>
         </entry>
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - -->
-        <entry>
+        <entry hideInEditMode="true">
             <code>propertyType</code>
             <label>Type de propriété</label>
             <description>Informations appliquées à un type de propriété</description>
         </entry>
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - -->
-        <entry>
+        <entry hideInEditMode="true">
             <code>fieldSession</code>
             <label>Champ de session</label>
             <description>Informations appliquées aux caractéristiques d’un champ de session</description>
         </entry>
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - -->
-        <entry>
+        <entry hideInEditMode="true">
             <code>software</code>
             <label>Logiciel</label>
             <description>Informations appliquées à programme ou à une routine</description>
@@ -110,13 +110,13 @@
             <description>Informations appliquées à un service Internet</description>
         </entry>
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - -->
-        <entry>
+        <entry hideInEditMode="true">
             <code>model</code>
             <label>Modèle</label>
             <description>Informations appliquées à modèle décrivant les objets ou un ensemble d'objets</description>
         </entry>
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - -->
-        <entry>
+        <entry hideInEditMode="true">
             <code>tile</code>
             <label>Tuile</label>
             <description>Tuile</description>
