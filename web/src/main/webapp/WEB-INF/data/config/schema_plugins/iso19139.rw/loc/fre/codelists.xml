@@ -23,7 +23,10 @@
         <entry>
             <code>application</code>
             <label>Application</label>
-            <description>information resource hosted on a specific set of hardware and accessible over a network</description>
+            <description>Composant informatique possédant une interface grâce à laquelle un utilisateur peut exécuter certaines opérations
+                sur les données géographiques ou sur les métadonnées qui s'y rattachent (visualisation, interrogation, opération
+                d'analyse spatiale)
+            </description>
         </entry>
         
         <entry hideInEditMode="true">
@@ -52,14 +55,19 @@
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - -->
         <entry>
             <code>dataset</code>
-            <label>Jeu de données</label>
-            <description>Informations appliquées aux caractéristiques de jeu de données</description>
+            <label>Jeu de données ou géodonnées</label>
+            <description>Ensemble de géodonnées concernant une thématique particulière qui ont été produites ou collectées dans un but
+                spécifique par un seul producteur en suivant les mêmes spécifications.
+            </description>
         </entry>
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - -->
         <entry>
             <code>series</code>
-            <label>Collection de données (Série)</label>
-            <description>Informations appliquées aux caractéristiques de la collection de données</description>
+            <label>Série de jeux de données</label>
+            <description>Ensemble de jeux de données qui partagent des caractéristiques, des objectifs ou des spécifications similaires. La
+                série fait référence à une notion de répétition dans l'espace ou dans le temps de jeux de données de même nature.
+                Images aériennes d'une même ligne de vol
+            </description>
         </entry>
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - -->
         <entry>
@@ -106,8 +114,10 @@
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - -->
         <entry>
             <code>service</code>
-            <label>Service</label>
-            <description>Informations appliquées à un service Internet</description>
+            <label>Service géographique ou géoservice</label>
+            <description>Composant informatique autonome sans interface utilisateur capable d'interagir avec d'autres services et d’exécuter
+                des opérations sur des données géographiques ou sur les métadonnées qui s'y rattachent.
+            </description>
         </entry>
         <!-- - - - - - - - - - - - - - - - - - - - - - - - - -->
         <entry hideInEditMode="true">
