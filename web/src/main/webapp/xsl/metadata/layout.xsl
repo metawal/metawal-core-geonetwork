@@ -1107,6 +1107,7 @@
       <xsl:variable name="relatedElementName" select="$helper/@rel"/>
       <xsl:variable name="relatedAttributeName" select="$helper/@relAtt"/>
       
+      
       <xsl:variable name="relatedElementAction">
         <xsl:if test="$relatedElementName!=''">
           <xsl:variable name="relatedElement"
@@ -1115,9 +1116,20 @@
             select="../following-sibling::node()[name()=$relatedElementName]/gco:CharacterString/geonet:element/@ref"/>
           <xsl:variable name="relatedElementIsEmpty" select="normalize-space($relatedElement)=''"/>
           <!--<xsl:value-of select="concat('if (Ext.getDom(&quot;_', $relatedElementRef, '&quot;).value===&quot;&quot;) Ext.getDom(&quot;_', $relatedElementRef, '&quot;).value=this.options[this.selectedIndex].title;')"/>-->
-          <xsl:value-of
-            select="concat('if (Ext.getDom(&quot;_', $relatedElementRef, '&quot;)) Ext.getDom(&quot;_', $relatedElementRef, '&quot;).value=this.options[this.selectedIndex].title;')"
-          />
+          
+          <xsl:choose>
+            <!-- Layout with radio button -->
+            <xsl:when test="contains($mode, 'radio')">
+              <xsl:value-of
+                select="concat('if (Ext.getDom(&quot;_', $relatedElementRef, '&quot;)) Ext.getDom(&quot;_', $relatedElementRef, '&quot;).value=this.title;')"
+              />
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:value-of
+                select="concat('if (Ext.getDom(&quot;_', $relatedElementRef, '&quot;)) Ext.getDom(&quot;_', $relatedElementRef, '&quot;).value=this.options[this.selectedIndex].title;')"
+              />
+            </xsl:otherwise>
+          </xsl:choose>
         </xsl:if>
       </xsl:variable>
       
@@ -1125,11 +1137,24 @@
         <xsl:if test="$relatedAttributeName!=''">
           <xsl:variable name="relatedAttributeRef"
             select="concat($refId, '_', $relatedAttributeName)"/>
-          <xsl:value-of
-            select="concat('if (Ext.getDom(&quot;_', $relatedAttributeRef, '&quot;)) Ext.getDom(&quot;_', $relatedAttributeRef, '&quot;).value=this.options[this.selectedIndex].title;')"
-          />
+          
+          
+          <xsl:choose>
+            <!-- Layout with radio button -->
+            <xsl:when test="contains($mode, 'radio')">
+              <xsl:value-of
+                select="concat('if (Ext.getDom(&quot;_', $relatedAttributeRef, '&quot;)) Ext.getDom(&quot;_', $relatedAttributeRef, '&quot;).value=this.title;')"
+              />
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:value-of
+                select="concat('if (Ext.getDom(&quot;_', $relatedAttributeRef, '&quot;)) Ext.getDom(&quot;_', $relatedAttributeRef, '&quot;).value=this.options[this.selectedIndex].title;')"
+              />
+            </xsl:otherwise>
+          </xsl:choose>
         </xsl:if>
       </xsl:variable>
+      
       
       
 
@@ -1142,7 +1167,8 @@
               <!-- Some helper may not contains values. That may be used to separate items.
               Don't put a radio in that case. -->
               <xsl:if test="@value">
-                <input class="md" type="radio" name="radio_{$refId}" id="radio_{$refId}{position()}" value="{@value}"
+                <input class="md" type="radio" name="radio_{$refId}" id="radio_{$refId}{position()}" 
+                  value="{@value}" title="{@title}"
                   onchange="Ext.getDom('_{$refId}').value=this.value; if (Ext.getDom('_{$refId}').onkeyup) Ext.getDom('_{$refId}').onkeyup();">
                   <xsl:if test="@value=$value">
                     <xsl:attribute name="checked"/>
@@ -1929,22 +1955,27 @@
           <items>
             <xsl:for-each select="geonet:element/geonet:text">
               <xsl:variable name="choiceValue" select="string(@value)"/>
-              <xsl:variable name="label"
+              <xsl:variable name="schemaLabel"
                 select="/root/gui/schemas/*[name(.)=$schema]/codelists/codelist[@name = $name]/entry[code = $choiceValue]/label"/>
-
+              
+              <xsl:variable name="label">
+                <xsl:choose>
+                  <xsl:when test="normalize-space($schemaLabel) = '' and starts-with($schema, 'iso19139.')">
+                    <!-- Check iso19139 label -->
+                    <xsl:value-of
+                      select="/root/gui/schemas/*[name(.)='iso19139']/codelists/codelist[@name = $name]/entry[code = $choiceValue]/label"/>
+                  </xsl:when>
+                  <xsl:when test="$schemaLabel"><xsl:value-of select="$schemaLabel"/></xsl:when>
+                  <xsl:otherwise><xsl:value-of select="$choiceValue"/></xsl:otherwise>
+                </xsl:choose>
+              </xsl:variable>
+              
               <item>
                 <value>
                   <xsl:value-of select="@value"/>
                 </value>
                 <label>
-                  <xsl:choose>
-                    <xsl:when test="$label">
-                      <xsl:value-of select="$label"/>
-                    </xsl:when>
-                    <xsl:otherwise>
-                      <xsl:value-of select="$choiceValue"/>
-                    </xsl:otherwise>
-                  </xsl:choose>
+                  <xsl:value-of select="$label"/>
                 </label>
               </item>
             </xsl:for-each>
