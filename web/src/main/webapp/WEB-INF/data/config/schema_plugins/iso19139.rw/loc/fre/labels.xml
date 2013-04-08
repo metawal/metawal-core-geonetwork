@@ -6,6 +6,128 @@
   xmlns:gmx="http://www.isotc211.org/2005/gmx"
   xmlns:rw="http://metawal.wallonie.be/schemas/3.0">
 
+
+  <element name="gmd:code" id="207.0" context="rw:MD_Metadata/gmd:referenceSystemInfo/gmd:MD_ReferenceSystem/gmd:referenceSystemIdentifier/gmd:RS_Identifier/gmd:code">
+    <label>Identificateur</label>
+    <description>Valeur alphanumérique pour l'identification d'une occurrence dans le domaine de valeurs</description>
+    <help>Code alphanumérique de l'identifiant. Ces informations sont du type PT_FreeText et sont gérées dans la classe du même nom.</help>
+    <condition>Obligatoire</condition>
+    <helper editorMode="radio">
+      <option value="31370">Lambert Belge (EPSG:31370)</option>
+      <option value="4326">WGS 84 (EPSG:4326)</option>
+    </helper>
+  </element>
+  <element name="gmd:date" id="362.0" context="rw:MD_Metadata/gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:date/gmd:CI_Date/gmd:date">
+    <label>Date de référence</label>
+    <description>Date de référence pour la ressource en question</description>
+    <help>Date de référence indiquée sous forme de date (jj.mm.aaaa) et de type de date (création, publication, traitement). Ces informations sont du type CI_Date et sont gérées dans la classe du même nom.</help>
+    
+    <help><![CDATA[<b>Référence temporelle</b>]]></help>
+    
+    <help for="inspire"><![CDATA[<b>Exigence INSPIRE :</b>
+    INSPIRE impose la fourniture d’au moins une référence temporelle qui peut être une date de création, de dernière révision, de publication ou une étendue temporelle.
+    <ul>
+    <li>Le système de référence par défaut est le calendrier grégorien.</li>
+    <li>Les dates sont exprimées conformément à la norme ISO 8601 (c’est-à-dire aaaa-mm-jj).</li>
+    <li>Il est possible de définir plusieurs références temporelles mais :
+      <ul>
+        <li>Il peut y avoir plus d’une date de publication (C’est la date de publication de la ressource lorsqu’elle est disponible ou la date d’entrée en vigueur).</li>
+        <li>II ne doit pas y avoir plus d’une date de dernière révision (C’est la date de dernière modification de la ressource).</li>
+        <li>Il ne doit pas y avoir plus d’une date de création (C’est la date de création de la ressource).</li>
+      </ul>
+    </li>
+    </ul>
+    ]]>
+    </help>
+    <help for="france">
+      <![CDATA[
+    <b>Recommandations :</b>
+    <ul>
+    <li>Il est recommandé de fournir au moins une date de référence (date de création, de dernière révision, ou de publication). (cf. Dates de référence)</li>
+    <li>L’étendue temporelle est un élément optionnel.</li>
+    </ul>
+    <b>Commentaire :</b>
+    Une date de référence de la ressource est une information représentative de la vie de la ressource (création, publication, révision), tandis que l’étendue temporelle fournit une indication de la  période de temps couverte par la ressource, ce qui est un indicateur de l’actualité de la ressource.
+    La date de dernière révision n’a de sens que si elle se distingue de la date de création. Cet élément de métadonnées n'est obligatoire actuellement que pour les 
+    données INSPIRE de l’Annexe 1. Toutefois, il est de bonne pratique 
+    de le noter autant que possible.
+    ]]></help>
+    <help><![CDATA[Exemples :
+    <ul>
+    <li>Exemple 1, donnée mise à jour en continu : par exemple une donnée de la Banque du sous-sol qui est actualisée au fil de l’eau – techniquement tous les jours – verra ce champ sous la forme : “1956 à maintenant”.</li>
+    <li>Exemple 2, exemple de date de création : comment remplir la date d’un jeu de données créé à partir d’une numérisation d’une photo aérienne d’une date donnée? Il faudra saisir la date de numérisation comme date de création. Le champ généalogie fournira la date de la donnée de référence, ie. la photo-aérienne, et les explications de gestion de la mise à jour.</li>
+    <li>Il est également possible de fournir un couple date/heure à la place d’une date. Dans ce cas, ce couple s’exprime sous la forme aaaa-mm-jjThh:mi:ss+hh:mi, où les quatre derniers chiffres correspondent au décalage avec l’heure UTC. En France métropolitaine, ces derniers chiffres sont donc +01:00 pendant l’heure d’hiver, et +02:00 pendant l’heure d’été.</li>
+    <li>Exemple : 2011-08-24T12:12:00+02:00 (c'est-à-dire, midi douze minutes, 0 secondes, le 24 août 2011, zone UTC+2)</li>
+    </ul>
+    ]]>
+    </help>
+    
+    <condition/>
+    
+  </element>
+
+  <element name="gmd:name" id="285.0" context="gmd:MD_Format">
+    <label>Nom du format</label>
+    <description>Nom des formats de transfert des données</description>
+    <help>Nom du format de transfert de données, par exemple TIFF, ZIP, etc.</help>
+    <condition>Obligatoire</condition>
+    <helper rel="gmd:version">
+      <option value="shp (shapefile)" title="-">shp (shapefile)</option>
+      <option value="fgdb ESRI 9 /10 / 10.1 (file geodatabase)" title="10.x">fgdb ESRI 9 /10 / 10.1 (file geodatabase)</option>
+      <option value="pgdb (personal geodatabase)">pgdb (personal geodatabase)</option>
+      <option value="geotiff">geotiff</option>
+      <option value="XML">XML</option>
+      <option value="GML">GML</option>
+      <option value="dwg">dwg</option>
+      <option value="kml">kml</option>
+      <option value="tiff">tiff</option>
+      <option value="jpeg">jpeg</option>
+      <option value="jpgw">jpgw</option>
+      <option value="access">access</option>
+      <option value="pdf">pdf</option>
+      <option value="zip">zip</option>
+    </helper>
+  </element>
+  
+  <element name="gmd:orderingInstructions" id="301.0">
+    <label>Instructions de commande</label>
+    <description>Instructions générales, conditions et services offerts par le distributeur</description>
+    <help>Instructions générales, délais et services offerts par le distributeur</help>
+    <condition/>
+    <helper editorMode="radio_linebreak">
+      <option value="Données accessibles gratuitement à des fins de recherche sous condition d'acceptation d'une licence. Les instructions relatives à la licence se trouvent à l'adresse http://geoportail.wallonie.be/licenceunique">Données accessibles gratuitement à des fins de recherche sous condition
+        d'acceptation d'une licence. Les instructions
+        relatives à la licence se trouvent à l'adresse http://geoportail.wallonie.be/licenceunique
+      </option>
+      <option value="Application réservée aux agents autorisés. Un login est nécessaire pour accéder à l'application.Contacter le gestionnaire de l'application à l'adresse gestionnaire@application.wallonie.be pour obtenir un login.">Application réservée aux agents autorisés.
+        Un login est nécessaire pour accéder à
+        l'application.Contacter le gestionnaire de
+        l'application à l'adresse gestionnaire@application.wallonie.be pour obtenir un login.
+      </option>
+    </helper>
+  </element>
+  
+  
+  <element name="gmd:description" id="401.0" context="gmd:CI_OnlineResource">
+    <label>Description</label>
+    <description>Texte descriptif détaillé sur ce que la ressource en ligne est/fait</description>
+    <help>Description détaillée de ce que propose la source en ligne.</help>
+    <condition/>
+    <helper>
+      <option value="Application">Application</option>
+      <option value="Application intranet">Application intranet</option>
+      <option value="Application sécurisée">Application sécurisée</option>
+      <option value="Service">Service</option>
+      <option value="Service intranet">Service intranet</option>
+      <option value="Service sécurisé">Service securisé</option>
+      <option value="Site">Site</option>
+      <option value="Site intranet">Site intranet</option>
+      <option value="Site sécurisé">Site securisé</option>
+      <option value="Site ftp">Site ftp</option>
+      <option value="Document">Document</option>
+    </helper>
+  </element>
+  
   <element name="rw:MD_Metadata">
     <label>Profil Wallon</label>
     <description>profil de métadonnées respectant ISO 19139 et INSPIRE et y ajoutant les spécificités wallones</description>
