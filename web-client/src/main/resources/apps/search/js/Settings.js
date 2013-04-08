@@ -90,3 +90,22 @@ GeoNetwork.WMSList = [['Geoserver', 'http://localhost/geoserver/wms?']];
 GeoNetwork.defaultViewMode = 'view-simple';
 
 Ext.BLANK_IMAGE_URL = '../js/ext/resources/images/default/s.gif';
+
+
+GeoNetwork.util.HelpTools.Templates.COMPLETE = ['<a target="documentation" href="../iso19139.rw.doc.pdf">Wiki Metawal</a><div class="help"><span class="title">{label}</span>',
+           '<div>{description}</div>',
+           '<tpl for="help">',
+             '<div>{.}</div>',
+           '</tpl>',
+           '<tpl if="values.example != \'\'">',
+             '<div><span>' + OpenLayers.i18n('example') + '</span> {example}</div>',
+           '</tpl>',
+           '<tpl if="values.helper != \'\'">',
+             '<div><span>' + OpenLayers.i18n('helper') + '</span><ul>',
+             '<tpl for="helper">',
+               '<li title="{values.title}">{values.label}</li>',
+           '</tpl>',
+           '</ul></div>',
+         '</tpl>',
+         '<div>' + OpenLayers.i18n('tagName') + ' {name}</div>', 
+         '</div>']
