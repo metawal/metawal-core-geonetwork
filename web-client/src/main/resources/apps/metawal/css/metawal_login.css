@@ -1,0 +1,21 @@
+/* overwrite declaration in the style attribute (thanks to the flag "!important")*/
+/* username */
+#username {
+    /* new styles here */
+    left: 100px !important;
+    width:75px !important;
+}
+/* password */
+#ext-comp-1072 {
+    /* new styles here */
+    left: 183px !important;
+    width:75px !important;
+}
+/* login button */
+#btnLoginForm {
+    /* new styles here */
+    left: 265px !important;
+    width:75px !important;
+}
+
+

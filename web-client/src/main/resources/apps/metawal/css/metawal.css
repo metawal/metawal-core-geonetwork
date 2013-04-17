@@ -1,0 +1,196 @@
+.container_16 .grid_16 {
+    margin-bottom: 0;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    width: 960px;
+}
+.grid_16 {
+    display: inline;
+    float: left;
+    position: relative;
+}
+#top-spw-global {
+background: #262626;
+border: #1b1b1b 1px solid;
+height: 39px;
+}
+
+#top-spw-global a.portail-walloniebe {
+color: #a2a2a2;
+padding: 0 20px 2px 0;
+margin: 11px 20px 0 0;
+border-right: #424242 1px solid;
+float: left;
+font-weight: bold;
+text-transform: uppercase;
+}
+
+#top-spw-global a {
+    display: block;
+    font-size: 12px;
+    text-decoration: none;
+}
+a {
+    text-blink: none;
+    text-decoration-color: -moz-use-text-color;
+    text-decoration-line: none;
+    text-decoration-style: solid;
+}
+ #header_spw {
+    background-attachment: scroll;
+    background-clip: border-box;
+    background-color: #2D5E6F;
+    background-image: url("../images/bg_header_repeat.png");
+    background-origin: padding-box;
+    background-position: center top;
+    background-repeat: repeat-x;
+    background-size: auto auto;
+    color: #FFFFFF;
+    padding-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+}
+#header_spw .container_16 {
+    background-attachment: scroll;
+    background-clip: border-box;
+    background-color: transparent;
+    background-image: url("../images/bg_header.png");
+    background-origin: padding-box;
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size: auto auto;
+    width: 100%;
+}
+.container_16 {
+    margin-left: auto;
+    margin-right: auto;
+    width: 960px;
+    display: block;
+}
+#header_spw .container_16 .header_spw {
+width: 960px;
+margin: 0 auto;
+height: 107px;
+}
+.container_16 .grid_10 {
+    min-height: 1px;
+}
+.container_16 .grid_10 {
+    width: 580px;
+}
+.grid_1, .grid_2, .grid_3, .grid_4, .grid_5, .grid_6, .grid_7, .grid_8, .grid_9, .grid_10, .grid_11, .grid_12, .grid_13, .grid_14, .grid_15, .grid_16 {
+    display: inline;
+    float: left;
+    margin-left: 10px;
+    margin-right: 10px;
+    position: relative;
+}
+#header_spw #header_spw-col1 {
+    color: white;
+    font-family: Arial;
+    font-size: 25px;
+    font-weight: bold;
+    padding-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 22px;
+}
+#header_spw #header_spw-col1 .geoLink {
+    margin-left: 14px;
+    text-decoration: none;
+}
+.header_spw-col1noprint p a span {
+padding: 30px 65px 42px 7px;
+}
+#header_spw #header_spw-col1 p {
+    padding-bottom: 5px;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 5px;
+    display: block;
+}
+#header_spw a, #header_spw a:link, #header_spw a:visited {
+    text-blink: none;
+    text-decoration-color: -moz-use-text-color;
+    text-decoration: none;
+    text-decoration-style: solid;
+    color: #FFFFFF;
+    line-height: 160%;
+}
+:-moz-any-link {
+    cursor: pointer;
+}
+#header_spw .container_16 .header_spw .grid_6 {
+    float: right;
+    margin-bottom: 0;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+}
+.container_16 .grid_6 {
+    width: 340px;
+}
+
+#top-spw-global a.federation-wallonie-bruxelles {
+color: #a2a2a2;
+float: left;
+font-weight: bold;
+text-transform: uppercase;
+padding: 0 20px 2px 0;
+margin: 11px 20px 0 0;
+border-right: #424242 1px solid;
+}
+#top-spw-global a.guide-des-institutions {
+color: #a2a2a2;
+float: left;
+font-weight: bold;
+text-transform: uppercase;
+margin: 11px 0 0 0;
+}
+#top-spw-global a.mon-espace-personnel {
+color: #fff;
+float: right;
+background: url("../modules/templates-geoportail/css/img/button_espace_personnel.png") no-repeat;
+text-shadow: 1px 1px 0 #c00010;
+padding: 6px 12px 4px;
+margin: 5px 0 0;
+}
+
+.x-panel-body {
+    background-color: transparent;
+}
+.loginInfo {
+	color: transparent;
+}
+.x-btn x-btn-text-icon x-box-item x-btn-ove {
+	left: 0px;
+}
+.topQuickHeader {
+float: right;
+margin: 0 0 15px;
+padding-right: 2px;
+position: relative;
+width: auto;
+}
+.clear {
+clear: both;
+display: block;
+overflow: hidden;
+visibility: hidden;
+width: 0;
+height: 0;
+}
+#header_spw .lang-form {
+float: right;
+margin: 0 5px 0 0!important;
+position: relative;
+width: 200px;
+}
+br.clear {
+clear: both;
+font-family: Arial,Helvetica,sans-serif;
+line-height: 0;
+font-size: 0;
+}
