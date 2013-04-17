@@ -48,9 +48,11 @@
 		<label>Planned Available Date / Time</label>
 		<help>date and time when theresource will be available</help>
 	</element>
-	<!--<element name="gmd:dateTime"> <label>DateTime</label> <description>Date 
-		and time or range of date and time on or over which the process step occurred 
-		(YYYY-MM-DDThh:mm:ss)</description> </element> -->
+	<element name="gco:DateTime">
+		<label>Date and time</label>
+		<description>Date and time or range of date and time on or over which the process step occurred 
+		(YYYY-MM-DDThh:mm:ss)</description> 
+	</element>
 	<element name="gco:Measure" id="100.0" context="gmd:DQ_Element">
 		<label>Name of Measure</label>
 		<description>Name of the test applied to the data</description>
@@ -1389,10 +1391,17 @@
 			<option value="Mapinfo MIF/MID" title="4.5">Mapinfo MIF/MID</option>
 			<option value="Mapinfo TAB">Mapinfo TAB</option>
 			<option value="KML">KML</option>
+			<option value="GML" title="3.2.1">GML</option>
 			<option value="GeoTIFF" title="1.0">GeoTIFF</option>
 			<option value="TIFF">TIFF</option>
 			<option value="ECW">ECW</option>
+			<option value="JPEG2000">JPEG2000</option>
 			<option value="ZIP">ZIP</option>
+			<option value="PDF">PDF</option>
+			<option value="PNG">PNG</option>
+			<option value="JPEG">JPEG</option>
+			<option value="OGC:WMC">OGC:WMC</option>
+			<option value="OGC:OWS Context">OGC:OWS Context</option>
 		</helper>
 	</element>
 	<element name="gmd:name" context="gmd:MD_ExtendedElementInformation"

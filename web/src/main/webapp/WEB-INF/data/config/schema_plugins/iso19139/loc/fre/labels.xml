@@ -1591,6 +1591,7 @@ date de mise en ligne du service, en tant que date de publication.
     <help>La valeur se trouvant sous la barre de fraction. Il s'agit ici de l'échelle : dans le cas d'une carte à l'échelle du 1:25000, seul le terme "25000" est entré. Cette valeur peut également représenter une indication de précision dans le cas d'un jeu de données vectorielles. Exemple : des limites saisies à une échelle de 1:25'000 et présentant ce niveau de précision.</help>
     <condition>Il faut saisir ou une échelle ou une distance</condition>
     <helper>
+        <option value="1000">1:1 000</option>
         <option value="5000">1:5 000</option>
         <option value="10000">1:10 000</option>
         <option value="25000">1:25 000</option>
@@ -2135,7 +2136,7 @@ période de temps couverte par le service.
     
   </element>
   <element name="gmd:geometricObjectType" id="184.0">
-    <label>Type d'objets géométriques</label>
+    <label>Type de géométries des objets</label>
     <description>Nom des objets spatiaux point et vecteur utilisés pour localiser les positions à zéro, une, deux et trois dimensions dans le jeu de données</description>
     <help>Nom du type d'objet géométrique. Sélection dans la liste suivante : complexe, combinaison, ligne ouverte, point, primitive en 3D, ligne fermée.</help>
     <condition/>
