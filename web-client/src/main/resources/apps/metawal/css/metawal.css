@@ -194,3 +194,10 @@ font-family: Arial,Helvetica,sans-serif;
 line-height: 0;
 font-size: 0;
 }
+
+#infoPanel .info {
+  background-color: #2e6172;
+}
+#infoPanel .info a {
+  color: #FFF;
+}
