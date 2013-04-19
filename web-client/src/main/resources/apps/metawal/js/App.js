@@ -400,7 +400,8 @@ GeoNetwork.app = function () {
             sortByCmp: Ext.getCmp('E_sortBy'),
             metadataResultsView: metadataResultsView,
             permalinkProvider: permalinkProvider,
-            withPaging: true
+            withPaging: true,
+            searchCb: search
         });
         
         
