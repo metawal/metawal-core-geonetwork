@@ -116,7 +116,6 @@
 				<xsl:call-template name="formFiller">
 					<xsl:with-param name="indent" select="$indent"/>
 				</xsl:call-template>
-				<tr><td class="blue-content" colspan="3"/></tr>
 			</xsl:if>
 		</table>
 	</xsl:template>
@@ -131,7 +130,8 @@
 					<td class="padded-content" width="{$indent}"/>
 					<td class="dots"/>
 					<td class="padded-content">
-						<h1><xsl:value-of select="$title"/></h1>
+						<div style="float:left;"><h1><xsl:value-of select="$title"/></h1></div>
+						<div style="float:right"><h1><a href="{concat(/root/gui/config/client/@url, '?hl=', /root/gui/language)}">Retour à la recherche</a></h1></div>
 					</td>
 				</xsl:when>
 				<xsl:otherwise>

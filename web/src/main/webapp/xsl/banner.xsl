@@ -6,10 +6,52 @@
 
     <xsl:variable name="modal" select="count(/root/gui/config/search/use-modal-box-for-banner-functions)"/>
 
+    <!-- Metawal header -->
+    <xsl:template name="banner">
+        
+        <!--start SPW banner-->  
+        <div id="top-spw-global">
+            <div class="container_16">
+                <div class="top-spw-global">
+                    <!--start grid_16-->
+                    <div class="grid_16">
+                        <a class="portail-walloniebe" target="_blank" href="http://www.wallonie.be">Portail WALLONIE.BE</a>
+                        <a class="federation-wallonie-bruxelles" target="_blank" href="http://www.federation-wallonie-bruxelles.be/">Fédération Wallonie-Bruxelles</a>
+                        <a class="guide-des-institutions" target="_blank" href="http://www.wallonie.be/fr/guide/guide-services">Guide des institutions</a>
+                        <div class="clear"></div>
+                        <div class="clear"></div>
+                        <div class="clear"></div>
+                    </div>
+                    <!--stop grid_16-->
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+        <div id="header_spw">
+            <div class="container_16">
+                <div class="header_spw">
+                    <!--start grid_10-->
+                    <div class="grid_10">
+                        <div id="header_spw-col1" class="header_spw-col1noprint" style="padding-top:0px">
+                            <p>
+                                <a title="Portail de la Wallonie" target="_blank" href="http://www.wallonie.be">
+                                    <span></span>
+                                </a>
+                                <a class="geoLink" title="Accueil" href="/cms/home.html">Géoportail de la Wallonie</a>
+                            </p>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </xsl:template>
+    
     <!--
     main html banner
     -->
-    <xsl:template name="banner">
+    <xsl:template name="banner-gn">
 
         <xsl:variable name="readonly" select="/root/gui/env/readonly = 'true'"/>
         <xsl:if test="$readonly">
