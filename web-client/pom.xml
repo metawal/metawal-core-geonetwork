@@ -464,7 +464,18 @@
                 <include>${project.build.directory}/classes/apps/tabsearch/js/App.js</include>
               </includes>
             </aggregation>
-
+            
+            <aggregation>
+              <output>src/main/resources/apps/metawal/js/App-mini.js</output>
+              <includes>
+                <include>../../js/GeoNetwork-mini.js</include>
+                <include>${project.build.directory}/classes/apps/metawal/js/Settings.js</include>
+                <include>${project.build.directory}/classes/apps/metawal/js/map/Settings.js</include>
+                <include>${project.build.directory}/classes/apps/metawal/js/map/MapApp.js</include>
+                <include>${project.build.directory}/classes/apps/metawal/js/Shortcuts.js</include>
+                <include>${project.build.directory}/classes/apps/metawal/js/App.js</include>
+              </includes>
+            </aggregation>
            <!-- <aggregation>
               <output>${geonetwork.webapp.dir}/apps/search/css/style.css</output>
               <includes>
