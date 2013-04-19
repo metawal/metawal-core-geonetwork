@@ -203,3 +203,4 @@ UPDATE metadata SET data = replace(data,
 UPDATE Settings SET value='2.11.0' WHERE name='version';
 UPDATE Settings SET value='0' WHERE name='subVersion';
 UPDATE Settings SET value='2c0a95c0-9536-11e2-9e96-0800200c9a66' WHERE name='siteId';
+UPDATE metadata SET source='2c0a95c0-9536-11e2-9e96-0800200c9a66' WHERE source='dummy';
