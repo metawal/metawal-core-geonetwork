@@ -33,7 +33,8 @@ GeoNetwork.map.printCapabilities = "../../pdf";
 
 // Config for WGS84 based maps
 GeoNetwork.map.PROJECTION = "EPSG:4326";
-GeoNetwork.map.EXTENT = new OpenLayers.Bounds(-180, -90, 180, 90);
+GeoNetwork.map.EXTENT = new OpenLayers.Bounds(3, 49.5, 6.5, 51.5);
+//GeoNetwork.map.EXTENT = new OpenLayers.Bounds(-180, -90, 180, 90);
 //GeoNetwork.map.EXTENT = new OpenLayers.Bounds(-5.1,41,9.7,51);
 
 GeoNetwork.map.BACKGROUND_LAYERS = [
@@ -62,11 +63,15 @@ GeoNetwork.map.CONTEXT = "../../maps/metawal.wmc";
 
 GeoNetwork.map.CONTEXT_MAP_OPTIONS = {
  controls: [],
+ maxExtent: GeoNetwork.map.EXTENT,
+ restrictedExtent: GeoNetwork.map.EXTENT,
  theme:null
 };
 
 GeoNetwork.map.CONTEXT_MAIN_MAP_OPTIONS = {
  controls: [],
+ maxExtent: GeoNetwork.map.EXTENT,
+ restrictedExtent: GeoNetwork.map.EXTENT,
  theme:null
 };
 
