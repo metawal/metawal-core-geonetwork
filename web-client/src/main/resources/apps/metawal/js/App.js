@@ -368,45 +368,6 @@ GeoNetwork.app = function () {
         }
     }
     /**
-     * Bottom bar
-     *
-     * @return
-     */
-    function createBBar() {
-        var previousAction = new Ext.Action({
-            id: 'previousBt',
-            text: '&lt;&lt;',
-            handler: function () {
-                var from = catalogue.startRecord - parseInt(Ext.getCmp('E_hitsperpage').getValue(), 10);
-                if (from > 0) {
-                    catalogue.startRecord = from;
-                    search();
-                }
-            },
-            scope: this
-        });
-        
-        var nextAction = new Ext.Action({
-            id: 'nextBt',
-            text: '&gt;&gt;',
-            handler: function () {
-                catalogue.startRecord += parseInt(Ext.getCmp('E_hitsperpage').getValue(), 10);
-                search();
-            },
-            scope: this
-        });
-        
-        return new Ext.Toolbar({
-            items: [previousAction, '|', nextAction, '|', {
-                xtype: 'tbtext',
-                text: '',
-                id: 'info'
-            }]
-        });
-        
-    }
-    
-    /**
      * Results panel layout with top, bottom bar and DataView
      *
      * @return
@@ -429,10 +390,10 @@ GeoNetwork.app = function () {
             searchFormCmp: Ext.getCmp('searchForm'),
             sortByCmp: Ext.getCmp('E_sortBy'),
             metadataResultsView: metadataResultsView,
-            permalinkProvider: permalinkProvider
+            permalinkProvider: permalinkProvider,
+            withPaging: true
         });
         
-        bBar = createBBar();
         
         var resultPanel = new Ext.Panel({
             id: 'resultsPanel',
@@ -442,9 +403,7 @@ GeoNetwork.app = function () {
             autoWidth: true,
             layout: 'fit',
             tbar: tBar,
-            items: metadataResultsView,
-            // paging bar on the bottom
-            bbar: bBar
+            items: metadataResultsView
         });
         return resultPanel;
     }
