@@ -79,13 +79,8 @@ public class ConfigurationOveridesTest {
 
     private void assertLang(String expected, Element config) throws JDOMException {
         List<?> lang = Xml.selectNodes(config,"*//language");
-<<<<<<< HEAD
-        //assertEquals(1,lang.size());
-        //assertEquals(expected, ((Element)lang.get(0)).getTextTrim());
-=======
         assertEquals(1,lang.size());
         assertEquals(Xml.getString(config), expected, ((Element)lang.get(0)).getTextTrim());
->>>>>>> upstream/master
     }
     @Test //@Ignore
     public void loadFile() throws JDOMException, IOException {
