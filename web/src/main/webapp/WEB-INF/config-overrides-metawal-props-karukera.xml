@@ -18,7 +18,7 @@
     
     <!-- JS Client configuration -->
     <!--   config for dev -->
-    <widget.url>../../apps/search/index_debug.html</widget.url>
+    <widget.url>../../apps/metawal/index_debug.html</widget.url>
     <!--<widget.url>../../apps/search/</widget.url>-->
     <widget.parameters>hl=fre</widget.parameters>
   </properties>
