@@ -167,9 +167,26 @@ margin: 5px 0 0;
 .x-btn x-btn-text-icon x-box-item x-btn-ove {
 	left: 0px;
 }
+.topQuickHeadertop {
+float: right;
+margin-top: 5px;
+margin-bottom: 5px;
+padding-right: 2px;
+position: relative;
+width: auto;
+}
 .topQuickHeader {
 float: right;
-margin: 0 0 15px;
+margin-top: 6px;
+margin-bottom: 9px;
+padding-right: 2px;
+position: relative;
+width: auto;
+}
+.topQuickHeaderbottom {
+float: right;
+margin-top: 6px;
+margin-bottom: 5px;
 padding-right: 2px;
 position: relative;
 width: auto;
