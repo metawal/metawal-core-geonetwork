@@ -39,7 +39,7 @@
                                 </a>
                                 <a class="geoLink" title="Accueil" href="/cms/home.html">Géoportail de la Wallonie</a>
                                 <div id="header_spw-col1-el1">
-									<h2 id="header_spw-col1-h2">Metawal - Toutes la Wallonie en métadonnées</h2>
+									<h2 id="header_spw-col1-h2">Metawal - Toute la Wallonie en métadonnées</h2>
 								</div>
                             </p>
                             <div class="clear"></div>
