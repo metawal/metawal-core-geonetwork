@@ -212,3 +212,23 @@ font-size: 0;
 	top:50px; 
 	left:230px;
 }
+#username {
+  width: 92px !important;
+  left: 45px !important;
+}
+#password {
+  width: 92px !important;
+  left: 145px !important;
+}
+#btnAdministration {
+  width: 95px !important;
+  left: 245px !important;
+}
+#btnLoginForm{
+  width: 95px !important;
+  left: 245px !important;
+}
+#btnLogoutForm {
+  width: 95px !important;
+  left: 150px !important;
+}

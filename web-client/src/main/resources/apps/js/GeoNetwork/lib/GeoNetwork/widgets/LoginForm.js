@@ -111,6 +111,7 @@ GeoNetwork.LoginForm = Ext.extend(Ext.FormPanel, {
                 width: 75,
                 text: OpenLayers.i18n('administration'),
                 //iconCls : 'md-mn md-mn-advanced',
+                id: 'btnAdministration',
                 listeners: {
                     click: function () {
                         this.catalogue.admin();
@@ -122,6 +123,7 @@ GeoNetwork.LoginForm = Ext.extend(Ext.FormPanel, {
                 width: 95,
                 text: OpenLayers.i18n('logout'),
                 iconCls: 'md-mn mn-logout',
+                id: 'btnLogoutForm',
                 listeners: {
                     click: function () {
                         this.catalogue.logout();
@@ -140,6 +142,7 @@ GeoNetwork.LoginForm = Ext.extend(Ext.FormPanel, {
             emptyText: OpenLayers.i18n('username')
         });
         this.password = new Ext.form.TextField({
+        	id: 'password',
             name: 'password',
             width: 85,
             hideLabel: false,
