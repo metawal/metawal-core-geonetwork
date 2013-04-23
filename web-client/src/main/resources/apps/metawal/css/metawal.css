@@ -105,10 +105,10 @@ height: 107px;
 padding: 30px 65px 42px 7px;
 }
 #header_spw #header_spw-col1 p {
-    padding-bottom: 5px;
+    padding-bottom: 0;
     padding-left: 0;
     padding-right: 0;
-    padding-top: 5px;
+    padding-top: 0;
     display: block;
 }
 #header_spw a, #header_spw a:link, #header_spw a:visited {
@@ -200,4 +200,15 @@ font-size: 0;
 }
 #infoPanel .info a {
   color: #FFF;
+}
+#header_spw-col1-h2 {
+	color:white;
+	text-decoration:none;
+	font-size:16px;
+	text-transform: none;
+}
+#header_spw-col1-el1 {
+	position:absolute; 
+	top:50px; 
+	left:230px;
 }
