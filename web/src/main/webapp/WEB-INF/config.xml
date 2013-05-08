@@ -1481,6 +1481,11 @@
 		<service name="isolanguages">
 			<class name="org.fao.geonet.guiservices.isolanguages.Get" />
 		</service>
+		
+		<!-- Home page service for Metawal -->
+		<service name="search">
+			<output sheet="metawal-search.xsl"/>
+		</service>
 	</services>
 
 	<!-- ====================================================================== -->

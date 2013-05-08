@@ -1379,4 +1379,11 @@
 	<monitor>Monitor</monitor>
 	<concealed>Concealed</concealed>
 	<serviceNotAllowed>You do not have the correct permissions to access the following service {1}</serviceNotAllowed>
+	
+	<metawalHome>Home</metawalHome>
+	<metawalContact>Contact</metawalContact>
+	<metawalInformation>Information</metawalInformation>
+	<metawalGeoportalTitle>Geoportail of Wallonia</metawalGeoportalTitle>
+	<metawalMetawalTitle>Metawal - All Wallonia in metadata</metawalMetawalTitle>
+	
 </strings>

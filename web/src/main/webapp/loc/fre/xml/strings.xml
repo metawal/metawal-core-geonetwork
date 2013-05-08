@@ -1391,4 +1391,11 @@
 	
 	<tableIdent>Tables attributaires</tableIdent>
 	
+	
+	<metawalHome>Accueil</metawalHome>
+	<metawalContact>Contact</metawalContact>
+	<metawalInformation>Information</metawalInformation>
+	<metawalGeoportalTitle>Géoportail de Wallonie</metawalGeoportalTitle>
+	<metawalMetawalTitle>Metawal - Toute la Wallonie en métadonnées</metawalMetawalTitle>
+	
 </strings>

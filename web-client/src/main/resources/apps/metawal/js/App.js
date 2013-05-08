@@ -647,7 +647,7 @@ GeoNetwork.app = function () {
     // public space:
     return {
         init: function () {
-            geonetworkUrl = GeoNetwork.URL || window.location.href.match(/(http.*\/.*)\/apps\/metawal.*/, '')[1];
+            geonetworkUrl = GeoNetwork.URL || window.location.href.match(/(http.*\/.*)\/srv\/.*\/search.*/, '')[1];
 
             urlParameters = GeoNetwork.Util.getParameters(location.href);
             var lang = urlParameters.hl || GeoNetwork.Util.defaultLocale;

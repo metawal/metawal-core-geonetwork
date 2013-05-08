@@ -231,10 +231,10 @@ font-size: 0;
 }
 #username {
   width: 92px !important;
-  left: 45px !important;
+  left: 53px !important;
 }
 #password {
-  width: 92px !important;
+  width: 100px !important;
   left: 145px !important;
 }
 #btnAdministration {
@@ -248,4 +248,7 @@ font-size: 0;
 #btnLogoutForm {
   width: 95px !important;
   left: 150px !important;
+}
+.noprint1{
+  height:30px;
 }
