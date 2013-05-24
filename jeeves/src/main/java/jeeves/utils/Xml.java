@@ -23,6 +23,7 @@
 
 package jeeves.utils;
 
+import jeeves.constants.Jeeves;
 import jeeves.exceptions.XSDValidationErrorEx;
 import net.sf.saxon.Configuration;
 import net.sf.saxon.FeatureKeys;
@@ -73,13 +74,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
-import java.io.PrintWriter;
 import java.io.StringReader;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Method;
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.net.URLDecoder;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.charset.CharacterCodingException;
@@ -185,10 +187,10 @@ public final class Xml
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 			connection.setRequestMethod("POST"); 
 			connection.setRequestProperty("Content-Type", "application/xml");
-			connection.setRequestProperty("Content-Length", "" + Integer.toString(getString(xmlQuery).getBytes("UTF-8").length));
+			connection.setRequestProperty("Content-Length", "" + Integer.toString(getString(xmlQuery).getBytes(Jeeves.ENCODING).length));
 			connection.setRequestProperty("Content-Language", "en-US");
 			connection.setDoOutput(true);
-			PrintStream out = new PrintStream(connection.getOutputStream(), true, "UTF-8"); 
+			PrintStream out = new PrintStream(connection.getOutputStream(), true, Jeeves.ENCODING); 
 			out.print(getString(xmlQuery));
 			out.close();
 
@@ -260,7 +262,7 @@ public final class Xml
 			String encoding = detector.getDetectedCharset();
 			detector.reset();
 			if (encoding != null) {
-				if (!encoding.equals("UTF-8")) {
+				if (!encoding.equals(Jeeves.ENCODING)) {
 					Log.error(Log.JEEVES,"Detected character set "+encoding+", converting to UTF-8");
 					return convertByteArrayToUTF8ByteArray(buf, encoding);
 				}
@@ -293,7 +295,7 @@ public final class Xml
 		cset = Charset.forName(charsetName); // detected character set name
 		CharsetDecoder csetDecoder = cset.newDecoder();
 
-		Charset utf8 = Charset.forName("UTF-8");
+		Charset utf8 = Charset.forName(Jeeves.ENCODING);
 		CharsetEncoder utf8Encoder = utf8.newEncoder();
 
 		ByteBuffer inputBuffer = ByteBuffer.wrap(buf);
@@ -447,7 +449,19 @@ public final class Xml
         if(Log.isDebugEnabled(Log.XML_RESOLVER)) {
             Log.debug(Log.XML_RESOLVER, "Trying to resolve "+href+":"+base);
         }
-        Source s = catResolver.resolve(href, base);
+        String decodedBase;
+        try {
+            decodedBase = URLDecoder.decode(base, Jeeves.ENCODING);
+        } catch (UnsupportedEncodingException e1) {
+            decodedBase = base;
+        }
+        String decodedHref;
+        try {
+            decodedHref = URLDecoder.decode(href, Jeeves.ENCODING);
+        } catch (UnsupportedEncodingException e1) {
+            decodedHref = href;
+        }
+        Source s = catResolver.resolve(decodedHref, decodedBase);
         // If resolver has a blank XSL file to replace non existing resolved file ...
         String blankXSLFile = resolver.getBlankXSLFile();
         if (blankXSLFile != null && s.getSystemId().endsWith(".xsl")) {
@@ -513,7 +527,7 @@ public final class Xml
 		try {
 			transFact.setAttribute(FeatureKeys.VERSION_WARNING,false);
 			transFact.setAttribute(FeatureKeys.LINE_NUMBERING,true);
-			transFact.setAttribute(FeatureKeys.PRE_EVALUATE_DOC_FUNCTION,true);
+			transFact.setAttribute(FeatureKeys.PRE_EVALUATE_DOC_FUNCTION,false);
 			transFact.setAttribute(FeatureKeys.RECOVERY_POLICY,Configuration.RECOVER_SILENTLY);
 			// Add the following to get timing info on xslt transformations
 			//transFact.setAttribute(FeatureKeys.TIMING,true);
@@ -540,7 +554,8 @@ public final class Xml
 	public static void clearTransformerFactoryStylesheetCache() {
 		TransformerFactory transFact = TransformerFactory.newInstance();
 		try {
-			Method cacheMethod = transFact.getClass().getDeclaredMethod("clearCache", null);
+			Class<?> class1 = transFact.getClass();
+            Method cacheMethod = class1.getDeclaredMethod("clearCache");
 			cacheMethod.invoke(transFact, new Object[0]);
 		} catch (Exception e) {
 			Log.error(Log.ENGINE, "Failed to find/invoke clearCache method - continuing ("+e.getMessage()+")");
@@ -997,7 +1012,7 @@ public final class Xml
 	public synchronized static void validate(Document doc) throws Exception {
 		if (doc.getDocType() != null) { // assume DTD validation
 			SAXBuilder builder = getSAXBuilder(true);	
-			Document document = builder.build(new StringReader(getString(doc))); 
+			builder.build(new StringReader(getString(doc))); 
 		} 
 
 		Element xml = doc.getRootElement();

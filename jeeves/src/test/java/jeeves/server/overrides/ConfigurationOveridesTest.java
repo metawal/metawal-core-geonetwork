@@ -2,6 +2,7 @@ package jeeves.server.overrides;
 
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -10,11 +11,12 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.net.URLDecoder;
 import java.util.Collection;
 import java.util.List;
 
-import jeeves.config.springutil.GeonetworkFilterSecurityInterceptor;
 import jeeves.config.springutil.JeevesApplicationContext;
+import jeeves.constants.Jeeves;
 import jeeves.utils.Xml;
 
 import org.apache.log4j.Level;
@@ -22,13 +24,25 @@ import org.jdom.Element;
 import org.jdom.JDOMException;
 import org.junit.Test;
 import org.springframework.security.access.ConfigAttribute;
+import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 
 public class ConfigurationOveridesTest {
-    final ClassLoader classLoader = getClass().getClassLoader();
-    String appPath = new File(new File(classLoader.getResource("test-config.xml").getFile()).getParentFile(),"correct-webapp").getAbsolutePath();
-    String falseAppPath = new File(new File(classLoader.getResource("test-config.xml").getFile()).getParentFile(),"false-webapp").getAbsolutePath();
-    final ConfigurationOverrides.ResourceLoader loader = new ConfigurationOverrides.ServletResourceLoader(null, appPath);
+	private static final ClassLoader classLoader;
+    private static final String appPath;
+    private static final String falseAppPath;
+    private static final ConfigurationOverrides.ResourceLoader loader;
     
+    static {
+        try {
+            classLoader = ConfigurationOveridesTest.class.getClassLoader();
+            String base = URLDecoder.decode(classLoader.getResource("test-config.xml").getFile(), Jeeves.ENCODING);
+            appPath = new File(new File(base).getParentFile(), "correct-webapp").getAbsolutePath();
+            falseAppPath = new File(new File(base).getParentFile(), "false-webapp").getAbsolutePath();
+            loader = new ConfigurationOverrides.ServletResourceLoader(null, appPath);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
     @Test //@Ignore
     public void updateLoggingConfig() throws JDOMException, IOException {
         final Element overrides = Xml.loadFile(classLoader.getResource("correct-webapp/WEB-INF/overrides-config.xml"));
@@ -85,7 +99,7 @@ public class ConfigurationOveridesTest {
     @Test //@Ignore
     public void loadFile() throws JDOMException, IOException {
     	URL resourceAsStream = classLoader.getResource("test-sql.sql");
-    	BufferedReader reader = new BufferedReader(new InputStreamReader(resourceAsStream.openStream(), "UTF-8"));
+    	BufferedReader reader = new BufferedReader(new InputStreamReader(resourceAsStream.openStream(), Jeeves.ENCODING));
     	try {
     	    // note first , is intentional to verify that it will be ignored
 			List<String> lines = new ConfigurationOverrides("/WEB-INF/overrides-config.xml,/WEB-INF/overrides-config-overlay.xml").loadTextFileAndUpdate("test-sql.sql", null, appPath, reader);
@@ -100,7 +114,6 @@ public class ConfigurationOveridesTest {
     		reader.close();
     	}
     }
-    
     @Test //@Ignore
     public void updateSpringConfiguration() throws JDOMException, IOException {
         JeevesApplicationContext applicationContext = new JeevesApplicationContext(new ConfigurationOverrides("/WEB-INF/test-spring-config-overrides.xml"));
@@ -131,17 +144,32 @@ public class ConfigurationOveridesTest {
         assertEquals("astring", testBean.getBasicProp2());
         assertTrue("testBeans doesn't contain 'newString' in its collection of strings", testBean.getCollectionProp().contains("newString"));
         
-        GeonetworkFilterSecurityInterceptor filterSecurityInterceptor = applicationContext.getBean("filterSecurityInterceptor", GeonetworkFilterSecurityInterceptor.class);
+        FilterSecurityInterceptor filterSecurityInterceptor = applicationContext.getBean("filterSecurityInterceptor", FilterSecurityInterceptor.class);
         Collection<ConfigAttribute> attributes = filterSecurityInterceptor.getSecurityMetadataSource().getAllConfigAttributes();
-        String expectedExp = "hasRole('Administrator')";
+        assertInterceptUrl(attributes, "hasRole('Administrator')");
+        assertInterceptUrl(attributes, "hasRole('RegisteredUser')");
+        assertNotInterceptUrl(attributes, "hasRole('REMOVE')");
+        assertNotInterceptUrl(attributes, "hasRole('SET')");
+    }
+    private void assertInterceptUrl(Collection<ConfigAttribute> attributes, String expectedExp) {
+        assertInterceptUrl(attributes, expectedExp, true);
+    }
+    private void assertNotInterceptUrl(Collection<ConfigAttribute> attributes, String expectedExp) {
+        assertInterceptUrl(attributes, expectedExp, false);
+    }
+    private void assertInterceptUrl(Collection<ConfigAttribute> attributes, String expectedExp, boolean assertTrue) {
         boolean found = false;
         for (ConfigAttribute configAttribute : attributes) {
             if(configAttribute.toString().equals(expectedExp)) {
                 found = true;
             }
         }
-        
-        assertTrue(attributes+" does not contain "+expectedExp, found);
+
+        if(assertTrue) {
+            assertTrue(attributes+" does not contain "+expectedExp, found);
+        } else {
+            assertFalse(attributes+" contains "+expectedExp, found);
+        }
     }
 
     @Test //@Ignore

@@ -173,7 +173,7 @@ GeoNetwork.Templates.THUMBNAIL = new Ext.XTemplate(
                     '<tpl for="links">',
                     '<tpl if="values.type == \'application/vnd.ogc.wms_xml\'">',
                     // FIXME : ref to app
-                        '<a href="#" class="md-mn addLayer" title="{title}" alt="{title}" onclick="app.switchMode(\'1\', true);app.getIMap().addWMSLayer([[\'{title}\', \'{href}\', \'{name}\', \'{uuid}\']]);">&nbsp;</a>',
+                        '<a href="#" class="md-mn addLayer" title="{title}" alt="{title}" onclick="app.switchMode(\'1\', true);app.getIMap().addWMSLayer([[\'{title}\', \'{href}\', \'{name}\', \'{parent.uuid}\']]);">&nbsp;</a>',
                     '</tpl>',
                     '</tpl>',
                 '</div>',
@@ -254,6 +254,9 @@ GeoNetwork.Templates.FULL = new Ext.XTemplate(
                       '<br/><span class="md-mn md-mn-user" title="' + OpenLayers.i18n('ownerName') + '">{ownername} - ' + OpenLayers.i18n('lastUpdate') + '{[values.changedate.split(\'T\')[0]]}</span>',
                   '</tpl>',
                 '</div>',
+//                '<tpl if="edit==\'true\' && idxMsg">',
+//                    '<div class="label label-warning">{idxMsg}</div>',
+//                '</tpl>',
             '</li>',
         '</tpl>',
     '</ul>',

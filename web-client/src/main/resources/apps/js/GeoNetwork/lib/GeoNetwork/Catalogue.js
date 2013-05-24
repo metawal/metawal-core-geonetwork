@@ -205,13 +205,6 @@ GeoNetwork.Catalogue = Ext.extend(Ext.util.Observable, {
      */
     identifiedUser: undefined,
     
-    /** api: property[adminUser]
-     *  ``Boolean`` True if user is admin
-     *
-     *  FIXME : How to handle login/logout the best way ?
-     */
-    adminUser: false,
-    
     metadataEditFn: undefined,
     /** api: config[adminAppUrl]
      *  ``String`` URL to the administration interface
@@ -271,6 +264,7 @@ GeoNetwork.Catalogue = Ext.extend(Ext.util.Observable, {
         this.services = {
             rootUrl: serviceUrl,
             csw: serviceUrl + 'csw',
+            feedback: serviceUrl + 'feedback.send',
             xmlSearch: serviceUrl + 'xml.search',
             mdSelect: serviceUrl + 'metadata.select',
             mdView: serviceUrl + 'view',
@@ -372,6 +366,9 @@ GeoNetwork.Catalogue = Ext.extend(Ext.util.Observable, {
             searchCRS: serviceUrl + 'crs.search',
             getCRSTypes: serviceUrl + 'crs.types',
             logoAdd: serviceUrl + 'logo.add',
+            updatePassword: serviceUrl + 'user.pwedit?id=',
+            updateUserInfo: serviceUrl + 'user.infoedit?id=',
+            harvestingAdmin: serviceUrl + 'harvesting',
             logoUrl: this.URL + '/images/logos/',
             imgUrl: this.URL + '/images/',
             harvesterLogoUrl: this.URL + '/images/harvesting/'
@@ -413,7 +410,7 @@ GeoNetwork.Catalogue = Ext.extend(Ext.util.Observable, {
      *  Return true if current user is an admin
      */
     isAdmin: function(){
-        return this.adminUser;
+        return this.identifiedUser.role === "Administrator";
     },
     /** api: method[isReadOnly]
      *  Return true if GN is is read-only mode
@@ -972,7 +969,15 @@ GeoNetwork.Catalogue = Ext.extend(Ext.util.Observable, {
             }
         break;
         default: 
-            window.open(this.services.mdEdit + '?id=' + id, this.windowName, this.windowOption);
+            var url;
+            if (create) {
+                child = child ? 'y' : 'n';
+                url = this.services.mdCreate + '?id=' + id + '&group=' + group +
+                    '&template=' + isTemplate + '&child=' + child;
+            } else {
+                url = this.services.mdEdit + '?id=' + id;
+            }
+            window.open(url, this.windowName, this.windowOption);
         }
     },
     /** api: method[metadataDuplicate]
@@ -1093,9 +1098,12 @@ GeoNetwork.Catalogue = Ext.extend(Ext.util.Observable, {
         
         if (response.status === 200 && authenticated) {
             this.identifiedUser = {
+                id: me.getElementsByTagName('id')[0].innerText || me.getElementsByTagName('id')[0].textContent,
                 username: me.getElementsByTagName('username')[0].innerText || me.getElementsByTagName('username')[0].textContent,
                 name: me.getElementsByTagName('name')[0].innerText || me.getElementsByTagName('name')[0].textContent,
                 surname: me.getElementsByTagName('surname')[0].innerText || me.getElementsByTagName('surname')[0].textContent,
+                email: me.getElementsByTagName('email')[0].innerText || me.getElementsByTagName('email')[0].textContent,
+                hash: me.getElementsByTagName('hash')[0].innerText || me.getElementsByTagName('hash')[0].textContent,
                 role: me.getElementsByTagName('profile')[0].innerText || me.getElementsByTagName('profile')[0].textContent
             };
             this.onAfterLogin();
@@ -1245,10 +1253,17 @@ GeoNetwork.Catalogue = Ext.extend(Ext.util.Observable, {
      *  Open the administration interface according to adminAppUrl properties.
      */
     admin: function(){
-        location.replace(this.adminAppUrl);
+        location.href = this.adminAppUrl;
+    },
+    /** api: method[admin]
+    *
+    *  Open the administration interface according to adminAppUrl properties.
+    */
+    moveToURL: function(url){
+        location.href = url;
     },
     metadataImport: function(){
-        location.replace(this.services.mdImport);
+        location.href = this.services.mdImport;
     },
     /**	api: method[massiveOp]
      *  :param type: Type of massive operation. One of ``NewOwner``,

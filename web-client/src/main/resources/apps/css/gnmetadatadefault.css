@@ -438,6 +438,7 @@ div.button {
 }
 .tgDown {
   background-image : url(../images/default/bullet_arrow_down.png);
+  background-position: 50% 50%;
 }
 .edit {
   background-image : url(../images/default/page_white.png) !important;
@@ -491,6 +492,9 @@ div.button {
 }
 .book {
   background-image : url(../images/default/book.png) !important;
+}
+.feedback {
+    background-image : url(../images/default/feedback.png) !important;
 }
 .subtemplateIcon {
   background-image : url(../images/default/report_magnify.png) !important;

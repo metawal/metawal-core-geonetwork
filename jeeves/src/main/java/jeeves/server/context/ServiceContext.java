@@ -23,7 +23,7 @@
 
 package jeeves.server.context;
 
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.CheckForNull;
@@ -90,6 +90,28 @@ public class ServiceContext extends BasicContext
 	private boolean startupError = false;
 	Map<String,String> startupErrors;
     private XmlCacheManager xmlCacheManager;
+    /**
+     * Property to be able to add custom response headers depending on the code
+     * (and not the xml of Jeeves)
+     * 
+     * Be very careful using this, because right now Jeeves doesn't check the
+     * headers. Can lead to infinite loops or wrong behaviour.
+     * 
+     * @see #statusCode
+     * 
+     */
+    private Map<String, String> responseHeaders;
+    /**
+     * Property to be able to add custom http status code headers depending on
+     * the code (and not the xml of Jeeves)
+     * 
+     * Be very careful using this, because right now Jeeves doesn't check the
+     * headers. Can lead to infinite loops or wrong behaviour.
+     * 
+     * @see #responseHeaders
+     * 
+     */
+    private Integer statusCode;
 
 	//--------------------------------------------------------------------------
 	//---
@@ -104,6 +126,8 @@ public class ServiceContext extends BasicContext
 		this.xmlCacheManager = cacheManager;
 		profilMan    = p;
 		setService(service);
+
+        setResponseHeaders(new HashMap<String, String>());
 	}
 
 	//--------------------------------------------------------------------------
@@ -236,10 +260,26 @@ public class ServiceContext extends BasicContext
 			throw new ServiceExecutionFailedException(request.getService(),e);
 		}
 	}
-
+    
     public XmlCacheManager getXmlCacheManager() {
         return this.xmlCacheManager;
     }
+    public Map<String, String> getResponseHeaders() {
+        return responseHeaders;
+    }
+
+    private void setResponseHeaders(Map<String, String> responseHeaders) {
+        this.responseHeaders = responseHeaders;
+    }
+
+    public void setStatusCode(Integer statusCode) {
+        this.statusCode = statusCode;
+    }
+
+    public Integer getStatusCode() {
+        return statusCode;
+    }
+
 
 }
 

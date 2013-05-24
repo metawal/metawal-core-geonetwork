@@ -86,6 +86,7 @@ import org.fao.geonet.lib.ServerLib;
 import org.fao.geonet.notifier.MetadataNotifierControl;
 import org.fao.geonet.notifier.MetadataNotifierManager;
 import org.fao.geonet.resources.Resources;
+import org.fao.geonet.services.metadata.StatusActions;
 import org.fao.geonet.services.util.z3950.Repositories;
 import org.fao.geonet.services.util.z3950.Server;
 import org.fao.geonet.util.ThreadPool;
@@ -138,7 +139,6 @@ public class Geonetwork implements ApplicationHandler {
 	/**
      * Inits the engine, loading all needed data.
 	  */
-	@SuppressWarnings(value = "unchecked")
 	public Object start(Element config, ServiceContext context) throws Exception {
 		logger = context.getLogger();
 
@@ -158,7 +158,9 @@ public class Geonetwork implements ApplicationHandler {
 		logger.info("Initializing GeoNetwork " + version +  "." + subVersion +  " ...");
 
 		// Get main service config handler
-		ServiceConfig handlerConfig = new ServiceConfig(config.getChildren());
+		@SuppressWarnings("unchecked")
+        List<Element> serviceConfigElems = config.getChildren();
+        ServiceConfig handlerConfig = new ServiceConfig(serviceConfigElems);
 		
 		// Init configuration directory
 		new GeonetworkDataDirectory(webappName, path, handlerConfig, context.getServlet());
@@ -177,7 +179,8 @@ public class Geonetwork implements ApplicationHandler {
 
 		// Status actions class - load it
 		String statusActionsClassName = handlerConfig.getMandatoryValue(Geonet.Config.STATUS_ACTIONS_CLASS); 
-		Class statusActionsClass = Class.forName(statusActionsClassName);
+		@SuppressWarnings("unchecked")
+        Class<StatusActions> statusActionsClass = (Class<StatusActions>) Class.forName(statusActionsClassName);
 
         String languageProfilesDir = handlerConfig
                 .getMandatoryValue(Geonet.Config.LANGUAGE_PROFILES_DIR);
@@ -185,8 +188,8 @@ public class Geonetwork implements ApplicationHandler {
 		JeevesJCS.setConfigFilename(path + "WEB-INF/classes/cache.ccf");
 
 		// force caches to be config'd so shutdown hook works correctly
-		JeevesJCS jcsDummy = JeevesJCS.getInstance(Processor.XLINK_JCS);
-		jcsDummy = JeevesJCS.getInstance(XmlResolver.XMLRESOLVER_JCS);
+		JeevesJCS.getInstance(Processor.XLINK_JCS);
+		JeevesJCS.getInstance(XmlResolver.XMLRESOLVER_JCS);
 
 		
 
@@ -228,7 +231,6 @@ public class Geonetwork implements ApplicationHandler {
 
 		boolean z3950Enable    = settingMan.getValueAsBool("system/z3950/enable", false);
 		String  z3950port      = settingMan.getValue("system/z3950/port");
-		String  host           = settingMan.getValue(Geonet.Settings.SERVER_HOST);
 
 		// null means not initialized
 		ApplicationContext app_context = null;
@@ -559,25 +561,6 @@ public class Geonetwork implements ApplicationHandler {
     }
 
     /**
-     *
-     * @param webappName
-     * @param handlerConfig
-     * @param dataDir
-     * @return
-     */
-    private String locateThesaurusDir(String webappName, ServiceConfig handlerConfig, String dataDir) {
-        String defaultThesaurusDir = handlerConfig.getValue(Geonet.Config.CODELIST_DIR, null);
-        String thesaurusSystemDir = System.getProperty(webappName + ".codeList.dir");
-        String thesauriDir = (thesaurusSystemDir != null ? thesaurusSystemDir :
-                                (defaultThesaurusDir != null ? defaultThesaurusDir : dataDir + "/codelist/")
-                                );
-        thesauriDir = new File(thesauriDir).getAbsoluteFile().getPath();
-        handlerConfig.setValue(Geonet.Config.CODELIST_DIR, thesauriDir);
-        System.setProperty(webappName + ".codeList.dir", thesauriDir);
-        return thesauriDir;
-    }
-
-    /**
      * Parses a version number removing extra "-*" element and returning an integer. "2.7.0-SNAPSHOT" is returned as 270.
      * 
      * @param number The version number to parse
@@ -636,7 +619,7 @@ public class Geonetwork implements ApplicationHandler {
 				//&& subVersion.equals(dbSubVersion) Check only on version number
 		) {
 			logger.info("      Webapp version = Database version, no migration task to apply.");
-		} else {
+		} else if (to > from) {
 			boolean anyMigrationAction = false;
 			boolean anyMigrationError = false;
 			
@@ -730,6 +713,8 @@ public class Geonetwork implements ApplicationHandler {
                 logger.warning("      Error occurs during migration. Check the log file for more details.");
             }
 			// TODO : Maybe some migration stuff has to be done in Java ?
+		} else {
+	          logger.info("      Running on a newer database version.");
 		}
 	}
 
@@ -934,13 +919,15 @@ public class Geonetwork implements ApplicationHandler {
 	private DataStore createShapefileDatastore(String indexDir) throws Exception {
 
 		File file = new File(indexDir + "/" + SPATIAL_INDEX_FILENAME + ".shp");
-		file.getParentFile().mkdirs();
+		if(!file.getParentFile().mkdirs() && !file.getParentFile().exists()) {
+		    throw new RuntimeException("Unable to create the spatial index (shapefile) directory: "+file.getParentFile());
+		}
 		if (!file.exists()) {
 			logger.info("Creating shapefile "+file.getAbsolutePath());
 		} else {
 			logger.info("Using shapefile "+file.getAbsolutePath());
 		}
-		IndexedShapefileDataStore ids = new IndexedShapefileDataStore(file.toURI().toURL(), new URI("http://geonetwork.org"), false, false, IndexType.QIX, Charset.forName("UTF-8"));
+		IndexedShapefileDataStore ids = new IndexedShapefileDataStore(file.toURI().toURL(), new URI("http://geonetwork.org"), false, false, IndexType.QIX, Charset.forName(Jeeves.ENCODING));
 		CoordinateReferenceSystem crs = CRS.decode("EPSG:4326");
 
 		if (crs != null) {

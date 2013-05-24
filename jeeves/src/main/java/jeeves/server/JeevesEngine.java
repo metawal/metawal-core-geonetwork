@@ -33,11 +33,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
@@ -71,9 +68,7 @@ import jeeves.utils.Xml;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.PropertyConfigurator;
-import org.jdom.Document;
 import org.jdom.Element;
-import org.jdom.output.XMLOutputter;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 //=============================================================================
@@ -260,7 +255,7 @@ public class JeevesEngine
         try {
             
             if(in != null) {
-                br = new BufferedReader(new InputStreamReader(in, "UTF-8"));
+                br = new BufferedReader(new InputStreamReader(in, Jeeves.ENCODING));
                 String line;
                 while ((line = br.readLine()) != null)   {
                     if(line.length() == 0) {
@@ -409,15 +404,17 @@ public class JeevesEngine
             error("   Stack     : " +Util.getStackTrace(e));
 	    }
 
-		File uploadDirFile = new File(uploadDir);
-        if (!uploadDirFile.isAbsolute())
+        if (!new File(uploadDir).isAbsolute())
 			uploadDir = appPath + uploadDir;
 
-		if (!uploadDir.endsWith("/"))
-			uploadDir += "/";
+        if (!uploadDir.endsWith("/"))
+            uploadDir += "/";
 
+		File uploadDirFile = new File(uploadDir);
 		if( !uploadDirFile.mkdirs() && !uploadDirFile.exists()) {
 		    throw new RuntimeException("Unable to make upload directory: "+uploadDirFile);
+		} else {
+		    Log.info(Log.JEEVES, "Upload directory is: "+uploadDir);
 		}
 
 		debugFlag = "true".equals(general.getChildText(ConfigFile.General.Child.DEBUG));
@@ -565,7 +562,6 @@ public class JeevesEngine
 	//---
 	//---------------------------------------------------------------------------
 
-	@SuppressWarnings("unchecked")
 	private void initAppHandler(Element handler, JeevesServlet servlet, JeevesApplicationContext jeevesApplicationContext) throws Exception
 	{
 		if (handler == null)
@@ -581,7 +577,7 @@ public class JeevesEngine
 
 			info("Found handler : " +className);
 
-			Class c = Class.forName(className);
+			Class<?> c = Class.forName(className);
 
 			ApplicationHandler h = (ApplicationHandler) c.newInstance();
 
@@ -831,23 +827,21 @@ public class JeevesEngine
         try {
             Element eltServices = new Element("services");
             eltServices.setAttribute("package", "org.fao.geonet");
-            java.util.List serviceList = _dbms.select("SELECT * FROM Services")
+            String selectServiceQuery = "SELECT * FROM Services";
+            @SuppressWarnings("unchecked")
+            java.util.List<Element> serviceList = _dbms.select(selectServiceQuery)
                     .getChildren();
 
             if (!dbLoaded) {
-                for (int j = 0; j < serviceList.size(); j++) {
-
-                    Element eltService = (Element) serviceList.get(j);
+                for (Element eltService : serviceList) {
                     Element srv = new Element("service");
                     Element cls = new Element("class");
-                    java.util.List paramList = _dbms
-                            .select("SELECT name, value FROM ServiceParameters WHERE service =?",
-                                    Integer.valueOf(eltService
-                                            .getChildText("id"))).getChildren();
+                    String selectServiceParamsQuery = "SELECT name, value FROM ServiceParameters WHERE service =?";
+                    Integer serviceId = Integer.valueOf(eltService.getChildText("id"));
+                    @SuppressWarnings("unchecked")
+                    java.util.List<Element> paramList = _dbms.select(selectServiceParamsQuery, serviceId).getChildren();
 
-                    for (int k = 0; k < paramList.size(); k++) {
-                        Element eltParam = (Element) paramList.get(k);
-                        String paramId = eltParam.getChildText("id");
+                    for (Element eltParam : paramList) {
                         if (eltParam.getChildText("value") != null
                                 && !eltParam.getChildText("value").equals("")) {
                             cls.addContent(new Element("param").setAttribute(
