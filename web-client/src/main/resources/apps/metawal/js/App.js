@@ -97,7 +97,16 @@ GeoNetwork.app = function () {
             renderTo: 'login-form',
             catalogue: catalogue,
             layout: 'hbox',
-            hideLoginLabels: GeoNetwork.hideLoginLabels
+            searchForm: Ext.getCmp('searchForm'),
+            hideLoginLabels: GeoNetwork.hideLoginLabels,
+            withUserMenu: true,
+            userInfoTpl: new Ext.XTemplate('<tpl for=".">', 
+                    '<span class="gn-login">{name} {surname}</span>',
+                    '</tpl>'),
+            userInfoToolTipTpl: new Ext.XTemplate('<tpl for=".">', 
+                    '<span class="gn-login">{name} {surname}</span><br/>',
+                    '<span class="gn-role">{role}</span>',
+                    '</tpl>')
         });
         
         catalogue.on('afterBadLogin', loginAlert, this);
@@ -476,7 +485,7 @@ GeoNetwork.app = function () {
             autoWidth: true,
             contentEl: 'infoContent',
             autoLoad: {
-                url: 'home_' + catalogue.LANG + '.html',
+                url: '../../apps/metawal/home_' + catalogue.LANG + '.html',
                 callback: loadCallback,
                 scope: this,
                 loadScripts: false
@@ -497,7 +506,7 @@ GeoNetwork.app = function () {
             autoWidth: true,
             renderTo: 'shortcut',
             autoLoad: {
-                url: 'help_' + catalogue.LANG + '.html',
+                url: '../../apps/metawal/help_' + catalogue.LANG + '.html',
                 callback: initShortcut,
                 scope: this,
                 loadScripts: false
@@ -946,7 +955,7 @@ GeoNetwork.app = function () {
 
 Ext.onReady(function () {
     var lang = /hl=([a-z]{3})/.exec(location.href);
-    GeoNetwork.Util.setLang(lang && lang[1], '..');
+    GeoNetwork.Util.setLang(lang && lang[1], '../../apps/');
 
     Ext.QuickTips.init();
     setTimeout(function () {
