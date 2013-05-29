@@ -250,3 +250,14 @@ font-size: 0;
 .noprint1{
   height:30px;
 }
+.HomeText
+{
+  width: 65%;
+  float: left;
+}
+.latest {
+width: 98%;
+}
+.info {
+margin-top: 0px;
+}
