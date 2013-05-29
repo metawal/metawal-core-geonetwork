@@ -13,9 +13,9 @@
 		<Layer queryable="0" hidden="0">
 			<Server service="OGC:WMS" version="1.1.1">
 				<OnlineResource xlink:type="simple"
-					xlink:href="http://cartopro1.wallonie.be/WMS/com.esri.wms.Esrimap/Donnees_localisation"/>
+					xlink:href="http://geoservices.valid.wallonie.be/arcgis/services/DONNEES_BASE/FDP_LIGHT/MapServer/WMSServer"/>
 			</Server>
-			<Name>COMMUNE,VOIRIES_PRINC</Name>
+			<Name>0,1,2</Name>
 			<Title>Fond de carte</Title>
 			<FormatList>
 				<Format current="1">image/png</Format>
