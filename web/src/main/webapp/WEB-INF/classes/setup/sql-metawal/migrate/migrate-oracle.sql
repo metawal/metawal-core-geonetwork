@@ -285,45 +285,20 @@ CREATE INDEX MetadataNDX3 ON Metadata(owner);
 ALTER TABLE Validation ADD FOREIGN KEY (metadataId) REFERENCES Metadata (id);  
 ALTER TABLE StatusValuesDes ADD FOREIGN KEY (idDes) REFERENCES StatusValues (id);
 ALTER TABLE StatusValuesDes ADD FOREIGN KEY (langId) REFERENCES Languages (id);
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
 
+CREATE TABLE Services (
+    id         int,
+    name       varchar(64)   not null,
+    class       varchar(1048)   not null,
+    description       varchar(1048),
+    primary key(id)
+  );
 
-  
+CREATE TABLE ServiceParameters (
+    id         int,
+    service     int,
+    name       varchar(64)   not null,
+    value       varchar(1048)   not null,
+    primary key(id),
+    foreign key(service) references Services(id)
+  );
