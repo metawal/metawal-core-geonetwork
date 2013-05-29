@@ -5,6 +5,9 @@
     margin-top: 0;
     width: 960px;
 }
+.info {
+    height: auto;
+}
 .grid_16 {
     display: inline;
     float: left;
