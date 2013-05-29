@@ -8,6 +8,9 @@
 .info {
     height: auto;
 }
+.info h3 {
+    color: #FFF !important;
+}
 .grid_16 {
     display: inline;
     float: left;
