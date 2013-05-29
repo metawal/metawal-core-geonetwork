@@ -18,7 +18,7 @@
     
     <!-- JS Client configuration -->
     <!--   config for dev -->
-    <widget.url>search</widget.url>
+    <widget.url>../fre/search</widget.url>
     <widget.parameters>hl=fre</widget.parameters>
   </properties>
 </overrides>

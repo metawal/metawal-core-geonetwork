@@ -79,7 +79,7 @@ GeoNetwork.app = function () {
                 value: lang,
                 listeners: {
                     select: function (cb, record, idx) {
-                        window.location.replace('?hl=' + cb.getValue());
+                        location = '../' + cb.getValue() + '/search?hl=' + cb.getValue();
                     }
                 }
             })]
@@ -912,24 +912,6 @@ GeoNetwork.app = function () {
                 w = Ext.getCmp('west'),
                 currentMode;
             
-            // Set discovery mode as default if undefined
-            if (mode === null) {
-                currentMode = ms.getValue().getGroupValue();
-                if (currentMode === '0') {
-                    ms.onSetValue(Ext.getCmp('visualizationMode'), true);
-                } else {
-                    ms.onSetValue(Ext.getCmp('discoveryMode'), true);
-                }
-                mode = currentMode = ms.getValue().getGroupValue();
-            }
-            
-            if (force) {
-                if (mode === '1') {
-                    ms.onSetValue(Ext.getCmp('visualizationMode'), true);
-                } else {
-                    ms.onSetValue(Ext.getCmp('discoveryMode'), true);
-                }
-            }
             
             if (mode === '1' && !visualizationModeInitialized) {
                 initMap();
