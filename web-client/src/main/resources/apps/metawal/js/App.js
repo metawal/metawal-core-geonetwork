@@ -79,7 +79,7 @@ GeoNetwork.app = function () {
                 value: lang,
                 listeners: {
                     select: function (cb, record, idx) {
-                        window.location.replace('?hl=' + cb.getValue());
+                        location = '../' + cb.getValue() + '/search?hl=' + cb.getValue();
                     }
                 }
             })]
