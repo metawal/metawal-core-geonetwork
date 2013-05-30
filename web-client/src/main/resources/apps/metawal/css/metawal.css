@@ -11,6 +11,9 @@
 .info h3 {
     color: #FFF !important;
 }
+#header > div {
+    width: 100%;
+}
 .grid_16 {
     display: inline;
     float: left;

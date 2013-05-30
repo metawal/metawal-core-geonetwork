@@ -94,3 +94,40 @@ GeoNetwork.map.MAIN_MAP_OPTIONS = {
  controls: [],
  theme:null
 };
+
+Metawal = {
+  config : {
+    walOnMap: {
+      url: 'http://geoportail.wallonie.be/walonmap/?agsDynUrls=',
+      check: 'http://geoservices.wallonie.be/arcgis/rest'
+    }
+  }
+};
+
+
+GeoNetwork.Templates.THUMBNAIL = new Ext.XTemplate(
+        '<ul>',
+            '<tpl for=".">',
+                '<li class="md md-thumbnail" style="{featurecolorCSS}">',
+                '<div class="md-wrap" id="{uuid}" title="{abstract}">',
+                    GeoNetwork.Templates.SHORT_TITLE,
+                    '<div class="thumbnail">',
+                        '<tpl if="thumbnail">',
+                            '<a rel="lightbox" href="{overview}"><img src="{thumbnail}" alt="Thumbnail"/></a>', 
+                        '</tpl>',
+                        '<tpl if="thumbnail==\'\'"></tpl>',
+                    '</div>',
+                    '<tpl for="links">',
+                    '<tpl if="values.href.indexOf(\'' + Metawal.config.walOnMap.check + '\') == 0">',
+                        '<a href="#" class="md-mn addLayer" title="{title}" alt="{title}" onclick="window.open(\'' + Metawal.config.walOnMap.url + '{href}&metadataUrl={parent.uuid}\', \'walOnMap\');">&nbsp;</a>',
+                    '</tpl>',
+//                    '<tpl if="values.type == \'application/vnd.ogc.wms_xml\'">',
+//                    // FIXME : ref to app
+//                        '<a href="#" class="md-mn addLayer" title="{title}" alt="{title}" onclick="app.switchMode(\'1\', true);app.getIMap().addWMSLayer([[\'{title}\', \'{href}\', \'{name}\', \'{parent.uuid}\']]);">&nbsp;</a>',
+//                    '</tpl>',
+                    '</tpl>',
+                '</div>',
+                '</li>',
+            '</tpl>',
+        '</ul>'
+    );

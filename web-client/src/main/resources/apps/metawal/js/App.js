@@ -396,6 +396,11 @@ GeoNetwork.app = function () {
             displaySerieMembers: true,
             autoScroll: true,
             tpl: GeoNetwork.Templates.FULL,
+            templates: {
+                SIMPLE: GeoNetwork.Templates.SIMPLE,
+                THUMBNAIL: GeoNetwork.Templates.THUMBNAIL,
+                FULL: GeoNetwork.Templates.FULL
+            },
             featurecolor: GeoNetwork.Settings.results.featurecolor,
             colormap: GeoNetwork.Settings.results.colormap,
             featurecolorCSS: GeoNetwork.Settings.results.featurecolorCSS
@@ -655,6 +660,27 @@ GeoNetwork.app = function () {
     
     // public space:
     return {
+    	switchMode: function () {},
+        getIMap: function () {return this;},
+        addWMC: function(url) {
+        	// Not supported
+        },
+        addWMSLayer: function (args) {
+            var layer = args[0];
+            
+            // Send layers (no service) to mapfishapp
+            var jsonObject = {services: [], layers: []};
+            
+            if (layer[2]) {
+                jsonObject.layers.push({
+                    layername: layer[2],
+                    metadataURL: app.getCatalogue().URL + '?uuid=' + layer[3],
+                    owstype: 'WMS',
+                    owsurl: layer[1],
+                    title: layer[0]
+                });
+            }
+        },
         init: function () {
             geonetworkUrl = GeoNetwork.URL || window.location.href.match(/(http.*\/.*)\/srv\/.*\/search.*/, '')[1];
 
@@ -836,15 +862,6 @@ GeoNetwork.app = function () {
                     searchForm.fireEvent('search');
                 }, 500);
             }
-        },
-        getIMap: function () {
-            // init map if not yet initialized
-            if (!iMap) {
-                initMap();
-            }
-            
-            // TODO : maybe we should switch to visualization mode also ?
-            return iMap;
         },
         getCatalogue: function () {
             return catalogue;
