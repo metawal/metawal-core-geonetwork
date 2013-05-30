@@ -63,7 +63,9 @@
 				<!-- A filter that check if an external service already authenticated user
 					 (default implementation does nothing but can be overridden) -->
 				<ref bean="preAuthenticationFilter" />
+				<!--
 				<ref bean="basicAuthenticationFilter" />
+				-->
 				<ref bean="formLoginFilter" />
 				<ref bean="requestCacheFilter" />
 				<ref bean="anonymousFilter" />
