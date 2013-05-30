@@ -98,7 +98,7 @@ GeoNetwork.map.MAIN_MAP_OPTIONS = {
 Metawal = {
   config : {
     walOnMap: {
-      url: 'http://geoportail.wallonie.be/walonmap/?agsDynUrls=',
+      url: 'http://geoportail.wallonie.be/walonmap/?',
       check: 'http://geoservices.wallonie.be/arcgis/rest'
     }
   }
@@ -119,7 +119,7 @@ GeoNetwork.Templates.THUMBNAIL = new Ext.XTemplate(
                     '</div>',
                     '<tpl for="links">',
                     '<tpl if="values.href.indexOf(\'' + Metawal.config.walOnMap.check + '\') == 0">',
-                        '<a href="#" class="md-mn addLayer" title="{title}" alt="{title}" onclick="window.open(\'' + Metawal.config.walOnMap.url + '{href}&metadataUrl={parent.uuid}\', \'walOnMap\');">&nbsp;</a>',
+                        '<a href="#" class="md-mn addLayer" title="{title}" alt="{title}" onclick="window.open(\'' + Metawal.config.walOnMap.url + 'agsDynUrls={href}&metadataUrl=' + location.origin + location.pathname + '?uuid={parent.uuid}\', \'walOnMap\');">&nbsp;</a>',
                     '</tpl>',
 //                    '<tpl if="values.type == \'application/vnd.ogc.wms_xml\'">',
 //                    // FIXME : ref to app

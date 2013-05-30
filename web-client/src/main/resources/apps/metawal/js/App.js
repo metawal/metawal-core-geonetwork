@@ -668,18 +668,9 @@ GeoNetwork.app = function () {
         addWMSLayer: function (args) {
             var layer = args[0];
             
-            // Send layers (no service) to mapfishapp
-            var jsonObject = {services: [], layers: []};
-            
-            if (layer[2]) {
-                jsonObject.layers.push({
-                    layername: layer[2],
-                    metadataURL: app.getCatalogue().URL + '?uuid=' + layer[3],
-                    owstype: 'WMS',
-                    owsurl: layer[1],
-                    title: layer[0]
-                });
-            }
+            window.open(Metawal.config.walOnMap.url + 'wmlUrl=' + layer[1] 
+              + '&layerName=' + layer[2] 
+              + '&metadataUrl=' + location.origin + location.pathname + '?uuid=' + layer[3], 'walOnMap');
         },
         init: function () {
             geonetworkUrl = GeoNetwork.URL || window.location.href.match(/(http.*\/.*)\/srv\/.*\/search.*/, '')[1];
@@ -794,35 +785,9 @@ GeoNetwork.app = function () {
                     split: true,
                     margins: margins,
                     items: [infoPanel, resultsPanel]
-                }, {
-                    region: 'east',
-                    id: 'east',
-                    layout: 'fit',
-                    split: true,
-                    collapsible: true,
-                    hideCollapseTool: true,
-                    collapseMode: 'mini',
-                    collapsed: true,
-                    hidden: !GeoNetwork.MapModule,
-                    margins: margins,
-                    minWidth: 300,
-                    width: 500,
-                    listeners: {
-                        beforeexpand: function () {
-                            app.getIMap();
-                            this.add(iMap.getViewport());
-                            this.doLayout();
-                        }
-                    }
                 }]
             });
             
-            /* Trigger visualization mode if mode parameter is 1 
-             TODO : Add visualization only mode with legend panel on
-             */
-            if (urlParameters.mode) {
-                app.switchMode(urlParameters.mode, false);
-            }
             if (urlParameters.edit !== undefined && urlParameters.edit !== '') {
                 catalogue.metadataEdit(urlParameters.edit);
             }
