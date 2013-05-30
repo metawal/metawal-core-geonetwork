@@ -879,45 +879,6 @@ GeoNetwork.app = function () {
             GeoNetwork.Util.updateHeadInfo({
                 title: catalogue.getInfo().name + ' | ' + title
             });
-        },
-        /**
-         * Switch from one mode to another
-         *
-         * @param mode
-         * @param force
-         * @return
-         */
-        switchMode: function (mode, force) {
-            var ms = Ext.getCmp('ms'),
-                e = Ext.getCmp('east'),
-                c = Ext.getCmp('center'),
-                w = Ext.getCmp('west'),
-                currentMode;
-            
-            
-            if (mode === '1' && !visualizationModeInitialized) {
-                initMap();
-            }
-            
-            if (mode === '1' && iMap) {
-                e.add(iMap.getViewport());
-                e.doLayout();
-                if (e.collapsed) {
-                    e.toggleCollapse();
-                }
-                if (!w.collapsed) {
-                    w.toggleCollapse();
-                }
-                
-                Ext.getCmp('vp').syncSize();
-            } else {
-                if (!e.collapsed) {
-                    e.toggleCollapse();
-                }
-                if (w.collapsed) {
-                    w.toggleCollapse();
-                }
-            }
         }
     };
 };
