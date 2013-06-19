@@ -10,6 +10,7 @@ Stylesheet used to remove a reference to a online resource.
 	
 	<!-- Do a copy of every nodes and attributes -->
 	<xsl:template match="@*|node()">
+		<xsl:message>### <xsl:value-of select="$url"/></xsl:message>
 		<xsl:copy>
 			<xsl:apply-templates select="@*|node()"/>
 		</xsl:copy>

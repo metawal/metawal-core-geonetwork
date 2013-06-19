@@ -496,7 +496,7 @@ Les emplacements des panneaux " fauchage tardif - zone refuge ".</gco:CharacterS
         </gmd:DQ_Scope>
       </gmd:scope>
       <gmd:lineage>
-        <rw:LI_Lineage>
+        <rw:LI_Lineage gco:isoType="gmd:LI_Lineage">
           <gmd:statement>
             <gco:CharacterString>Actuellement, les bords de routes en fauchage tardif répertoriés sont dessinés sur un fond de plan papier IGN 1:10 000 lors de l'inventaire de terrain. La digitalisation est effectuée par après, commune par commune, par la Direction de la Nature du DNF. Les zones de fauchage tardif (avec ou sans bande de sécurité), les parcelles en fauchage tardif, les emplacements des inventaires botaniques, les emplacements des panneaux " fauchage tardif - zone refuge " sont repérés individuellement.</gco:CharacterString>
           </gmd:statement>
