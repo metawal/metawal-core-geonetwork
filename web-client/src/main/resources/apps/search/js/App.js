@@ -593,6 +593,8 @@ GeoNetwork.app = function () {
         catalogue.kvpSearch(GeoNetwork.Settings.latestQuery, null, null, null, true, latestView.getStore());
     }
     function show(uuid, record, url, maximized, width, height) {
+        var showFeedBackButton = record.get('email');
+        
         var win = new GeoNetwork.view.ViewWindow({
             serviceUrl: url,
             lang: this.lang,
@@ -602,6 +604,7 @@ GeoNetwork.app = function () {
             catalogue: this,
             maximized: maximized || false,
             metadataUuid: uuid,
+            showFeedBackButton: showFeedBackButton,
             record: record,
             resultsView: this.resultsView
             });
@@ -641,12 +644,16 @@ GeoNetwork.app = function () {
             }
         });
     }
-    function edit(metadataId, create, group, child){
+    function edit(metadataId, create, group, child, schema){
+        var record = catalogue.metadataStore.getAt(catalogue.metadataStore.find('id', metadataId));
         
         if (!this.editorWindow) {
             this.editorPanel = new GeoNetwork.editor.EditorPanel({
+                defaultEditMode : GeoNetwork.Settings.editor.defaultViewMode,
                 defaultViewMode: GeoNetwork.Settings.editor.defaultViewMode,
+                editMode : GeoNetwork.Settings.editor.editMode,
                 catalogue: catalogue,
+                selectionPanelImgPath: '../../apps/js/ext-ux/images',
                 xlinkOptions: {CONTACT: true}
             });
             
@@ -684,7 +691,8 @@ GeoNetwork.app = function () {
         
         if (metadataId) {
             this.editorWindow.show();
-            this.editorPanel.init(metadataId, create, group, child);
+            var recordSchema = record && record.get('schema');
+            this.editorPanel.init(metadataId, create, group, child, undefined, true, recordSchema || schema);
         }
     }
     
