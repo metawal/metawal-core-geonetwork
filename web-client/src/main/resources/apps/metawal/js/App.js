@@ -668,9 +668,9 @@ GeoNetwork.app = function () {
         addWMSLayer: function (args) {
             var layer = args[0];
             
-            window.open(Metawal.config.walOnMap.url + 'wmlUrl=' + layer[1] 
+            window.open(Metawal.config.walOnMap.url + 'wmlUrl=' + encodeURIComponent(layer[1]) 
               + '&layerName=' + layer[2] 
-              + '&metadataUrl=' + location.origin + location.pathname + '?uuid=' + layer[3], 'walOnMap');
+              + '&metadataUrl=' + encodeURIComponent(location.origin + location.pathname + '?uuid=' + layer[3]), 'walOnMap');
         },
         init: function () {
             geonetworkUrl = GeoNetwork.URL || window.location.href.match(/(http.*\/.*)\/srv\/.*\/search.*/, '')[1];
