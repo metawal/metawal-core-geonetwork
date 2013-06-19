@@ -19,8 +19,9 @@
 Ext.namespace('GeoNetwork', 'GeoNetwork.Lang');
 
 GeoNetwork.Lang.fr = {
-	'metawalThemes': 'Thèmes du géoportail wallon',
-	'inspireThemes': 'Thèmes INSPIRE',
+    'extentDescs': 'Zone géographique',
+    'metawalThemes': 'Thèmes du géoportail wallon',
+    'inspireThemes': 'Thèmes INSPIRE',
     'Administrator': 'Administrateur',
     'Reviewer': 'Relecteur',
     'Editor': 'Éditeur',

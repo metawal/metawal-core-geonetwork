@@ -73,6 +73,7 @@ GeoNetwork.Settings.facetListConfig = [{name: 'metawalThemes'},
                                        {name: 'types'},  
                                        {name: 'serviceTypes'}, 
                                        {name: 'denominators'}, 
+                                       {name: 'extentDescs'}, 
                                        {name: 'createDateYears'},
                                        {name: 'orgNames'} 
                                        ];

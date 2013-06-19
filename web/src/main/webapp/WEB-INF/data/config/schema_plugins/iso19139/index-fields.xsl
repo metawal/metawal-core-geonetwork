@@ -94,7 +94,7 @@
 	
 	<xsl:template mode="index"
 		match="gmd:extent/gmd:EX_Extent/gmd:description/gco:CharacterString[normalize-space(.) != '']">
-		<Field name="extentDesc" string="{string(.)}" store="false" index="true"/>
+		<Field name="extentDesc" string="{string(.)}" store="true" index="true"/>
 	</xsl:template>
 	
 	
