@@ -62,8 +62,8 @@ GeoNetwork.hideLoginLabels = true;
 GeoNetwork.Settings.mdStore = GeoNetwork.data.MetadataResultsFastStore;
 
 // List of facet to display. If none, the server configuration is use.
-GeoNetwork.Settings.facetListConfig = [{name: 'inspireThemes'},
-                                       {name: 'keywords'}, 
+GeoNetwork.Settings.facetListConfig = [{name: 'metawalThemes'}, 
+                                       {name: 'inspireThemes'},
                                        {name: 'types'},  
                                        {name: 'serviceTypes'}, 
                                        {name: 'denominators'}, 

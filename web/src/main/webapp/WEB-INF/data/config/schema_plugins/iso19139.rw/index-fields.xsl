@@ -24,6 +24,14 @@
             <Field name="_title" string="{string($_defaultTitle)}" store="true" index="true" token="false" />
             
             <xsl:apply-templates select="*[name(.)='rw:MD_Metadata' or @gco:isoType='gmd:MD_Metadata']" mode="metadata"/>
+            
+            <xsl:apply-templates mode="index" select="*[name(.)='rw:MD_Metadata' or @gco:isoType='gmd:MD_Metadata']"/>
         </Document>
+    </xsl:template>
+    
+    <xsl:template mode="index" match="gmd:MD_Keywords[contains(gmd:thesaurusName/gmd:CI_Citation/gmd:title/gco:CharacterString,'Thèmes du géoportail wallon')]" priority="10">
+        <xsl:for-each select="gmd:keyword"><!-- TODO deal with autre -->
+            <Field name="metawalTheme" string="{substring-after(gco:CharacterString, ') ')}" store="true" index="true" token="false" />
+        </xsl:for-each>
     </xsl:template>
 </xsl:stylesheet>
