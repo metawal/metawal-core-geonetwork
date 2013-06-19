@@ -19,6 +19,9 @@
 Ext.namespace('GeoNetwork', 'GeoNetwork.Lang');
 
 GeoNetwork.Lang.en = {
+    'extentDescs': 'Geographical area',
+    'metawalThemes': 'Metawal themes',
+    'inspireThemes': 'INSPIRE themes',
     'harvestingAdmin': 'Harvesting',
     'updateUserInfo': 'Edit my profile',
     'updatePassword': 'Change my password',
