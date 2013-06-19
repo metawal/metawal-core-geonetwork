@@ -441,7 +441,9 @@ GeoNetwork.app = function () {
             catalogue: catalogue,
             query: 'fast=true&summaryOnly=true',
             renderTo: 'tag',
-            onSuccess: 'app.loadResults'
+            onSuccess: 'app.loadResults',
+            searchField: 'metawalTheme',
+            root: 'metawalThemes.metawalTheme'
         });
         
         return tagCloudView;
@@ -517,22 +519,6 @@ GeoNetwork.app = function () {
                 loadScripts: false
             }
         });
-    }
-    
-    /**
-     * Main tagcloud displayed in the information panel
-     *
-     * @return
-     */
-    function createMainTagCloud(){
-        var tagCloudView = new GeoNetwork.TagCloudView({
-            catalogue: catalogue,
-            query: 'fast=true&summaryOnly=true',
-            renderTo: 'tag',
-            onSuccess: 'app.loadResults'
-        });
-        
-        return tagCloudView;
     }
     /**
      * Create latest metadata panel.
