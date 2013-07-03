@@ -1383,8 +1383,27 @@
 	<metawalHome>Home</metawalHome>
 	<metawalContact>Contact</metawalContact>
 	<metawalInformation>Information</metawalInformation>
-	<metawalGeoportalTitle>Geoportail of Wallonia</metawalGeoportalTitle>
-	<metawalMetawalTitle>Metawal - All Wallonia in metadata</metawalMetawalTitle>
+		
+	<metawalBannerTitle>Metawal - All Wallonia in metadata</metawalBannerTitle>
+	<metawalBannerLogin>Login</metawalBannerLogin>
+	<metawalBannerLogout>logout</metawalBannerLogout>
+	
+	<metawalLoginTitle>Welcome</metawalLoginTitle>
+	<metawalLoginIntro>Please enter your login and password here</metawalLoginIntro>
+	<metawalLoginLogin>Username</metawalLoginLogin>
+	<metawalLoginPwd>Password</metawalLoginPwd>
+	<metawalLoginConnection>Login</metawalLoginConnection>
+	<metawalLoginCancel>Cancel</metawalLoginCancel>
+	
+	
+	<metawalMenuSearch>Search</metawalMenuSearch>
+	<metawalMenuMyMetadata>My metadata</metawalMenuMyMetadata>
+	<metawalMenuEncoding>Encoding</metawalMenuEncoding>
+	<metawalMenuNewMetadata>New metadata</metawalMenuNewMetadata>
+	<metawalMenuImportMetadata>Import metadata</metawalMenuImportMetadata>
+	<metawalMenuHarvesting>Harvesting</metawalMenuHarvesting>
+	<metawalMenuAdmin>Administration</metawalMenuAdmin>
+	<metawalMenuCSW>CSW service</metawalMenuCSW>
 	
 	<advancedOptions.show>show advanced options</advancedOptions.show>
 	<advancedOptions.hide>hide advanced options</advancedOptions.hide>

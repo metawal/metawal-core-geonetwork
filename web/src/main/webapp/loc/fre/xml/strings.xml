@@ -1398,8 +1398,30 @@
 	<metawalHome>Accueil</metawalHome>
 	<metawalContact>Contact</metawalContact>
 	<metawalInformation>Information</metawalInformation>
-	<metawalGeoportalTitle>Géoportail de Wallonie</metawalGeoportalTitle>
-	<metawalMetawalTitle>Metawal - Toute la Wallonie en métadonnées</metawalMetawalTitle>
+	<metawalGeoportalTitle>Géoportail de la Wallonie</metawalGeoportalTitle>
+	
+	<metawalBannerTitle>Metawal - Catalogue pour l'information géographique de Wallonie</metawalBannerTitle>
+	<metawalBannerLogin>Connexion</metawalBannerLogin>
+	<metawalBannerLogout>Déconnexion</metawalBannerLogout>
+	
+	<metawalLoginTitle>Bienvenue</metawalLoginTitle>
+	<metawalLoginIntro>Veuillez fournir votre nom d'utilisateur et votre mot de passe ci-dessous</metawalLoginIntro>
+	<metawalLoginLogin>Nom d'utilisateur</metawalLoginLogin>
+	<metawalLoginPwd>Mot de passe</metawalLoginPwd>
+	<metawalLoginConnection>Se Connecter</metawalLoginConnection>
+	<metawalLoginCancel>Annuler</metawalLoginCancel>
+	
+	
+	<metawalMenuSearch>Recherche</metawalMenuSearch>
+	<metawalMenuMyMetadata>Mes métadonnées</metawalMenuMyMetadata>
+	<metawalMenuEncoding>Encodage</metawalMenuEncoding>
+	<metawalMenuNewMetadata>Nouvelle métadonnée</metawalMenuNewMetadata>
+	<metawalMenuImportMetadata>Import de métadonnées</metawalMenuImportMetadata>
+	<metawalMenuHarvesting>Moissonnage</metawalMenuHarvesting>
+	<metawalMenuAdmin>Administration</metawalMenuAdmin>
+	<metawalMenuCSW>Service CSW</metawalMenuCSW>
+	
+		
 	
 	<advancedOptions.show>plus de critères</advancedOptions.show>
 	<advancedOptions.hide>moins de critères</advancedOptions.hide>
