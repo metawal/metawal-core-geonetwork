@@ -3,6 +3,7 @@
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 exclude-result-prefixes="#all">
 	<xsl:include href="metawal-banner.xsl"/>
+	<xsl:include href="metawal-footer.xsl"/>
     <xsl:template match="/">
 		<html xmlns="http://www.w3.org/1999/xhtml">
 		  <head>
@@ -40,6 +41,9 @@
 		    
 	        <xsl:call-template name="metawal-banner">
 	        	<xsl:with-param name="withLogin" select="true()"/>
+	      	</xsl:call-template>
+	      	
+	      	<xsl:call-template name="metawal-footer">
 	      	</xsl:call-template>
     
 		    
