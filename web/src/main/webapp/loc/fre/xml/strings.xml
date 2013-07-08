@@ -1400,7 +1400,8 @@
 	<metawalInformation>Information</metawalInformation>
 	<metawalGeoportalTitle>Géoportail de la Wallonie</metawalGeoportalTitle>
 	
-	<metawalBannerTitle>Metawal - Catalogue pour l'information géographique de Wallonie</metawalBannerTitle>
+	<metawalBannerTitlePartim1>Metawal - </metawalBannerTitlePartim1>
+	<metawalBannerTitlePartim2>Catalogue pour l'information géographique de Wallonie</metawalBannerTitlePartim2>
 	<metawalBannerLogin>Connexion</metawalBannerLogin>
 	<metawalBannerLogout>Déconnexion</metawalBannerLogout>
 	

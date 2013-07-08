@@ -60,22 +60,23 @@ GeoNetwork.app = function () {
      */
     function createLanguageSwitcher(lang) {
         return new Ext.form.FormPanel({
+        	id:'test',
             renderTo: 'lang-form',
-            width: 95,
+            width: 40,
             border: false,
             layout: 'hbox',
             hidden:  GeoNetwork.Util.locales.length === 1 ? true : false,
             items: [new Ext.form.ComboBox({
                 mode: 'local',
                 triggerAction: 'all',
-                width: 95,
+                width: 40,
                 store: new Ext.data.ArrayStore({
                     idIndex: 2,
                     fields: ['id', 'name', 'id2'],
                     data: GeoNetwork.Util.locales
                 }),
                 valueField: 'id2',
-                displayField: 'name',
+                displayField: 'id2',
                 value: lang,
                 listeners: {
                     select: function (cb, record, idx) {

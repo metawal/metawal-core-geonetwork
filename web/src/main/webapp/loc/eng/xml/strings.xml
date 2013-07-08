@@ -1384,7 +1384,8 @@
 	<metawalContact>Contact</metawalContact>
 	<metawalInformation>Information</metawalInformation>
 		
-	<metawalBannerTitle>Metawal - All Wallonia in metadata</metawalBannerTitle>
+	<metawalBannerTitlePartim1>Metawal - </metawalBannerTitlePartim1>
+	<metawalBannerTitlePartim2>All Wallonia in metadata</metawalBannerTitlePartim2>
 	<metawalBannerLogin>Login</metawalBannerLogin>
 	<metawalBannerLogout>logout</metawalBannerLogout>
 	

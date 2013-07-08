@@ -35,7 +35,8 @@
                                 <a title="Portail de la Wallonie" target="_blank" href="http://www.wallonie.be">
                                     <span><xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text></span>
                                 </a>
-                                <a class="geoLink" title="Accueil" href="/cms/home.html"><xsl:value-of select="/root/gui/strings/metawalBannerTitle" /></a>
+                                <a class="geoLink"  href="/cms/home.html"><xsl:value-of select="/root/gui/strings/metawalBannerTitlePartim1" /></a>
+                                <a class="geoLink2"  href="/cms/home.html"><xsl:value-of select="/root/gui/strings/metawalBannerTitlePartim2" /></a>
                             </p>
                             <div class="clear"></div>
                           </div>
@@ -44,6 +45,10 @@
 				
 				<!-- -->
 				<div class="grid_6">
+					<div class="lang">
+									<div  id="lang-form"></div>
+					</div>
+					<div class="clear"></div>
 					<div class="grid_login">
 						<input type="button" id="login_pop1" value="{/root/gui/strings/metawalBannerLogin}"/>
 	        		</div>
@@ -59,34 +64,17 @@
 			                <label for="password"><xsl:value-of select="/root/gui/strings/metawalLoginPwd" /></label>
 			                <input type="password" id="password" value="" />
 			            </div>
-			            <input type="button" value="{/root/gui/strings/metawalLoginConnection}" onclick="catalogue.login(document.getElementById('login').value,document.getElementById('password').value);login();location.href='#close';"/>
-			            <input type="button" value="{/root/gui/strings/metawalLoginCancel}" onclick="location.href='#close';"/>
+			            <input type="button" class="btn" value="{/root/gui/strings/metawalLoginConnection}" onclick="catalogue.login(document.getElementById('login').value,document.getElementById('password').value);login();location.href='#close';"/>
+			            <input type="button" class="btn" value="{/root/gui/strings/metawalLoginCancel}" onclick="location.href='#close';"/>
 			        </div>
+			        <div class="clear"></div>
             		<div class="noprint">
-     					<!--  <div class="noprint">
-     						<div class="topQuickHeadertop">
-     							<a href="http://geoportail.wallonie.be/cms/home.html" alt="Accueil " title="Accueil " target="_blank">Accueil </a>
-								<span> - </span>
-								<a href="http://geoportail.wallonie.be/cms/home/contact.html" alt="Contact" title="Contact" target="_blank">Contact</a>
-								<span> - </span>
-								<a href="#" onclick="Ext.getDom('shortcut').style.display='block';">Information</a></div>
-     						<div class="clear"></div>
-     						<div class="clear"></div>
-     					</div>-->
-                            
                             <xsl:if test="$withLogin">
-                            	<div class="noprint1">
-									<div class="topQuickHeader"><div  id="lang-form"></div></div>
-									<br class="clear"/>
-									<div class="clear"></div>
-								</div>
-		    					<div class="loginForm noprint"></div>
-		    					<div class="topQuickHeaderbottom"><div  id="login-form"></div></div>
-									<br class="clear"/>
-								<div class="clear"></div>
+		    					<div class="topQuickHeaderbottom">
+		    						<div  id="login-form"></div>
+		    					</div>
                             </xsl:if>
-                        </div>
-                        <div class="clear"></div>
+                    </div>
                     </div>
                     <div class="grid_menu" id="grid_menu">
                         <ul id="menu">
