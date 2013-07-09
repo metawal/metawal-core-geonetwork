@@ -85,18 +85,16 @@
 				    <script type="text/javascript" src="../../apps/metawal/js/map/Settings.js"></script>
 				    <script type="text/javascript" src="../../apps/metawal/js/map/MapApp.js"></script>
 				    <script type="text/javascript" src="../../apps/metawal/js/App.js"></script>
-				    <script type="text/javascript" src="../../apps/metawal/js/metawal.js"></script>
+				    
 				    
 		        </xsl:when>
 		        <xsl:otherwise>
 		        	
 				    <script type="text/javascript" src="../../apps/js/ext/adapter/ext/ext-base.js"></script>
 				    <script type="text/javascript" src="../../apps/js/ext/ext-all.js"></script>
-				    <script type="text/javascript" src="../../apps/metawal/js/App-mini.js"></script>
-				   
+				    <script type="text/javascript" src="../../apps/metawal/js/App-mini.js"></script>				   
 		       	</xsl:otherwise>
 		    </xsl:choose>
-		    
 		  </body>
 		</html>
 

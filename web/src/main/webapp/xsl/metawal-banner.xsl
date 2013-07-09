@@ -4,6 +4,7 @@
                 exclude-result-prefixes="#all">
              
   <xsl:template name="metawal-banner">
+  	
     <xsl:param name="withLogin" select="false()"/>
           
         <!--start SPW banner-->  
@@ -46,11 +47,11 @@
 				<!-- -->
 				<div class="grid_6">
 					<div class="lang">
-									<div  id="lang-form"></div>
+						<div  id="lang-form"></div>
 					</div>
 					<div class="clear"></div>
 					<div class="grid_login">
-						<input type="button" id="login_pop1" value="{/root/gui/strings/metawalBannerLogin}"/>
+						<input type="button" id="login_popup" value="{/root/gui/strings/metawalBannerLogin}"/>
 	        		</div>
 	        		<a href="#x" class="overlay" id="login_form"></a>
 			        <div class="popup">
@@ -58,7 +59,7 @@
 			            <p><xsl:value-of select="/root/gui/strings/metawalLoginIntro" /></p>
 			            <div>
 			                <label for="login"><xsl:value-of select="/root/gui/strings/metawalLoginLogin" /></label>
-			                <input type="text" id="login" value="" />
+			                <input type="text" id="login" value=""/>
 		            	</div>
 			        	<div>
 			                <label for="password"><xsl:value-of select="/root/gui/strings/metawalLoginPwd" /></label>
@@ -81,29 +82,46 @@
                         	<li id="gn-menu-search">
                         		<a href="#"><xsl:value-of select="/root/gui/strings/metawalMenuSearch"/></a>
 	                        	<ul>
-	                        		<li><a href="#"><xsl:value-of select="/root/gui/strings/metawalMenuSearch"/></a></li>
-	                        		<li><a href="#"><xsl:value-of select="/root/gui/strings/metawalMenuMyMetadata"/></a></li>
+	                        		<li><a href="search"><xsl:value-of select="/root/gui/strings/metawalMenuSearch"/></a></li>
+	                        		<li><a href="search?s_E_owner={/root/gui/session/userId}&amp;s_search"><xsl:value-of select="/root/gui/strings/metawalMenuMyMetadata"/></a></li>
 	                        	</ul>
                         	</li>
                         	<li id="gn-menu-encoding">
                         		<a href="#"><xsl:value-of select="/root/gui/strings/metawalMenuEncoding"/></a>  
 	                        	<ul>
-	                        		<li><a href="#" onclick="newmetadata();"><xsl:value-of select="/root/gui/strings/metawalMenuNewMetadata"/></a></li>
-	                        		<li><a href="#" onclick="catalogue.metadataImport();"><xsl:value-of select="/root/gui/strings/metawalMenuImportMetadata"/></a></li>
-	                        		<li><a href="#" onclick="catalogue.moveToURL(catalogue.services.harvestingAdmin);"><xsl:value-of select="/root/gui/strings/metawalMenuHarvesting"/></a></li>
+	                        		<li><a>
+	                        			<xsl:choose>
+	                        				<xsl:when test="/root/gui/reqService='search'">
+	                        					<xsl:attribute name="onclick">
+	                        						<xsl:text>newmetadata();</xsl:text>
+	                        					</xsl:attribute>
+	                        				</xsl:when>
+	                        				<xsl:otherwise>
+	                        					<xsl:attribute name="href">
+	                        						<xsl:text>search?#create</xsl:text>
+	                        					</xsl:attribute>
+	                        				</xsl:otherwise>
+	                        			</xsl:choose>
+	                        			<xsl:value-of select="/root/gui/strings/metawalMenuNewMetadata"/></a></li>
+	                        		<li><a href="metadata.xmlinsert.form"><xsl:value-of select="/root/gui/strings/metawalMenuImportMetadata"/></a></li>
+	                        		<li><a href="harvesting"><xsl:value-of select="/root/gui/strings/metawalMenuHarvesting"/></a></li>
 	                        	</ul>
                         	</li>
                         	<li id="gn-menu-administration">
-                        		<li><a href="#" onclick="catalogue.admin();"><xsl:value-of select="/root/gui/strings/metawalMenuAdmin"/></a></li>
+                        		<li><a href="admin"> <xsl:value-of select="/root/gui/strings/metawalMenuAdmin"/></a></li>
                         	</li>
                         	<li id="gn-menu-csw">
-                        		<a href="#" onclick="catalogue.moveToURL(catalogue.services.csw);"><xsl:value-of select="/root/gui/strings/metawalMenuCSW"/></a>
+                        		<a href="test.csw"><xsl:value-of select="/root/gui/strings/metawalMenuCSW"/></a>
                         	</li>
                         </ul>
 					</div>
                 </div>
             </div>
         </div>
+        
+	<script type="text/javascript" src="../../apps/metawal/js/metawal.js"></script>
+		    
+		    
     </xsl:template>
     
 </xsl:stylesheet>

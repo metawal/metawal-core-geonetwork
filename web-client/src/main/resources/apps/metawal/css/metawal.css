@@ -201,6 +201,7 @@ margin-bottom: 5px;
 padding-right: 2px;
 position: relative;
 width: auto;
+display: none;
 }
 .clear {
 clear: both;
@@ -279,7 +280,7 @@ height: 25px;
 margin-top: 4px;
 margin-left: 115px;
 position:absolute;
-top:118px;
+top:119px;
 }
 #menu{
     display: inline;
@@ -405,6 +406,7 @@ top:118px;
 #menu ul a:hover
 {
     background: #2D5E6F;
+    cursor: hand;
 }
 
 #menu ul li:first-child > a
@@ -470,45 +472,24 @@ top:118px;
 * html #menu             { zoom: 1; } /* IE6 */
 *:first-child+html #menu { zoom: 1; } /* IE7 */
 
+#password:focus,#login:focus {	
+  border-color: #e9322d;
+  -webkit-box-shadow: 0 0 6px #f8b9b7;
+  -moz-box-shadow: 0 0 6px #f8b9b7;
+  box-shadow: 0 0 6px #f8b9b7;
+}
 
-/*
-.main {
-    background: #aaa url(../images/bg.jpg) no-repeat;
-    width: 800px;
-    height: 600px;
-    margin: 50px auto;
-}
-.panel {
-    background-color: #444;
-    height: 34px;
-    padding: 10px;
-}
-.panel a#login_pop, .panel a#join_pop {
-    border: 2px solid #aaa;
-    color: #fff;
-    display: block;
-    float: right;
-    margin-right: 10px;
-    padding: 5px 10px;
-    text-decoration: none;
-    text-shadow: 1px 1px #000;
 
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    -ms-border-radius: 10px;
-    -o-border-radius: 10px;
-    border-radius: 10px;
-}
-a#login_pop:hover, a#join_pop:hover {
-    border-color: #eee;
-}
-/*/
+
+
 
 .lang{
 	float: right;
 	padding-top: 20px;
 	padding-bottom: 20px;
 }
+
+
 /*authentification start*/
 .grid_login {
 	float: right;
@@ -667,6 +648,11 @@ a#login_pop:hover, a#join_pop:hover {
 .popup input[type="text"]:hover, .popup input[type="password"]:hover {
     border-color: #555 #888 #888;
 }
+
+
+
+
+
 /*authentification stop*/
 /*footer start*/
 #bottom {
@@ -789,3 +775,22 @@ text-decoration: none;
 }
 /*footer stop*/
 
+
+/*!
+ * Ext JS Library 3.4.0
+ * Copyright(c) 2006-2011 Sencha Inc.
+ * licensing@sencha.com
+ * http://www.sencha.com/license
+ */
+p
+{margin:0;padding:0;}
+
+
+/*******************************************************************************
+Correction (search/admin)
+*******************************************************************************/
+
+
+body {
+	font-family: "Helvetica Neue", sans-serif; !important
+}

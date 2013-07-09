@@ -29,12 +29,12 @@
 					}
 				</style>
 			</head>
-			<body onload="init();">
+			<body onload="init();metawalInit('{/root/gui/session/userId}','{/root/gui/strings/metawalBannerLogin}','{/root/gui/strings/metawalBannerLogout}');">
 				<!-- banner -->
 				<xsl:if test="not(/root/request/modal)">
-					<div id="header">
+					
 						<xsl:call-template name="banner"/>
-					</div>
+					
 				</xsl:if>
 			
 				<div id="content_container" style="display:none">

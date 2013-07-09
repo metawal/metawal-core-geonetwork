@@ -60,7 +60,6 @@ GeoNetwork.app = function () {
      */
     function createLanguageSwitcher(lang) {
         return new Ext.form.FormPanel({
-        	id:'test',
             renderTo: 'lang-form',
             width: 40,
             border: false,
@@ -76,7 +75,7 @@ GeoNetwork.app = function () {
                     data: GeoNetwork.Util.locales
                 }),
                 valueField: 'id2',
-                displayField: 'id2',
+                displayField: 'id',
                 value: lang,
                 listeners: {
                     select: function (cb, record, idx) {
@@ -883,7 +882,7 @@ Ext.onReady(function () {
     app = new GeoNetwork.app();
     app.init();
     catalogue = app.getCatalogue();
-    
+    metawalInit();
     /* Focus on full text search field */
     Ext.getDom('E_any').focus(true);
 });
