@@ -267,4 +267,65 @@
     <description>Codes de l'attribut</description>
   </element>
   
+  <element name="gmd:useLimitation" id="68.0">
+    <label>Limitation d'utilisation</label>
+    <description>Limitation d'utilisation de la ressource où de métadonnées. Exemple: "ne pas utiliser pour la navigation"</description>
+    <help>Restriction d'utilisation de la ressource ou des métadonnées. Exemple: "ne pas utiliser pour la navigation"</help>
+    
+    <help><![CDATA[<b>Conditions applicables à l’accès et à l’utilisation</b>]]></help>
+
+    <help for="inspire"><![CDATA[<b>Exigence INSPIRE :</b>
+    Cet élément de métadonnées définit les conditions applicables à l’accès et à l’utilisation des séries et des services de données géographiques, et, le cas échéant, les frais correspondants :
+    <ul>
+    <li>Au fil des différents ensembles de contraintes en matière d’accès et d’utilisation, il doit y avoir au moins une instance de cet élément.</li>
+    <li>Cet élément doit avoir une valeur textuelle. Les valeurs suivantes sont imposées dans les cas particuliers prévus par INSPIRE :
+        <ul>
+        <li>aucune condition ne s’applique si aucune condition ne s’applique à l’accès à la ressource et à son utilisation ;</li>
+        <li>conditions inconnues si les conditions sont inconnues.</li>
+        </ul>
+    </li>
+    </ul>
+    ]]>
+    </help>
+    <help for="france">
+    <![CDATA[
+    <b>Recommandations :</b>
+    <ul>
+    <li>Lorsqu’elles existent, il est obligatoire de diffuser les conditions applicables à l’accès et à l’utilisation de la ressource.</li>
+    <li>Pour les services de l’État, dans le cas général, le décret n° 201-577 du 26 mai 2011 relatif à la réutilisation des informations publiques détenues par l’État et ses établissements publics administratifs conduira à retenir la valeur “aucune condition ne s’applique”.</li>
+    <li>Il est recommandé d’éviter la valeur “conditions inconnues”. </li>
+    <li>Lorsqu’elles existent, il est recommandé d’exprimer les conditions financières d’accès et d’utilisation de la ressource.</li>
+    <li>Il est recommandé que les conditions financières d’accès et d’utilisation de la ressource soient documentées dans une instance dédiée de cet élément.</li>
+    </ul>
+    <b>Commentaire :</b>
+    Cet élément fournira aussi des informations sur tout frais éventuel à acquitter pour avoir accès à la ressource et l’utiliser, le cas échéant, ou fera référence à un localisateur de ressource uniforme (Uniform Resource Locator, URL) où il sera possible de trouver des informations sur les frais.
+    A noter que lorsque les autorités publiques soumettent à une licence d’exploitation ou à une redevance l’accès d’autres autorités publiques à des séries et services de données géographiques, l’article R. 127-8 du Code de l’environnement conduit à imposer la fourniture de certains éléments :
+    <ul>
+    <li>S’il s’agit d’une personne morale, la raison sociale du fournisseur ;</li>
+    <li>L’adresse où il est établi, son adresse de courrier électronique, ainsi que des coordonnées téléphoniques permettant d’entrer effectivement en contact avec lui”.</li>
+    <ul>
+    ]]></help>
+    <condition/>
+    <helper>
+      <option value="La ressource est fournie à titre informatif">La ressource est fournie à titre informatif</option>
+      <option value="L’absence de défaut ou d’irrégularité dans la ressource mise à disposition n’est pas garantie">L’absence de défaut ou d’irrégularité dans la ressource mise à disposition n’est pas garantie</option>
+      <option value="La ressource n’a pas de valeur juridique">La ressource n’a pas de valeur juridique</option>
+      <option value="Aucune utilisation commerciale de la ressource n’est autorisée">Aucune utilisation commerciale de la ressource n’est autorisée</option>
+      <option value="Les clauses de la licence de mise à disposition de données géographiques et biologiques numériques par le SPW s’appliquent">Les clauses de la licence de mise à disposition de données géographiques et biologiques numériques par le SPW s’appliquent</option>
+      <option value="Les limites d’utilisation sont celles définies par le gestionnaire de la ressource">Les limites d’utilisation sont celles définies par le gestionnaire de la ressource</option>
+    </helper>
+  </element>
+  
+  <element name="gmd:useConstraints" id="71.0">
+    <label>Contraintes d'utilisation</label>
+    <description>Contraintes appliquées pour assurer la protection des sphères privées et intellectuelles, et autres restrictions spéciales ou limitations ou mises en garde pour utiliser les ressources où de métadonnées</description>
+    <help>Restrictions d'utilisation à fondement juridique destinées à garantir la sphère privée, la propriété intellectuelle ou d'autres domaines similaires tels que les conditions d'octroi de licence. Elles peuvent être sélectionnées parmi les éléments suivants : droit d'auteur, brevet, brevet en voie de délivrance, marque, licence, propriété intellectuelle, diffusion limitée, autres restrictions.</help>
+    <condition/>
+    <helper>
+      <option value="Obligation de mentionner la source et la date de dernière mise à jour de la ressource">Obligation de mentionner la source et la date de dernière mise à jour de la ressource</option>
+      <option value="Les clauses de la licence de mise à disposition de données géographiques et biologiques numériques par le SPW s’appliquent">Les clauses de la licence de mise à disposition de données géographiques et biologiques numériques par le SPW s’appliquent</option>
+      <option value="Les contraintes d’utilisation sont celles définies par le gestionnaire de la ressource">Les contraintes d’utilisation sont celles définies par le gestionnaire de la ressource</option>
+    </helper>
+  </element>
+  
 </labels>
