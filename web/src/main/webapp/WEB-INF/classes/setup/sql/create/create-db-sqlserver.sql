@@ -34,16 +34,21 @@ CREATE TABLE CustomElementSet
 
 CREATE TABLE Settings
   (
-    id        int            not null,
-    parentId  int,
-    name      varchar(64)    not null,
+    name      varchar(512)    not null,
     value     varchar(max),
+    datatype   int,
+    position   int,
 
-    primary key(id),
-
-    foreign key(parentId) references Settings(id)
+    primary key(name)
   );
 
+CREATE TABLE HarvesterSettings
+  (
+    name      varchar(512)    not null,
+    value     varchar(max),
+
+    primary key(id)
+  );
 -- ======================================================================
 
 CREATE TABLE Languages
@@ -246,7 +251,7 @@ CREATE TABLE Groups
     id           int            not null,
     name         varchar(32)    not null,
     description  varchar(255),
-    email        varchar(32),
+    email        varchar(128),
     referrer     int,
 
     primary key(id),

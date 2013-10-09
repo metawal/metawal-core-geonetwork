@@ -41,6 +41,7 @@ import javax.servlet.ServletContext;
 
 import jeeves.JeevesJCS;
 import jeeves.JeevesProxyInfo;
+import jeeves.config.springutil.JeevesApplicationContext;
 import jeeves.config.springutil.ServerBeanPropertyUpdater;
 import jeeves.constants.Jeeves;
 import jeeves.interfaces.ApplicationHandler;
@@ -68,14 +69,15 @@ import org.fao.geonet.kernel.XmlSerializer;
 import org.fao.geonet.kernel.XmlSerializerDb;
 import org.fao.geonet.kernel.XmlSerializerSvn;
 import org.fao.geonet.kernel.csw.CatalogConfiguration;
-import org.fao.geonet.kernel.csw.CatalogDispatcher;
 import org.fao.geonet.kernel.csw.CswHarvesterResponseExecutionService;
 import org.fao.geonet.kernel.harvest.HarvestManager;
+import org.fao.geonet.kernel.metadata.StatusActions;
 import org.fao.geonet.kernel.oaipmh.OaiPmhDispatcher;
 import org.fao.geonet.kernel.search.LuceneConfig;
 import org.fao.geonet.kernel.search.SearchManager;
 import org.fao.geonet.kernel.search.spatial.Pair;
 import org.fao.geonet.kernel.search.spatial.SpatialIndexWriter;
+import org.fao.geonet.kernel.setting.HarvesterSettingsManager;
 import org.fao.geonet.kernel.setting.SettingInfo;
 import org.fao.geonet.kernel.setting.SettingManager;
 import org.fao.geonet.languages.IsoLanguagesMapper;
@@ -86,7 +88,6 @@ import org.fao.geonet.lib.ServerLib;
 import org.fao.geonet.notifier.MetadataNotifierControl;
 import org.fao.geonet.notifier.MetadataNotifierManager;
 import org.fao.geonet.resources.Resources;
-import org.fao.geonet.services.metadata.StatusActions;
 import org.fao.geonet.services.util.z3950.Repositories;
 import org.fao.geonet.services.util.z3950.Server;
 import org.fao.geonet.util.ThreadPool;
@@ -101,8 +102,7 @@ import org.geotools.referencing.crs.DefaultGeographicCRS;
 import org.jdom.Element;
 import org.opengis.feature.type.AttributeDescriptor;
 import org.opengis.referencing.crs.CoordinateReferenceSystem;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 
 import com.vividsolutions.jts.geom.MultiPolygon;
 
@@ -113,12 +113,11 @@ public class Geonetwork implements ApplicationHandler {
 	private Logger        		logger;
 	private String 				path;				
 	private SearchManager 		searchMan;
-	private HarvestManager 		harvestMan;
-	private ThesaurusManager 	thesaurusMan;
 	private MetadataNotifierControl metadataNotifierControl;
 	private ThreadPool        threadPool;
 	private String   FS         = File.separator;
 	private Element dbConfiguration;
+    private JeevesApplicationContext _applicationContext;
     private static final String       SPATIAL_INDEX_FILENAME    = "spatialindex";
 	private static final String       IDS_ATTRIBUTE_NAME        = "id";
 
@@ -141,6 +140,8 @@ public class Geonetwork implements ApplicationHandler {
 	  */
 	public Object start(Element config, ServiceContext context) throws Exception {
 		logger = context.getLogger();
+		this._applicationContext = context.getApplicationContext();
+        ConfigurableListableBeanFactory beanFactory = context.getApplicationContext().getBeanFactory();
 
 		path    = context.getAppPath();
 		String baseURL = context.getBaseUrl();
@@ -213,12 +214,28 @@ public class Geonetwork implements ApplicationHandler {
 		//--- initialize settings subsystem
 
 		logger.info("  - Setting manager...");
-
-		SettingManager settingMan = new SettingManager(dbms, context.getProviderManager());
-
-		// --- Migrate database if an old one is found
-		migrateDatabase(servletContext, dbms, settingMan, version, subVersion, context.getAppPath());
+		SettingManager settingMan = null;
+		HarvesterSettingsManager harvesterSettingsMan = null;
+		try {
+    		settingMan = new SettingManager(dbms, context.getProviderManager());
+    		harvesterSettingsMan = new HarvesterSettingsManager(dbms, context.getProviderManager());
+		} catch (Exception e) {
+		    logger.info("     Failed to initialize setting managers. This is probably due to bad Settings table. Error is: " + 
+		                e.getMessage() + ". In case of database migration, the setting managers will be reinitialized.");
+		}
 		
+        // --- Migrate database if an old one is found
+        migrateDatabase(servletContext, dbms, settingMan, harvesterSettingsMan, version, subVersion, context);
+        
+        if (settingMan == null) {
+            throw new IllegalArgumentException("Failed to initialize setting managers. This is probably due to bad Settings table.");
+        }
+        
+        // Reinitialized harvester manager which may be affected by migration
+        if (harvesterSettingsMan == null) {
+            harvesterSettingsMan = new HarvesterSettingsManager(dbms, context.getProviderManager());
+        }
+        
 		//--- initialize ThreadUtils with setting manager and rm props
 		ThreadUtils.init(context.getResourceManager().getProps(Geonet.Res.MAIN_DB),
 		              	 settingMan); 
@@ -232,20 +249,17 @@ public class Geonetwork implements ApplicationHandler {
 		boolean z3950Enable    = settingMan.getValueAsBool("system/z3950/enable", false);
 		String  z3950port      = settingMan.getValue("system/z3950/port");
 
-		// null means not initialized
-		ApplicationContext app_context = null;
-
 		// build Z3950 repositories file first from template
 		URL url = getClass().getClassLoader().getResource(Geonet.File.JZKITCONFIG_TEMPLATE);
 
-		if (Repositories.build(url, context)) {
+        if (Repositories.build(url, context)) {
 			logger.info("     Repositories file built from template.");
 
 			try {
-				app_context = new  ClassPathXmlApplicationContext( Geonet.File.JZKITAPPLICATIONCONTEXT );
+			    JeevesApplicationContext appContext = context.getApplicationContext();
 
 				// to have access to the GN context in spring-managed objects
-				ContextContainer cc = (ContextContainer)app_context.getBean("ContextGateway");
+				ContextContainer cc = (ContextContainer)appContext.getBean("ContextGateway");
 				cc.setSrvctx(context);
 
 				if (!z3950Enable)
@@ -254,7 +268,7 @@ public class Geonetwork implements ApplicationHandler {
 				{
 					logger.info("     Server is Enabled.");
 		
-					Server.init(z3950port, app_context);
+					Server.init(z3950port, appContext);
 				}	
 			} catch (Exception e) {
 				logger.error("     Repositories file init FAILED - Z3950 server disabled and Z3950 client services (remote search, harvesting) may not work. Error is:" + e.getMessage());
@@ -291,8 +305,9 @@ public class Geonetwork implements ApplicationHandler {
 		luceneTermsToExclude = handlerConfig.getMandatoryValue(Geonet.Config.STAT_LUCENE_TERMS_EXCLUDE);
 
 		LuceneConfig lc = new LuceneConfig(path, servletContext, luceneConfigXmlFile);
-        logger.info("  - Lucene configuration is:");
-        logger.info(lc.toString());
+		logger.info("  - Lucene configuration is:");
+		logger.info(lc.toString());
+		beanFactory.registerSingleton(LuceneConfig.LUCENE_CONFIG_BEAN_NAME, lc);
        
 		DataStore dataStore = context.getResourceManager().getDataStore(Geonet.Res.MAIN_DB);
 		if (dataStore == null) {
@@ -317,10 +332,10 @@ public class Geonetwork implements ApplicationHandler {
 				.getMandatoryValue(Geonet.Config.HTMLCACHE_DIR);
 		
 		SettingInfo settingInfo = new SettingInfo(settingMan);
-		searchMan = new SearchManager(path, luceneDir, htmlCacheDir, thesauriDir, summaryConfigXmlFile, lc,
-				logAsynch, logSpatialObject, luceneTermsToExclude, 
-				dataStore, maxWritesInTransaction, 
-				settingInfo, schemaMan, servletContext);
+		searchMan = new SearchManager(path, luceneDir, htmlCacheDir, thesauriDir, summaryConfigXmlFile, logAsynch,
+				logSpatialObject, luceneTermsToExclude, dataStore, 
+				maxWritesInTransaction, settingInfo, 
+				schemaMan, servletContext, _applicationContext);
 		
 		 
 		 // if the validator exists the proxyCallbackURL needs to have the external host and
@@ -383,7 +398,7 @@ public class Geonetwork implements ApplicationHandler {
 
 		logger.info("  - Thesaurus...");
 
-		thesaurusMan = ThesaurusManager.getInstance(context, path, dataMan, context.getResourceManager(), thesauriDir);
+		ThesaurusManager thesaurusMan = ThesaurusManager.getInstance(context, path, dataMan, context.getResourceManager(), thesauriDir);
 
 		//------------------------------------------------------------------------
 		//--- initialize catalogue services for the web
@@ -391,7 +406,6 @@ public class Geonetwork implements ApplicationHandler {
 		logger.info("  - Catalogue services for the web...");
 
 		CatalogConfiguration.loadCatalogConfig(path, Csw.CONFIG_FILE);
-		CatalogDispatcher catalogDis = new CatalogDispatcher(new File(path,summaryConfigXmlFile), lc);
 
 		//------------------------------------------------------------------------
 		//--- initialize catalogue services for the web
@@ -411,45 +425,44 @@ public class Geonetwork implements ApplicationHandler {
         //------------------------------------------------------------------------
         //--- initialize metadata notifier subsystem
         logger.info("  - Metadata notifier ...");
-        
-		//------------------------------------------------------------------------
-		//--- return application context
-
-		GeonetContext gnContext = new GeonetContext();
-
-		gnContext.accessMan   = accessMan;
-		gnContext.dataMan     = dataMan;
-		gnContext.searchMan   = searchMan;
-		gnContext.schemaMan   = schemaMan;
-		gnContext.config      = handlerConfig;
-		gnContext.catalogDis  = catalogDis;
-		gnContext.settingMan  = settingMan;
-		gnContext.thesaurusMan= thesaurusMan;
-		gnContext.oaipmhDis   = oaipmhDis;
-		gnContext.app_context = app_context;
-        gnContext.metadataNotifierMan = metadataNotifierMan;
-		gnContext.threadPool  = threadPool;
-		gnContext.xmlSerializer  = xmlSerializer;
-		gnContext.svnManager  = svnManager;
-		gnContext.statusActionsClass = statusActionsClass;
-
-		logger.info("Site ID is : " + gnContext.getSiteId());
 
         //------------------------------------------------------------------------
         //--- initialize harvesting subsystem
 
         logger.info("  - Harvest manager...");
 
-        harvestMan = new HarvestManager(context, gnContext, settingMan, dataMan);
-        dataMan.setHarvestManager(harvestMan);
+		GeonetContext gnContext = new GeonetContext();
 
-        gnContext.harvestMan  = harvestMan;
+        gnContext.springAppContext = context.getApplicationContext();
+        gnContext.threadPool  = threadPool;
+        gnContext.statusActionsClass = statusActionsClass;
+
+        HarvestManager harvestMan = new HarvestManager(context, gnContext, harvesterSettingsMan, dataMan);
+
+        //------------------------------------------------------------------------
+        //--- return application context
+
+		beanFactory.registerSingleton("accessManager", accessMan);
+		beanFactory.registerSingleton("dataManager", dataMan);
+		beanFactory.registerSingleton("searchManager", searchMan);
+		beanFactory.registerSingleton("schemaManager", schemaMan);
+		beanFactory.registerSingleton("serviceHandlerConfig", handlerConfig);
+		beanFactory.registerSingleton("settingManager", settingMan);
+		beanFactory.registerSingleton("harvesterSettingsMan", harvesterSettingsMan);
+		beanFactory.registerSingleton("thesaurusManager", thesaurusMan);
+		beanFactory.registerSingleton("oaipmhDisatcher", oaipmhDis);
+		beanFactory.registerSingleton("metadataNotifierManager", metadataNotifierMan);
+		beanFactory.registerSingleton("svnManager", svnManager);
+		beanFactory.registerSingleton("xmlSerializer", xmlSerializer);
+		beanFactory.registerSingleton("harvestManager", harvestMan);
 
 
         // Creates a default site logo, only if the logo image doesn't exists
         // This can happen if the application has been updated with a new version preserving the database and
         // images/logos folder is not copied from old application 
         createSiteLogo(gnContext.getSiteId(), servletContext, context.getAppPath());
+
+        logger.info("Site ID is : " + gnContext.getSiteId());
 
         // Notify unregistered metadata at startup. Needed, for example, when the user enables the notifier config
         // to notify the existing metadata in database
@@ -501,7 +514,7 @@ public class Geonetwork implements ApplicationHandler {
                     boolean readOnly = gc.isReadOnly();
                     logger.debug("DBHeartBeat: GN is read-only ? " + readOnly);
                     boolean canWrite = checkDBWrite();
-                    HarvestManager hm = gc.getHarvestManager();
+                    HarvestManager hm = gc.getBean(HarvestManager.class);
                     if(readOnly && canWrite) {
                         logger.warning("GeoNetwork can write to the database, switching to read-write mode");
                         readOnly = false;
@@ -577,6 +590,59 @@ public class Geonetwork implements ApplicationHandler {
         return Integer.valueOf(number.replaceAll("\\.", ""));
     }
     
+    @SuppressWarnings("unchecked")
+    /**
+     * Return database version and subversion number.
+     * 
+     * @param dbms
+     * @return
+     */
+    private Pair<String, String> getDatabaseVersion(Dbms dbms) {
+        int VERSION_NUMBER_ID_BEFORE_2_11 = 15;
+        int SUBVERSION_NUMBER_ID_BEFORE_2_11 = 16;
+        String VERSION_NUMBER_KEY = "system/platform/version";
+        String SUBVERSION_NUMBER_KEY = "system/platform/subVersion";
+        String version = null;
+        String subversion = null;
+        
+        List<Element> results;
+        // Before 2.11, settings was a tree. Check using keys
+        try {
+            results = dbms.select("SELECT value FROM settings WHERE id = ?", VERSION_NUMBER_ID_BEFORE_2_11).getChildren();
+            if (results.size() != 0) {
+                Element record = (Element) results.get(0);
+                version = record.getChildText("value");
+            }
+            results = dbms.select("SELECT value FROM settings WHERE id = ?", SUBVERSION_NUMBER_ID_BEFORE_2_11).getChildren();
+            if (results.size() != 0) {
+                Element record = (Element) results.get(0);
+                subversion = record.getChildText("value");
+            }
+        } catch (SQLException e) {
+            logger.info("     Error getting database version: " + e.getMessage() + 
+                    ". Probably due to an old version. Trying with new Settings structure.");
+            dbms.abort();
+        }
+        
+        // Now settings is KVP
+        if (version == null) {
+            try {
+                results = dbms.select("SELECT value FROM settings WHERE name = ?", VERSION_NUMBER_KEY).getChildren();
+                if (results.size() != 0) {
+                    Element record = (Element) results.get(0);
+                    version = record.getChildText("value");
+                }
+                results = dbms.select("SELECT value FROM settings WHERE name = ?", SUBVERSION_NUMBER_KEY).getChildren();
+                if (results.size() != 0) {
+                    Element record = (Element) results.get(0);
+                   subversion = record.getChildText("value");
+                }
+            } catch (SQLException e) {
+                logger.info("     Error getting database version: " + e.getMessage() + ".");
+            }
+        }
+        return Pair.read(version, subversion);
+    }
 	/**
 	 * Checks if current database is running same version as the web application.
 	 * If not, apply migration SQL script :
@@ -584,18 +650,21 @@ public class Geonetwork implements ApplicationHandler {
 	 * eg. 2.4.3-to-2.5.0-default.sql
 	 *
      * @param servletContext
-     * @param dbms
-     * @param settingMan
-     * @param webappVersion
-     * @param subVersion
-     * @param appPath
+	 * @param dbms
+	 * @param settingMan
+	 * @param harvesterSettingsMan TODO
+	 * @param webappVersion
+	 * @param subVersion
+	 * @param appPath
      */
-	private void migrateDatabase(ServletContext servletContext, Dbms dbms, SettingManager settingMan, String webappVersion, String subVersion, String appPath) {
+	private void migrateDatabase(ServletContext servletContext, Dbms dbms, SettingManager settingMan, 
+	        HarvesterSettingsManager harvesterSettingsMan, String webappVersion, String subVersion, ServiceContext context) {
 		logger.info("  - Migration ...");
 		
 		// Get db version and subversion
-		String dbVersion = settingMan.getValue("system/platform/version");
-		String dbSubVersion = settingMan.getValue("system/platform/subVersion");
+		Pair<String, String> dbVersionInfo = getDatabaseVersion(dbms);
+		String dbVersion = dbVersionInfo.one();
+		String dbSubVersion = dbVersionInfo.two();
 		
 		// Migrate db if needed
 		logger.info("      Webapp   version:" + webappVersion + " subversion:" + subVersion);
@@ -624,70 +693,74 @@ public class Geonetwork implements ApplicationHandler {
 			boolean anyMigrationAction = false;
 			boolean anyMigrationError = false;
 			
-            try {
-            	new UpdateHarvesterIdsTask().update(settingMan,dbms);
-            } catch (Exception e) {
-                logger.info("          Errors occurs during SQL migration file: " + e.getMessage());
-                e.printStackTrace();
-                anyMigrationError = true;
-            }
-
 			// Migrating from 2.0 to 2.5 could be done 2.0 -> 2.3 -> 2.4 -> 2.5
 			String dbType = DatabaseType.lookup(dbms).toString();
 			logger.debug("      Migrating from " + from + " to " + to + " (dbtype:" + dbType + ")...");
 			
 		    logger.info("      Loading SQL migration step configuration from config-db.xml ...");
-            @SuppressWarnings(value = "unchecked")
-	        List<Element> versions = dbConfiguration.getChild("migrate").getChildren();
-            for(Element version : versions) {
-                int versionNumber = Integer.valueOf(version.getAttributeValue("id"));
-                if (versionNumber > from && versionNumber <= to) {
-                    logger.info("       - running tasks for " + versionNumber + "...");
-                    @SuppressWarnings(value = "unchecked")
-                    List<Element> versionConfiguration = version.getChildren();
-                    for(Element file : versionConfiguration) {
-                    	if(file.getName().equals("java")) {
-	                        try {
-                            	String className = file.getAttributeValue("class");
-                                logger.info("         - Java migration class:" + className);
-	                        	settingMan.refresh(dbms);
-	                            DatabaseMigrationTask task = (DatabaseMigrationTask) Class.forName(className).newInstance();
-	                            task.update(settingMan, dbms);
-	                        } catch (Exception e) {
-	                            logger.info("          Errors occurs during Java migration file: " + e.getMessage());
-	                            e.printStackTrace();
-	                            anyMigrationError = true;
-	                        }
-                    	} else {
-	                        String filePath = path + file.getAttributeValue("path");
-	                        String filePrefix = file.getAttributeValue("filePrefix");
-	                        anyMigrationAction = true;
-	                        logger.info("         - SQL migration file:" + filePath + " prefix:" + filePrefix + " ...");
-	                        try {
-	                            Lib.db.insertData(servletContext, dbms, path, filePath, filePrefix);
-	                        } catch (Exception e) {
-	                            logger.info("          Errors occurs during SQL migration file: " + e.getMessage());
-	                            e.printStackTrace();
-	                            anyMigrationError = true;
-	                        }
-                    	}
+            Element migrationConfig = dbConfiguration.getChild("migrate");
+            if (migrationConfig != null) {
+                @SuppressWarnings(value = "unchecked")
+                List<Element> versions = migrationConfig.getChildren();
+                for(Element version : versions) {
+                    int versionNumber = Integer.valueOf(version.getAttributeValue("id"));
+                    if (versionNumber > from && versionNumber <= to) {
+                        logger.info("       - running tasks for " + versionNumber + "...");
+                        @SuppressWarnings(value = "unchecked")
+                        List<Element> versionConfiguration = version.getChildren();
+                        for(Element file : versionConfiguration) {
+                        	if(file.getName().equals("java")) {
+    	                        try {
+                                	String className = file.getAttributeValue("class");
+                                    logger.info("         - Java migration class:" + className);
+                                    
+                                    // In 2.11, settingsManager was not able to initialized on previous
+                                    // version db table due to structure changes
+    	                        	if (settingMan != null && harvesterSettingsMan != null) {
+                                        settingMan.refresh(dbms);
+        	                            DatabaseMigrationTask task = (DatabaseMigrationTask) Class.forName(className).newInstance();
+        	                            task.update(settingMan, harvesterSettingsMan, dbms);
+    	                        	}
+    	                        } catch (Exception e) {
+    	                            logger.info("          Errors occurs during Java migration file: " + e.getMessage());
+    	                            e.printStackTrace();
+    	                            anyMigrationError = true;
+    	                        }
+                        	} else {
+    	                        String filePath = path + file.getAttributeValue("path");
+    	                        String filePrefix = file.getAttributeValue("filePrefix");
+    	                        anyMigrationAction = true;
+    	                        logger.info("         - SQL migration file:" + filePath + " prefix:" + filePrefix + " ...");
+    	                        try {
+    	                            Lib.db.insertData(servletContext, dbms, path, filePath, filePrefix);
+    	                        } catch (Exception e) {
+    	                            logger.info("          Errors occurs during SQL migration file: " + e.getMessage());
+    	                            e.printStackTrace();
+    	                            anyMigrationError = true;
+    	                        }
+                        	}
+                        }
                     }
                 }
             }
-			
     		
 			// Refresh setting manager in case the migration task added some new settings.
             try {
-                settingMan.refresh(dbms);
+                if (settingMan != null) {
+                    settingMan.refresh(dbms);
+                } else {
+                    // Reinitialized settings
+                    settingMan = new SettingManager(dbms, context.getProviderManager());
+                    
+                    // Update the logo 
+                    String siteId = settingMan.getValue("system/site/siteId");
+                    initLogo(servletContext, dbms, siteId, context.getAppPath());
+                }
             } catch (Exception e) {
                 logger.info("      Errors occurs during settings manager refresh during migration. Error is: " + e.getMessage());
                 e.printStackTrace();
                 anyMigrationError = true;
             }
-			
-			// Update the logo 
-			String siteId = settingMan.getValue("system/site/siteId");
-			initLogo(servletContext, dbms, siteId, appPath);
 			
 			// TODO : Maybe a force rebuild index is required in such situation.
 			
@@ -775,6 +848,9 @@ public class Geonetwork implements ApplicationHandler {
 			// Copy logo
 			String uuid = UUID.randomUUID().toString();
 			initLogo(servletContext, dbms, uuid, context.getAppPath());
+			
+			context.getServlet().getEngine().loadConfigDB(dbms, -1);
+			
 			created = true;
 		} else {
 			logger.info("      Found an existing GeoNetwork database.");
@@ -909,7 +985,7 @@ public class Geonetwork implements ApplicationHandler {
 
 			
 		logger.info("  - Harvest Manager...");
-		harvestMan.shutdown();
+		_applicationContext.getBean(HarvestManager.class).shutdown();
 
 		logger.info("  - Z39.50...");
 		Server.end();

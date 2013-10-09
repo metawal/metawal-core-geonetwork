@@ -32,6 +32,15 @@ CREATE TABLE CustomElementSet
 
 CREATE TABLE Settings
   (
+    name      varchar(512)    not null,
+    value     CLOB(1G),
+    datatype   int,
+    position   int,
+    primary key(name)
+  );
+  
+CREATE TABLE HarvesterSettings
+  (
     id        int            not null,
     parentId  int,
     name      varchar(64)    not null,
@@ -221,7 +230,7 @@ CREATE TABLE Groups
     id           int            not null,
     name         varchar(32)    not null,
     description  varchar(255),
-    email        varchar(32),
+    email        varchar(128),
     referrer     int,
     primary key(id),
     unique(name)
@@ -314,6 +323,7 @@ CREATE TABLE StatusValues
     id        int           not null,
     name      varchar(32)   not null,
     reserved  char(1)       default 'n' not null,
+    displayorder int,
     primary key(id)
   );
 
@@ -463,7 +473,7 @@ ALTER TABLE OperationsDes ADD FOREIGN KEY (langId) REFERENCES Languages (id);
 ALTER TABLE OperationsDes ADD FOREIGN KEY (idDes) REFERENCES Operations (id);
 ALTER TABLE RegionsDes ADD FOREIGN KEY (langId) REFERENCES Languages (id);
 ALTER TABLE RegionsDes ADD FOREIGN KEY (idDes) REFERENCES Regions (id);
-ALTER TABLE Settings ADD FOREIGN KEY (parentId) REFERENCES Settings (id);
+ALTER TABLE HarvesterSettings ADD FOREIGN KEY (parentId) REFERENCES HarvesterSettings (id);
 ALTER TABLE UserGroups ADD FOREIGN KEY (userId) REFERENCES Users (id);
 ALTER TABLE UserGroups ADD FOREIGN KEY (groupId) REFERENCES Groups (id);
 ALTER TABLE MetadataNotifications ADD FOREIGN KEY (notifierId) REFERENCES MetadataNotifiers(id);
