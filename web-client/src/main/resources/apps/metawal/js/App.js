@@ -690,7 +690,7 @@ GeoNetwork.app = function () {
                 lang: lang,
                 hostUrl: geonetworkUrl,
                 mdOverlayedCmpId: 'resultsPanel',
-                adminAppUrl: geonetworkUrl + '/srv/' + lang + '/admin',
+                adminAppUrl: geonetworkUrl + '/srv/' + lang + '/admin.console',
                 // Declare default store to be used for records and summary
                 metadataStore: GeoNetwork.Settings.mdStore ? GeoNetwork.Settings.mdStore() : GeoNetwork.data.MetadataResultsStore(),
                 metadataCSWStore : GeoNetwork.data.MetadataCSWResultsStore(),
@@ -785,7 +785,12 @@ GeoNetwork.app = function () {
             } else if (urlParameters.id !== undefined) {
                 catalogue.metadataShowById(urlParameters.id, true);
             }
-            
+            if (urlParameters.insert !== undefined) {
+                setTimeout(function () {
+                    var actionCtn = Ext.getCmp('resultsPanel').getTopToolbar();
+                    actionCtn.mdImportAction.handler.apply(actionCtn);
+                }, 500);
+            }
             // FIXME : should be in Search field configuration
             Ext.get('E_any').setWidth(285);
             Ext.get('E_any').setHeight(28);

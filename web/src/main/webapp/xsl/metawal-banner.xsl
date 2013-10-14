@@ -103,15 +103,15 @@
 	                        				</xsl:otherwise>
 	                        			</xsl:choose>
 	                        			<xsl:value-of select="/root/gui/strings/metawalMenuNewMetadata"/></a></li>
-	                        		<li><a href="metadata.xmlinsert.form"><xsl:value-of select="/root/gui/strings/metawalMenuImportMetadata"/></a></li>
-	                        		<li><a href="harvesting"><xsl:value-of select="/root/gui/strings/metawalMenuHarvesting"/></a></li>
+	                        		<li><a href="search?#insert"><xsl:value-of select="/root/gui/strings/metawalMenuImportMetadata"/></a></li>
+	                        		<li><a href="admin.console#/harvest"><xsl:value-of select="/root/gui/strings/metawalMenuHarvesting"/></a></li>
 	                        	</ul>
                         	</li>
                         	<li id="gn-menu-administration">
-                        		<li><a href="admin"> <xsl:value-of select="/root/gui/strings/metawalMenuAdmin"/></a></li>
+                        		<li><a href="admin.console"> <xsl:value-of select="/root/gui/strings/metawalMenuAdmin"/></a></li>
                         	</li>
                         	<li id="gn-menu-csw">
-                        		<a href="test.csw"><xsl:value-of select="/root/gui/strings/metawalMenuCSW"/></a>
+                        		<a href="admin.console#/settings/csw-test"><xsl:value-of select="/root/gui/strings/metawalMenuCSW"/></a>
                         	</li>
                         </ul>
 					</div>
