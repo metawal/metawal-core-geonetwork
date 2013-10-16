@@ -51,7 +51,8 @@
 					</div>
 					<div class="clear"></div>
 					<div class="grid_login">
-						<input type="button" id="login_popup" value="{/root/gui/strings/metawalBannerLogin}"/>
+						<input type="button" id="login_popup" class="btn" value="{/root/gui/strings/metawalBannerLogin}"/>
+						<span id="userinfo"></span>
 	        		</div>
 	        		<a href="#x" class="overlay" id="login_form"></a>
 			        <div class="popup">
@@ -65,7 +66,7 @@
 			                <label for="password"><xsl:value-of select="/root/gui/strings/metawalLoginPwd" /></label>
 			                <input type="password" id="password" value="" />
 			            </div>
-			            <input type="button" class="btn" value="{/root/gui/strings/metawalLoginConnection}" onclick="catalogue.login(document.getElementById('login').value,document.getElementById('password').value);login();location.href='#close';"/>
+			            <input type="button" class="btn" value="{/root/gui/strings/metawalLoginConnection}" onclick="catalogue.login(document.getElementById('login').value,document.getElementById('password').value);location.href='#close';"/>
 			            <input type="button" class="btn" value="{/root/gui/strings/metawalLoginCancel}" onclick="location.href='#close';"/>
 			        </div>
 			        <div class="clear"></div>
@@ -103,7 +104,20 @@
 	                        				</xsl:otherwise>
 	                        			</xsl:choose>
 	                        			<xsl:value-of select="/root/gui/strings/metawalMenuNewMetadata"/></a></li>
-	                        		<li><a href="search?#insert"><xsl:value-of select="/root/gui/strings/metawalMenuImportMetadata"/></a></li>
+	                        		<li><a>
+	                        			<xsl:choose>
+	                        			<xsl:when test="/root/gui/reqService='search'">
+	                        				<xsl:attribute name="onclick">
+	                        					<xsl:text>importmetadata();</xsl:text>
+	                        				</xsl:attribute>
+	                        			</xsl:when>
+	                        			<xsl:otherwise>
+	                        				<xsl:attribute name="href">
+	                        					<xsl:text>search?#insert</xsl:text>
+	                        				</xsl:attribute>
+	                        			</xsl:otherwise>
+	                        			</xsl:choose>
+	                        			<xsl:value-of select="/root/gui/strings/metawalMenuImportMetadata"/></a></li>
 	                        		<li><a href="admin.console#/harvest"><xsl:value-of select="/root/gui/strings/metawalMenuHarvesting"/></a></li>
 	                        	</ul>
                         	</li>
