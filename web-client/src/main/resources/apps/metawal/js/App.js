@@ -109,15 +109,34 @@ GeoNetwork.app = function () {
                     '</tpl>')
         });
         
+
+        function onAfterLogin() {
+            if(catalogue.identifiedUser){
+                document.getElementById("login_popup").value = OpenLayers.i18n("logout");
+                document.getElementById("login_popup").onclick = function(){catalogue.logout()};
+                document.getElementById('userinfo').innerHTML = 
+                    catalogue.identifiedUser.name + " " + catalogue.identifiedUser.surname;
+                document.getElementById("grid_menu").style.display="";
+            } else {
+                document.getElementById("login_popup").value = OpenLayers.i18n("login");
+                document.getElementById("login_popup").onclick = function(){window.location.href='#login_form';document.getElementById("login").focus();};
+                document.getElementById("grid_menu").style.display = "none";
+                document.getElementById('userinfo').innerHTML = "";
+             }
+        };
+
         catalogue.on('afterBadLogin', loginAlert, this);
+        catalogue.on('afterBadLogin', onAfterLogin, this);
         
         // Store user info in cookie to be displayed if user reload the page
         // Register events to set cookie values
         catalogue.on('afterLogin', function () {
             cookie.set('user', catalogue.identifiedUser);
+            onAfterLogin();
         });
         catalogue.on('afterLogout', function () {
             cookie.set('user', undefined);
+            onAfterLogin();
         });
         
         // Refresh login form if needed
@@ -126,6 +145,7 @@ GeoNetwork.app = function () {
             catalogue.identifiedUser = user;
             loginForm.login(catalogue, true);
         }
+        onAfterLogin();
     }
     
     /**
@@ -752,7 +772,7 @@ GeoNetwork.app = function () {
                     id: 'west',
                     split: true,
                     minWidth: 300,
-                    width: 300,
+                    width: 400,
                     maxWidth: 400,
                     autoScroll: true,
                     collapsible: true,
@@ -882,7 +902,7 @@ Ext.onReady(function () {
     app = new GeoNetwork.app();
     app.init();
     catalogue = app.getCatalogue();
-    metawalInit();
+    
     /* Focus on full text search field */
     Ext.getDom('E_any').focus(true);
 });

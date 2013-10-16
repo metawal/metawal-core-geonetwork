@@ -80,7 +80,7 @@ GeoNetwork.Settings.facetListConfig = [{name: 'metawalThemes'},
 GeoNetwork.Settings.facetMaxItems = 7;
 
 // Latest update info query
-GeoNetwork.Settings.latestQuery = "from=1&to=6&sortBy=changeDate&fast=index";
+GeoNetwork.Settings.latestQuery = "from=1&to=12&sortBy=changeDate&fast=index";
 GeoNetwork.Settings.latestTpl = GeoNetwork.Templates.THUMBNAIL;
 GeoNetwork.Settings.results = {
         // Parameters to set bounding box highlighter colors
