@@ -533,4 +533,19 @@
     </xsl:choose>
   </xsl:template>
   
+  
+  <!-- Add some more element which are not multilingual -->
+  <xsl:template mode="iso19139"
+    match="
+    gmd:version|gmd:name
+    "
+    priority="100">
+    <xsl:param name="schema" />
+    <xsl:param name="edit" />
+    
+    <xsl:call-template name="iso19139String">
+      <xsl:with-param name="schema" select="$schema"/>
+      <xsl:with-param name="edit"   select="$edit"/>
+    </xsl:call-template>
+  </xsl:template>
 </xsl:stylesheet>
