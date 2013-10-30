@@ -32,7 +32,7 @@ GeoNetwork.app = function () {
      * An interactive map panel for data visualization
      */
     var iMap, searchForm, facetsPanel, resultsPanel, metadataResultsView, tBar, bBar,
-        mainTagCloudViewPanel, infoPanel,
+        mainTagCloudViewPanel, infoPanel, latestView,
         visualizationModeInitialized = false;
     
     // private function:
@@ -148,9 +148,11 @@ GeoNetwork.app = function () {
         // Register events to set cookie values
         catalogue.on('afterLogin', function () {
             cookie.set('user', catalogue.identifiedUser);
+            loadNews();
         });
         catalogue.on('afterLogout', function () {
             cookie.set('user', undefined);
+            loadNews();
         });
         
         // Refresh login form if needed
@@ -218,6 +220,7 @@ GeoNetwork.app = function () {
             valueField: 'value',
             displayField: 'value',
             valueDelimiter: ' or ',
+            listWidth: 'width:auto',
 //            tpl: tpl,
             fieldLabel: OpenLayers.i18n('org')
         });
@@ -483,26 +486,7 @@ GeoNetwork.app = function () {
         
         return tagCloudView;
     }
-    /**
-     * Create latest metadata panel.
-     */
-    function createLatestUpdate() {
-        var latestView = new GeoNetwork.MetadataResultsView({
-            catalogue: catalogue,
-            autoScroll: true,
-            tpl: GeoNetwork.Settings.latestTpl
-        });
-        var latestStore = GeoNetwork.Settings.mdStore();
-        latestView.setStore(latestStore);
-        latestStore.on('load', function () {
-            Ext.ux.Lightbox.register('a[rel^=lightbox]');
-        });
-        var p = new Ext.Panel({
-            border: false,
-            bodyCssClass: 'md-view',
-            items: latestView,
-            renderTo: 'latest'
-        });
+    function loadNews() {
         catalogue.kvpSearch(GeoNetwork.Settings.latestQuery, null, null, null, true, latestView.getStore());
     }
     function loadCallback(el, success, response, options) {
@@ -559,7 +543,7 @@ GeoNetwork.app = function () {
      * Create latest metadata panel.
      */
     function createLatestUpdate(){
-        var latestView = new GeoNetwork.MetadataResultsView({
+        latestView = new GeoNetwork.MetadataResultsView({
             catalogue: catalogue,
             autoScroll: true,
             tpl: GeoNetwork.Settings.latestTpl
@@ -575,7 +559,7 @@ GeoNetwork.app = function () {
             items: latestView,
             renderTo: 'latest'
         });
-        catalogue.kvpSearch(GeoNetwork.Settings.latestQuery, null, null, null, true, latestView.getStore());
+        loadNews();
     }
     function show(uuid, record, url, maximized, width, height) {
         var showFeedBackButton = record.get('email');
@@ -629,7 +613,7 @@ GeoNetwork.app = function () {
             }
         });
     }
-    function edit(metadataId, create, group, child, schema){
+    function edit(metadataId, create, group, child, isTemplate, schema){
         var record = catalogue.metadataStore.getAt(catalogue.metadataStore.find('id', metadataId));
         
         if (!this.editorWindow) {
@@ -677,7 +661,7 @@ GeoNetwork.app = function () {
         if (metadataId) {
             this.editorWindow.show();
             var recordSchema = record && record.get('schema');
-            this.editorPanel.init(metadataId, create, group, child, undefined, true, recordSchema || schema);
+            this.editorPanel.init(metadataId, create, group, child, isTemplate, true, recordSchema || schema);
         }
     }
     
@@ -721,7 +705,7 @@ GeoNetwork.app = function () {
                 lang: lang,
                 hostUrl: geonetworkUrl,
                 mdOverlayedCmpId: 'resultsPanel',
-                adminAppUrl: geonetworkUrl + '/srv/' + lang + '/admin',
+                adminAppUrl: geonetworkUrl + '/srv/' + lang + '/admin.console',
                 // Declare default store to be used for records and summary
                 metadataStore: GeoNetwork.Settings.mdStore ? GeoNetwork.Settings.mdStore() : GeoNetwork.data.MetadataResultsStore(),
                 metadataCSWStore : GeoNetwork.data.MetadataCSWResultsStore(),
@@ -757,14 +741,10 @@ GeoNetwork.app = function () {
             
             var margins = '35 0 0 0';
             var breadcrumb = new Ext.Panel({
-                layout:'table',
                 cls: 'breadcrumb',
                 defaultType: 'button',
                 border: false,
-                split: false,
-                layoutConfig: {
-                    columns:3
-                }
+                split: false
             });
             facetsPanel = new GeoNetwork.FacetsPanel({
                 searchForm: searchForm,
@@ -843,6 +823,12 @@ GeoNetwork.app = function () {
             } else if (urlParameters.id !== undefined) {
                 catalogue.metadataShowById(urlParameters.id, true);
             }
+            if (urlParameters.insert !== undefined) {
+                setTimeout(function () {
+                    var actionCtn = Ext.getCmp('resultsPanel').getTopToolbar();
+                    actionCtn.mdImportAction.handler.apply(actionCtn);
+                }, 500);
+            }
             
             // FIXME : should be in Search field configuration
             Ext.get('E_any').setWidth(285);
@@ -854,7 +840,7 @@ GeoNetwork.app = function () {
                 Ext.getCmp('geometryMap').map.zoomToExtent(urlParameters.bounds);
             }
             
-            var events = ['afterDelete', 'afterRating', 'afterLogout', 'afterLogin'];
+            var events = ['afterDelete', 'afterRating', 'afterStatus', 'afterLogout', 'afterLogin'];
             Ext.each(events, function (e) {
                 catalogue.on(e, function () {
                     if (searching === true) {
@@ -862,7 +848,6 @@ GeoNetwork.app = function () {
                     }
                 });
             });
-
             // Hack to run search after all app is rendered within a sec ...
             // It could have been better to trigger event in SearchFormPanel#applyState
             // FIXME

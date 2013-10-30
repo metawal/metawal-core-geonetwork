@@ -208,22 +208,6 @@
             </output>
         </service>
          -->
-        <!--  CSV export for statistics tables, through a Jeeves service => all tables data are loaded into memory before their processing -->
-        <service name="stat.tableExport">
-            <output sheet="statistics/to-csv_from_java.xsl" contentType="text/plain; charset=UTF-8">
-                <call name="statCSV" class=".services.statistics.TableExport">
-                    <!-- currently the only supported value, (required)  -->
-                    <param name="exportType" value="CSV"/>
-                    <!-- The CSV separator (required)  -->
-                    <param name="csvSeparator" value=";"/>
-                    <!-- True to write columns (header) informations at the beginning of the file (required),
-                         false to dump only data -->
-                    <param name="dumpHeader" value="true"/>
-                    <!-- Allowed tables to be exported, separated by commas -->
-                    <param name="allowedTables" value="requests,params"/>
-                </call>
-            </output>
-        </service>
 
         <!--  Searched terms tag cloud
         <service name="stat.tagCloud">
@@ -266,5 +250,6 @@ where termfield not in ('_locale', '_isTemplate', 'type', '_groupOwner')
 and termfield not like '_op%'
 group by termtext order by cnt desc
 -->    
+        
     </services>
 </geonet>

@@ -49,7 +49,7 @@
       </relation>
     </xsl:for-each>
     
-    <xsl:for-each select="*/descendant::*[name(.) = 'gmd:onLine']/*">
+    <xsl:for-each select="*/descendant::*[name(.) = 'gmd:onLine']/*[gmd:linkage/gmd:URL!='']">
       <relation type="onlinesrc">
         
         <!-- Compute title based on online source info-->
@@ -57,10 +57,12 @@
           <xsl:variable name="title" select="if (../@uuidref) then util:getIndexField(string(/root/gui/app/path), string(../@uuidref), '_title', string(/root/gui/language)) else ''"/>
           <xsl:value-of select="if ($title = '' and ../@uuidref) then ../@uuidref else $title"/><xsl:text> </xsl:text>
           <xsl:value-of select="if (gmd:name/gco:CharacterString != '') 
-                                  then gmd:name/gco:CharacterString 
-                                  else if (gmd:name/gmx:MimeFileType != '')
-                                  then gmd:name/gmx:MimeFileType
-                                  else gmd:description/gco:CharacterString"/>
+            then gmd:name/gco:CharacterString 
+            else if (gmd:name/gmx:MimeFileType != '')
+            then gmd:name/gmx:MimeFileType
+            else if (gmd:description/gco:CharacterString != '')
+            then gmd:description/gco:CharacterString
+            else gmd:linkage/gmd:URL"/>
           <xsl:value-of select="if (gmd:protocol/*) then concat(' (', gmd:protocol/*, ')') else ''"/>
         </xsl:variable>
         
@@ -72,7 +74,6 @@
       </relation>
     </xsl:for-each>
   </xsl:template>
-  
 
   <!-- In Lucene only mode, metadata are retrieved from 
   the index and pass as a simple XML with one level element.
@@ -102,5 +103,15 @@
       <xsl:copy-of select="$metadata"/>
     </relation>
   </xsl:template>
-
+  
+  <!-- Add the default title as title. This may happen
+  when title is retrieve from index and the record is
+  not available in current language. eg. iso19110 records
+  are only indexed with no language info. -->
+  <xsl:template mode="superBrief" match="metadata[not(title)]">
+    <xsl:copy>
+      <xsl:copy-of select="*"/>
+      <title><xsl:value-of select="defaultTitle"/></title>
+    </xsl:copy>
+  </xsl:template>
 </xsl:stylesheet>

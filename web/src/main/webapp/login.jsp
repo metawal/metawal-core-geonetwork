@@ -1,4 +1,5 @@
-<%@page import="java.util.Enumeration"%><html xmlns="http://www.w3.org/1999/xhtml" lang="fr" xml:lang="fr">
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ page import="java.util.Enumeration,org.springframework.security.web.*,org.springframework.security.core.*,java.util.regex.Pattern,java.util.regex.Matcher"%><html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta http-equiv="Pragma" content="no-cache">
 		<meta http-equiv="Cache-Control" content="no-cache,no-store">
@@ -6,19 +7,33 @@
 		<script language="Javascript1.5" type="text/javascript">
 		function init() {
 			<% 
-			String found = null;
-			Enumeration names = request.getHeaderNames();
-			while (names.hasMoreElements()) {
-				String s = (String)names.nextElement();
-				if(s.equalsIgnoreCase("Accept-Language")) {
-					found = s;
-					break;
-				}
-			}
 			Object language = null;
-			if(found != null) {
-				language = request.getHeader(found);
-			}
+
+			String redirectUrl;
+			org.springframework.security.web.savedrequest.SavedRequest savedRequest =     new org.springframework.security.web.savedrequest.HttpSessionRequestCache().getRequest(request, response);
+			if (savedRequest !=null) {
+				redirectUrl=savedRequest.getRedirectUrl();
+				Pattern p = Pattern.compile("^.*/srv/([a-z]{3})/.*$");
+				Matcher m = p.matcher(redirectUrl);
+
+				if (m.find()) 
+					language=m.group(1);
+				}
+				
+		if (language==null) {
+				String found = null;
+				Enumeration names = request.getHeaderNames();
+				while (names.hasMoreElements()) {
+					String s = (String)names.nextElement();
+					if(s.equalsIgnoreCase("Accept-Language")) {
+						found = s;
+						break;
+					}
+				}
+				if(found != null) {
+					language = request.getHeader(found);
+					}
+				}
 			%>
 			var userLang = "<%= language %>"
 			if(!userLang) {
@@ -64,19 +79,19 @@
 				userLang = "eng";
 			}
 
-		  	window.location="srv/"+userLang+"/login.form"+window.location.search;
+			window.location = "srv/" + userLang + "/catalog.signin" + window.location.search;
 		}
 		</script>
+		
+        <link href="catalog/style/font-awesome-3.2.1/css/font-awesome.css" rel="stylesheet" media="screen" />
 	</head>
 	<body onload="init()">
-		<p>&nbsp;&nbsp;Please wait...</p>
-		<p>&nbsp;&nbsp;Patientez s'il vous plaît...</p>
-		<p>&nbsp;&nbsp;Bitte warten...</p>
-		<p>&nbsp;&nbsp;Un momento per favore...</p>
-
+		<i class="icon-spinner icon-spin icon-large"></i>
 		<noscript>
-			<h2>JavaScript warning</h2>
-			<p>To use GeoNetwork you need to enable JavaScript in your browser</p>
+			<div class="alert" ng-hide="">
+		      <strong>Warning!</strong> Javascript is not enabled. Enable it or click 
+		        <a href="srv/eng/catalog.search.nojs">here to search</a> in a degraded mode.
+		    </div>
 		</noscript>
 	</body>
 </html>
