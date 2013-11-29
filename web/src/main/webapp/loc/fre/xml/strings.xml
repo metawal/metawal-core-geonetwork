@@ -436,6 +436,7 @@
 	<createTip>Créer des métadonnées à partir de ce template</createTip>
 	<crs code="EPSG:4326">WGS 84</crs>
 	<crs code="EPSG:31370">Lambert Belge 72</crs>
+	<crs code="EPSG:3812">Lambert Belge 2008</crs>
 	<crs code="EPSG:2154">RGF93 / Lambert-93</crs>
 	<crs code="EPSG:4258">ETRS 89</crs>
 	<crs code="EPSG:900913">Google Mercator</crs>

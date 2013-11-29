@@ -428,6 +428,8 @@
 	<create js="true">Erstellen</create>
 	<createTip>Neue Metadaten mit dieser Vorlage erstellen</createTip>
 	<crs code="EPSG:4326">WGS 84</crs>
+	<crs code="EPSG:31370">Belgischen Lambert 72</crs>
+	<crs code="EPSG:3812">Belgischen Lambert 2008</crs>
 	<crs code="EPSG:3786">World Equidistant Cylindrical (Sphere)</crs>
   <crs code="EPSG:3035">ETRS89 / ETRS-LAEA</crs>
 	<crs code="EPSG:4258">ETRS 89</crs>

@@ -432,6 +432,8 @@
 	<createTip>Maak een nieuw metadatarecord aan volgens deze template</createTip>
 	<crs code="EPSG:4326">WGS 84</crs>
 	<crs code="EPSG:3786">World Equidistant Cylindrical (Sphere)</crs>
+	<crs code="EPSG:31370">Belgische Lambert 72</crs>
+	<crs code="EPSG:3812">Belgische Lambert 2008</crs>
 	<crs code="EPSG:3035">ETRS89 / ETRS-LAEA</crs>
 	<crs code="EPSG:4258">ETRS 89</crs>
 	<crs code="EPSG:900913">Google Mercator</crs>
