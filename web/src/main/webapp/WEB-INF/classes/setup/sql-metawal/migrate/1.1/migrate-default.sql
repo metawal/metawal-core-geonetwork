@@ -8,7 +8,7 @@ DELETE FROM Settings WHERE id > 958;
 DELETE FROM Settings WHERE id=2;
 
 
-ALTER TABLE Settings MODIFY name TYPE varchar(512);
+ALTER TABLE Settings MODIFY name varchar(512);
 
 -- 0 is char, 1 is number, 2 is boolean
 ALTER TABLE Settings ADD datatype int;
