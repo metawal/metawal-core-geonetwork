@@ -39,17 +39,22 @@ GeoNetwork.app = function () {
   
     
     function initMap() {
-        iMap = new GeoNetwork.mapApp();
-        var layers={}, options={};
-        if(GeoNetwork.map.CONTEXT || GeoNetwork.map.OWS) {
-            options = GeoNetwork.map.CONTEXT_MAIN_MAP_OPTIONS;
-        } else {
-            options = GeoNetwork.map.MAIN_MAP_OPTIONS;
-            layers  = GeoNetwork.map.BACKGROUND_LAYERS;
+        try {
+            iMap = new GeoNetwork.mapApp();
+            var layers={}, options={};
+            if(GeoNetwork.map.CONTEXT || GeoNetwork.map.OWS) {
+                options = GeoNetwork.map.CONTEXT_MAIN_MAP_OPTIONS;
+            } else {
+                options = GeoNetwork.map.MAIN_MAP_OPTIONS;
+                layers  = GeoNetwork.map.BACKGROUND_LAYERS;
+            }
+            iMap.init(layers, options);
+            metadataResultsView.addMap(iMap.getMap());
+        } catch (e) {
+            // IE8 exception on vector layer ?
         }
-        iMap.init(layers, options);
-        metadataResultsView.addMap(iMap.getMap());
         visualizationModeInitialized = true;
+            
     }
     
     

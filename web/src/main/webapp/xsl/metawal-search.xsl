@@ -2,6 +2,10 @@
 <xsl:stylesheet version="2.0"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 exclude-result-prefixes="#all">
+	
+	<xsl:output omit-xml-declaration="no" method="html"
+		 indent="yes" encoding="UTF-8" />
+	
 	<xsl:include href="metawal-banner.xsl"/>
 	<xsl:include href="metawal-footer.xsl"/>
     <xsl:template match="/">
@@ -9,14 +13,14 @@
 		  <head>
 		    <title>GeoNetwork</title>
 		
-		    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-		      <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-		
-		    <link rel="icon" type="image/gif" href="../../images/logos/favicon.gif" />
+		    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
+		  	<meta http-equiv="X-UA-Compatible" content="IE=9" />
+		  	
+		    <link rel="icon" type="image/gif" href="../../images/logos/favicon.gif" ></link>
 		    <link href="../../srv/en/rss.latest?georss=gml" rel="alternate" type="application/rss+xml"
-		      title="GeoNetwork opensource GeoRSS | Recent Changes"/>
+		      title="GeoNetwork opensource GeoRSS | Recent Changes"></link>
 		    <link href="../../srv/en/portal.opensearch" rel="search"
-		      type="application/opensearchdescription+xml" title="GeoNetwork"/>
+		      type="application/opensearchdescription+xml" title="GeoNetwork"></link>
 		
 		    
 		    <link rel="stylesheet" type="text/css" href="../../apps/js/ext/resources/css/ext-all.css"/>
