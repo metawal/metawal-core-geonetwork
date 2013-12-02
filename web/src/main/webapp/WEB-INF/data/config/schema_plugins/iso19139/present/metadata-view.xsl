@@ -101,6 +101,7 @@
               gmd:identificationInfo/*/gmd:spatialResolution[1]
               |gmd:identificationInfo/*/gmd:spatialRepresentationType
               |gmd:dataQualityInfo/gmd:DQ_DataQuality/gmd:lineage
+              |gmd:dataQualityInfo/gmd:DQ_DataQuality/*[@gco:isoType = 'gmd:lineage']
               |gmd:identificationInfo/*/gmd:resourceConstraints[1]
               "
             > </xsl:apply-templates>
